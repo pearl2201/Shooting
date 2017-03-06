@@ -121,11 +121,21 @@ public class DataMoveRandShoot : EnemyBase
 }
 
 [Serializable]
-public class DataInfoTurnSpawn
+public class DataFakeInfoTurnSpawn
 {
 
 
     public FullEnemyBase[] listEnemyBase;
+
+
+}
+
+[Serializable]
+public class DataInfoTurnSpawn
+{
+
+
+    public EnemyBase[] listEnemyBase;
 
 
 }

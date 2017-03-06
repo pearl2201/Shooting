@@ -10,7 +10,7 @@ public class MapEditor : Editor
     private int noTurn = 0;
     private SerializedObject dataSO;
     private DataMap dataMap;
-
+    private int[] arrCountEnemyInTurn;
     void OnEnable()
     {
 
@@ -19,10 +19,16 @@ public class MapEditor : Editor
         dataMap = (DataMap)target;
         if (dataMap == null)
         {
-            Debug.Log("null, ngu xuan ???");
+            Debug.Log("null, ngu xuan ???....");
         }
         noLine = dataMap.listLineMoveShooting.Length;
-        noTurn = dataMap.listTurnSpawn.Length;
+        noTurn = dataMap.listFakeTurnSpawn.Length;
+        arrCountEnemyInTurn = new int[noTurn];
+        for (int i = 0; i < noTurn; i++)
+        {
+            arrCountEnemyInTurn[i] = dataMap.listFakeTurnSpawn[i].listEnemyBase.Length;
+        }
+        Debug.Log("on enbla");
 
     }
 
@@ -38,7 +44,7 @@ public class MapEditor : Editor
         noLine = EditorGUILayout.IntField("No Line", noLine);
         if (noLine > 0)
         {
-            /*
+
             if (dataMap.listLineMoveShooting == null)
             {
                 dataMap.listLineMoveShooting = new LineMoveShoot[noLine];
@@ -46,16 +52,22 @@ public class MapEditor : Editor
                 {
                     dataMap.listLineMoveShooting[i] = new LineMoveShoot();
                 }
-                
+
             }
-            else
-            */
-            if (noLine != dataMap.listLineMoveShooting.Length)
+            else if (noLine != dataMap.listLineMoveShooting.Length)
             {
                 LineMoveShoot[] tmpData = new LineMoveShoot[noLine];
-                for (int i = 0; i < Mathf.Min(noLine, dataMap.listLineMoveShooting.Length); i++)
+                for (int i = 0; i < noLine; i++)
                 {
-                    tmpData[i] = dataMap.listLineMoveShooting[i];
+                    if (i < dataMap.listLineMoveShooting.Length)
+                    {
+                        tmpData[i] = dataMap.listLineMoveShooting[i];
+                    }
+                    else
+                    {
+                        tmpData[i] = new LineMoveShoot();
+                    }
+
                 }
                 dataMap.listLineMoveShooting = tmpData;
             }
@@ -91,76 +103,133 @@ public class MapEditor : Editor
         noTurn = EditorGUILayout.IntField("No Turn Spawn", noTurn);
         if (noTurn > 0)
         {
-            if (noTurn != dataMap.listTurnSpawn.Length)
+            if (dataMap.listFakeTurnSpawn == null)
             {
-                Debug.Log("create 1");
-                DataInfoTurnSpawn[] tmpDataTurn = new DataInfoTurnSpawn[noTurn];
-                for (int i = 0; i < Mathf.Min(dataMap.listTurnSpawn.Length, noTurn); i++)
+                dataMap.listFakeTurnSpawn = new DataFakeInfoTurnSpawn[noTurn];
+                arrCountEnemyInTurn = new int[noTurn];
+                for (int i = 0; i < Mathf.Min(noLine, dataMap.listFakeTurnSpawn.Length); i++)
                 {
-                    tmpDataTurn[i] = dataMap.listTurnSpawn[i];
+                    dataMap.listFakeTurnSpawn[i] = new DataFakeInfoTurnSpawn();
+                    arrCountEnemyInTurn[i] = 0;
                 }
 
-                dataMap.listTurnSpawn = tmpDataTurn;
+            }
+            else if (noTurn != dataMap.listFakeTurnSpawn.Length)
+            {
+
+                DataFakeInfoTurnSpawn[] tmpDataTurn = new DataFakeInfoTurnSpawn[noTurn];
+                arrCountEnemyInTurn = new int[noTurn];
+                for (int i = 0; i < noTurn; i++)
+                {
+                    if (i < dataMap.listFakeTurnSpawn.Length)
+                    {
+                        tmpDataTurn[i] = dataMap.listFakeTurnSpawn[i];
+                        arrCountEnemyInTurn[i] = tmpDataTurn[i].listEnemyBase.Length;
+                    }
+                    else
+                    {
+                        tmpDataTurn[i] = new DataFakeInfoTurnSpawn();
+                        arrCountEnemyInTurn[i] = 0;
+                    }
+
+                }
+
+                dataMap.listFakeTurnSpawn = tmpDataTurn;
+
 
             }
 
-            for (int i = 0; i < dataMap.listTurnSpawn.Length; i++)
+            for (int i = 0; i < dataMap.listFakeTurnSpawn.Length; i++)
             {
                 EditorGUILayout.Separator();
                 EditorGUI.indentLevel = 1;
                 EditorGUILayout.LabelField("Turn " + i);
 
-                int noSpawn = EditorGUILayout.IntField("No Enemy Spawn", dataMap.listTurnSpawn[i].listEnemyBase.Length);
-                if (noSpawn != dataMap.listTurnSpawn[i].listEnemyBase.Length)
-                {
-                    Debug.Log("re cast");
-                    FullEnemyBase[] tmpDataTurn = new FullEnemyBase[noSpawn];
-                    for (int j = 0; j < Mathf.Min(dataMap.listTurnSpawn[i].listEnemyBase.Length, noSpawn); j++)
-                    {
+                arrCountEnemyInTurn[i] = EditorGUILayout.IntField("No Enemy Spawn", arrCountEnemyInTurn[i]);
 
-                        tmpDataTurn[i] = dataMap.listTurnSpawn[i].listEnemyBase[j];
+                if (dataMap.listFakeTurnSpawn[i].listEnemyBase == null)
+                {
+                    dataMap.listFakeTurnSpawn[i].listEnemyBase = new FullEnemyBase[arrCountEnemyInTurn[i]];
+                    for (int j = 0; j < dataMap.listFakeTurnSpawn[i].listEnemyBase.Length; j++)
+                    {
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j] = new FullEnemyBase();
                     }
 
-                    dataMap.listTurnSpawn[i].listEnemyBase = tmpDataTurn;
+                }
+                else if (arrCountEnemyInTurn[i] != dataMap.listFakeTurnSpawn[i].listEnemyBase.Length)
+                {
+                    Debug.Log("re cast");
+                    FullEnemyBase[] tmpDataTurn = new FullEnemyBase[arrCountEnemyInTurn[i]];
+                    for (int j = 0; j < arrCountEnemyInTurn[i]; j++)
+                    {
+                        if (j< dataMap.listFakeTurnSpawn[i].listEnemyBase.Length)
+                        {
+                            tmpDataTurn[i] = dataMap.listFakeTurnSpawn[i].listEnemyBase[j];
+                        }
+                        else
+                        {
+                            tmpDataTurn[i] = new FullEnemyBase();
+                        }
+                        
+                    }
+
+                    dataMap.listFakeTurnSpawn[i].listEnemyBase = tmpDataTurn;
+                    arrCountEnemyInTurn[i] = Mathf.Min(dataMap.listFakeTurnSpawn[i].listEnemyBase.Length, arrCountEnemyInTurn[i]);
                 }
 
-                for (int j = 0; j < dataMap.listTurnSpawn[i].listEnemyBase.Length; j++)
+                for (int j = 0; j < dataMap.listFakeTurnSpawn[i].listEnemyBase.Length; j++)
                 {
                     EditorGUI.indentLevel = 2;
                     EditorGUILayout.LabelField("Enemy " + j);
                     EditorGUI.indentLevel = 3;
-                    dataMap.listTurnSpawn[i].listEnemyBase[j].idEnemy = EditorGUILayout.IntField("ID Prefab", dataMap.listTurnSpawn[i].listEnemyBase[j].idEnemy);
-                    dataMap.listTurnSpawn[i].listEnemyBase[j].hp = EditorGUILayout.IntField("Hp", dataMap.listTurnSpawn[i].listEnemyBase[j].hp);
-                    dataMap.listTurnSpawn[i].listEnemyBase[j].typeEnemy = (TYPE_ENEMY)EditorGUILayout.EnumPopup("Type Enemy", dataMap.listTurnSpawn[i].listEnemyBase[j].typeEnemy);
-
-                    if (dataMap.listTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.MOVING)
+                    dataMap.listFakeTurnSpawn[i].listEnemyBase[j].idEnemy = EditorGUILayout.IntField("ID Prefab", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].idEnemy);
+                    dataMap.listFakeTurnSpawn[i].listEnemyBase[j].hp = EditorGUILayout.IntField("Hp", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].hp);
+                    dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeEnemy = (TYPE_ENEMY)EditorGUILayout.EnumPopup("Type Enemy", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeEnemy);
+                    if (dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.MOVING)
                     {
-                        dataMap.listTurnSpawn[i].listEnemyBase[j].speedX = EditorGUILayout.FloatField("Speed", dataMap.listTurnSpawn[i].listEnemyBase[j].speedX);
-                        dataMap.listTurnSpawn[i].listEnemyBase[j].idLineMove = EditorGUILayout.IntField("Line Move", dataMap.listTurnSpawn[i].listEnemyBase[j].idLineMove);
-
-                    }
-                    else if (dataMap.listTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.STATIC_BOMB)
-                    {
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].speedX = EditorGUILayout.FloatField("Speed", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].speedX);
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].idLineMove = EditorGUILayout.IntField("Line Move", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].idLineMove);
 
                     }
-                    else if (dataMap.listTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.STATIC_GOLD)
+                    else if (dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.STATIC_BOMB)
                     {
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].pos = EditorGUILayout.Vector3Field("Pos", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].pos);
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].damageExplosion = EditorGUILayout.FloatField("Damage", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].damageExplosion);
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].radiusExplosion = EditorGUILayout.FloatField("Radius Explo", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].radiusExplosion);
 
                     }
-                    else if (dataMap.listTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.STATIC_DEF)
+                    else if (dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.STATIC_GOLD)
                     {
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].pos = EditorGUILayout.Vector3Field("Pos", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].pos);
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].moneyAddition = EditorGUILayout.FloatField("Money ", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].moneyAddition);
+
 
                     }
-                    else if (dataMap.listTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.STATIC_HP)
+                    else if (dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.STATIC_DEF)
                     {
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].pos = EditorGUILayout.Vector3Field("Pos", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].pos);
+
 
                     }
-                    else if (dataMap.listTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.MOVE_SHOOT_RAND_LINE)
+                    else if (dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.STATIC_HP)
                     {
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].pos = EditorGUILayout.Vector3Field("Pos", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].pos);
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].hpAddition = EditorGUILayout.FloatField("Hp ", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].hpAddition);
 
                     }
-                    else if (dataMap.listTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.MOVE_SHOOT_FIXED_LINE)
+                    else if (dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.MOVE_SHOOT_RAND_LINE)
                     {
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].speedAttack = EditorGUILayout.FloatField("Speed", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].speedAttack);
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].damageAttack = EditorGUILayout.FloatField("Damage", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].damageAttack);
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].minSpawn = EditorGUILayout.IntField("Min Spawn", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].minSpawn);
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].maxSpawn = EditorGUILayout.IntField("Max Spawn", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].maxSpawn);
+
+                    }
+                    else if (dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.MOVE_SHOOT_FIXED_LINE)
+                    {
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].speedAttack = EditorGUILayout.FloatField("Speed", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].speedAttack);
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].damageAttack = EditorGUILayout.FloatField("Damage", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].damageAttack);
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].idLineMoveShoot = EditorGUILayout.IntField("Speed", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].idLineMoveShoot);
 
                     }
                 }
