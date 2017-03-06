@@ -20,6 +20,13 @@ public class EnemyBase
         */
     }
 
+    public EnemyBase(int idEnemy, TYPE_ENEMY typeEnemy, int hp)
+    {
+        this.idEnemy = idEnemy;
+        this.typeEnemy = typeEnemy;
+        this.hp = hp;
+    }
+
 }
 
 [Serializable]
@@ -35,6 +42,12 @@ public class DataMoveEnemy : EnemyBase
         this.idLineMove = 0;
         */
     }
+
+    public DataMoveEnemy(int idEnemy, TYPE_ENEMY typeEnemy, int hp, float speedX, int idLineMove) : base(idEnemy, typeEnemy, hp)
+    {
+        this.speedX = speedX;
+        this.idLineMove = idLineMove;
+    }
 }
 [Serializable]
 public class DataStaticEnemy : EnemyBase
@@ -43,6 +56,12 @@ public class DataStaticEnemy : EnemyBase
     public DataStaticEnemy() : base()
     {
         this.pos = Vector3.zero;
+    }
+
+    public DataStaticEnemy(int idEnemy, TYPE_ENEMY typeEnemy, int hp, Vector3 pos) : base(idEnemy, typeEnemy, hp)
+    {
+       
+        this.pos = pos;
     }
 }
 [Serializable]
@@ -56,6 +75,13 @@ public class DataBomb : DataStaticEnemy
         this.damageExplosion = 0;
         this.radiusExplosion = 0;
     }
+
+    public DataBomb(int idEnemy, TYPE_ENEMY typeEnemy, int hp, Vector3 pos,float damageExplosion, float radiusExplosion) : base(idEnemy, typeEnemy, hp, pos)
+    {
+
+        this.damageExplosion = damageExplosion;
+        this.radiusExplosion = radiusExplosion;
+    }
 }
 [Serializable]
 public class DataHpObj : DataStaticEnemy
@@ -65,6 +91,12 @@ public class DataHpObj : DataStaticEnemy
     public DataHpObj() : base()
     {
         this.hpAddition = 0;
+    }
+
+    public DataHpObj(int idEnemy, TYPE_ENEMY typeEnemy, int hp, Vector3 pos, float hpAddition) : base(idEnemy, typeEnemy, hp, pos)
+    {
+
+        this.hpAddition = hpAddition;
     }
 }
 [Serializable]
@@ -77,6 +109,12 @@ public class DataCoinObj : DataStaticEnemy
     {
         this.moneyAddition = 0;
     }
+
+    public DataCoinObj(int idEnemy, TYPE_ENEMY typeEnemy, int hp, Vector3 pos, float moneyAddition) : base(idEnemy, typeEnemy, hp, pos)
+    {
+
+        this.moneyAddition = moneyAddition;
+    }
 }
 [Serializable]
 public class DataDefObj : DataStaticEnemy
@@ -84,6 +122,12 @@ public class DataDefObj : DataStaticEnemy
     public DataDefObj() : base()
     {
 
+    }
+
+    public DataDefObj(int idEnemy, TYPE_ENEMY typeEnemy, int hp, Vector3 pos) : base(idEnemy, typeEnemy, hp, pos)
+    {
+
+        
     }
 }
 [Serializable]
@@ -99,6 +143,14 @@ public class DataMoveFixedShoot : EnemyBase
         this.damageAttack = 0;
         this.idLineMoveShoot = 0;
 
+    }
+
+    public DataMoveFixedShoot(int idEnemy, TYPE_ENEMY typeEnemy, int hp, float speedAttack, float damageAttack, int idLineMoveShoot) : base(idEnemy, typeEnemy, hp)
+    {
+
+        this.speedAttack = speedAttack;
+        this.damageAttack = damageAttack;
+        this.idLineMoveShoot = idLineMoveShoot;
     }
 }
 [Serializable]
@@ -116,7 +168,14 @@ public class DataMoveRandShoot : EnemyBase
         this.damageAttack = 0;
         this.minSpawn = 1;
         this.maxSpawn = 1;
+            }
+    public DataMoveRandShoot(int idEnemy, TYPE_ENEMY typeEnemy, int hp, float speedAttack, float damageAttack, int minSpawn, int maxSpawn) : base(idEnemy, typeEnemy, hp)
+    {
 
+        this.speedAttack = speedAttack;
+        this.damageAttack = damageAttack;
+        this.minSpawn = minSpawn;
+        this.maxSpawn = maxSpawn;
     }
 }
 
