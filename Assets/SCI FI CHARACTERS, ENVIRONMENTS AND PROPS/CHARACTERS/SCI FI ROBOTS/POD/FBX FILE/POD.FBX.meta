@@ -1,0 +1,253 @@
+fileFormatVersion: 2
+guid: 11668ffecd6893c48ac1c37d45dfbff2
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: ARTICULATED_LEG_L_FOOT
+    100002: ARTICULATED_LEG_L_PART_A
+    100004: ARTICULATED_LEG_L_PART_B
+    100006: ARTICULATED_LEG_L_PART_C
+    100008: ARTICULATED_LEG_R_FOOT
+    100010: ARTICULATED_LEG_R_PART_A
+    100012: ARTICULATED_LEG_R_PART_B
+    100014: ARTICULATED_LEG_R_PART_C
+    100016: Factice005
+    100018: Factice010
+    100020: Factice011
+    100022: Factice012
+    100024: Factice013
+    100026: Factice014
+    100028: Factice015
+    100030: Factice016
+    100032: Factice017
+    100034: //RootNode
+    100036: POD_BODY
+    100038: POD_COCKPIT
+    100040: POD_LEFT_DOOR
+    100042: POD_RIGHT_DOOR
+    100044: POD_STAIRS
+    100046: Structure001
+    100048: Structure002
+    100050: Structure003
+    100052: Structure007
+    100054: Structure008
+    100056: Structure009
+    100058: Structure011
+    100060: Structure011(mis en miroir)
+    100062: Structure013
+    100064: Structure013(mis en miroir)
+    100066: Structure015
+    100068: Structure017
+    400000: ARTICULATED_LEG_L_FOOT
+    400002: ARTICULATED_LEG_L_PART_A
+    400004: ARTICULATED_LEG_L_PART_B
+    400006: ARTICULATED_LEG_L_PART_C
+    400008: ARTICULATED_LEG_R_FOOT
+    400010: ARTICULATED_LEG_R_PART_A
+    400012: ARTICULATED_LEG_R_PART_B
+    400014: ARTICULATED_LEG_R_PART_C
+    400016: Factice005
+    400018: Factice010
+    400020: Factice011
+    400022: Factice012
+    400024: Factice013
+    400026: Factice014
+    400028: Factice015
+    400030: Factice016
+    400032: Factice017
+    400034: //RootNode
+    400036: POD_BODY
+    400038: POD_COCKPIT
+    400040: POD_LEFT_DOOR
+    400042: POD_RIGHT_DOOR
+    400044: POD_STAIRS
+    400046: Structure001
+    400048: Structure002
+    400050: Structure003
+    400052: Structure007
+    400054: Structure008
+    400056: Structure009
+    400058: Structure011
+    400060: Structure011(mis en miroir)
+    400062: Structure013
+    400064: Structure013(mis en miroir)
+    400066: Structure015
+    400068: Structure017
+    2300000: ARTICULATED_LEG_L_FOOT
+    2300002: ARTICULATED_LEG_L_PART_A
+    2300004: ARTICULATED_LEG_L_PART_B
+    2300006: ARTICULATED_LEG_L_PART_C
+    2300008: ARTICULATED_LEG_R_FOOT
+    2300010: ARTICULATED_LEG_R_PART_A
+    2300012: ARTICULATED_LEG_R_PART_B
+    2300014: ARTICULATED_LEG_R_PART_C
+    2300016: POD_BODY
+    2300018: POD_COCKPIT
+    2300020: POD_LEFT_DOOR
+    2300022: POD_RIGHT_DOOR
+    2300024: POD_STAIRS
+    3300000: ARTICULATED_LEG_L_FOOT
+    3300002: ARTICULATED_LEG_L_PART_A
+    3300004: ARTICULATED_LEG_L_PART_B
+    3300006: ARTICULATED_LEG_L_PART_C
+    3300008: ARTICULATED_LEG_R_FOOT
+    3300010: ARTICULATED_LEG_R_PART_A
+    3300012: ARTICULATED_LEG_R_PART_B
+    3300014: ARTICULATED_LEG_R_PART_C
+    3300016: POD_BODY
+    3300018: POD_COCKPIT
+    3300020: POD_LEFT_DOOR
+    3300022: POD_RIGHT_DOOR
+    3300024: POD_STAIRS
+    4300000: POD_LEFT_DOOR
+    4300002: ARTICULATED_LEG_L_PART_B
+    4300004: ARTICULATED_LEG_L_PART_C
+    4300006: ARTICULATED_LEG_L_FOOT
+    4300008: ARTICULATED_LEG_L_PART_A
+    4300010: POD_RIGHT_DOOR
+    4300012: POD_COCKPIT
+    4300014: POD_STAIRS
+    4300016: ARTICULATED_LEG_R_FOOT
+    4300018: ARTICULATED_LEG_R_PART_C
+    4300020: ARTICULATED_LEG_R_PART_B
+    4300022: ARTICULATED_LEG_R_PART_A
+    4300024: POD_BODY
+    6400000: ARTICULATED_LEG_L_FOOT
+    6400002: ARTICULATED_LEG_L_PART_A
+    6400004: ARTICULATED_LEG_L_PART_B
+    6400006: ARTICULATED_LEG_L_PART_C
+    6400008: ARTICULATED_LEG_R_FOOT
+    6400010: ARTICULATED_LEG_R_PART_A
+    6400012: ARTICULATED_LEG_R_PART_B
+    6400014: ARTICULATED_LEG_R_PART_C
+    6400016: POD_BODY
+    6400018: POD_COCKPIT
+    6400020: POD_LEFT_DOOR
+    6400022: POD_RIGHT_DOOR
+    6400024: POD_STAIRS
+    7400000: closed
+    7400002: opening
+    7400004: opened
+    7400006: opened
+    9500000: //RootNode
+    11100000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 0
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 2
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: closed
+      takeName: Take 001
+      firstFrame: 6
+      lastFrame: 34
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: opening
+      takeName: Take 001
+      firstFrame: 40
+      lastFrame: 145
+      wrapMode: 8
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 1
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

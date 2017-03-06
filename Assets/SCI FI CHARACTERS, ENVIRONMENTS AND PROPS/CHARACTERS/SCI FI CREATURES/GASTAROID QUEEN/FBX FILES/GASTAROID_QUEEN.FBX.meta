@@ -1,0 +1,148 @@
+fileFormatVersion: 2
+guid: 3eebb5fdc489533418c2a89bb595b7e7
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: GASTAROID_QUEEN
+    100004: GASTAROID_QUEEN_
+    100006: GASTAROID_QUEEN_ Head
+    100008: GASTAROID_QUEEN_ L Calf
+    100010: GASTAROID_QUEEN_ L Clavicle
+    100012: GASTAROID_QUEEN_ L Foot
+    100014: GASTAROID_QUEEN_ L Forearm
+    100016: GASTAROID_QUEEN_ L Hand
+    100018: GASTAROID_QUEEN_ L HorseLink
+    100020: GASTAROID_QUEEN_ L Thigh
+    100022: GASTAROID_QUEEN_ L Toe0
+    100024: GASTAROID_QUEEN_ L UpperArm
+    100026: GASTAROID_QUEEN_ Neck
+    100028: GASTAROID_QUEEN_ Neck1
+    100030: GASTAROID_QUEEN_ Neck2
+    100032: GASTAROID_QUEEN_ Pelvis
+    100034: GASTAROID_QUEEN_ Queue de cheval 1
+    100036: GASTAROID_QUEEN_ R Calf
+    100038: GASTAROID_QUEEN_ R Clavicle
+    100040: GASTAROID_QUEEN_ R Foot
+    100042: GASTAROID_QUEEN_ R Forearm
+    100044: GASTAROID_QUEEN_ R Hand
+    100046: GASTAROID_QUEEN_ R HorseLink
+    100048: GASTAROID_QUEEN_ R Thigh
+    100050: GASTAROID_QUEEN_ R Toe0
+    100052: GASTAROID_QUEEN_ R UpperArm
+    100054: GASTAROID_QUEEN_ Spine
+    100056: GASTAROID_QUEEN_ Spine1
+    100058: GASTAROID_QUEEN_ Tail
+    100060: GASTAROID_QUEEN_ Tail1
+    100062: GASTAROID_QUEEN_ Tail2
+    100064: GASTAROID_QUEEN_ Tail3
+    100066: GASTAROID_QUEEN_ Tail4
+    100068: GASTAROID_QUEEN_ Tail5
+    100070: GASTAROID_QUEEN_ Tail6
+    100072: GASTAROID_QUEEN_ Tail7
+    400000: //RootNode
+    400002: GASTAROID_QUEEN
+    400004: GASTAROID_QUEEN_
+    400006: GASTAROID_QUEEN_ Head
+    400008: GASTAROID_QUEEN_ L Calf
+    400010: GASTAROID_QUEEN_ L Clavicle
+    400012: GASTAROID_QUEEN_ L Foot
+    400014: GASTAROID_QUEEN_ L Forearm
+    400016: GASTAROID_QUEEN_ L Hand
+    400018: GASTAROID_QUEEN_ L HorseLink
+    400020: GASTAROID_QUEEN_ L Thigh
+    400022: GASTAROID_QUEEN_ L Toe0
+    400024: GASTAROID_QUEEN_ L UpperArm
+    400026: GASTAROID_QUEEN_ Neck
+    400028: GASTAROID_QUEEN_ Neck1
+    400030: GASTAROID_QUEEN_ Neck2
+    400032: GASTAROID_QUEEN_ Pelvis
+    400034: GASTAROID_QUEEN_ Queue de cheval 1
+    400036: GASTAROID_QUEEN_ R Calf
+    400038: GASTAROID_QUEEN_ R Clavicle
+    400040: GASTAROID_QUEEN_ R Foot
+    400042: GASTAROID_QUEEN_ R Forearm
+    400044: GASTAROID_QUEEN_ R Hand
+    400046: GASTAROID_QUEEN_ R HorseLink
+    400048: GASTAROID_QUEEN_ R Thigh
+    400050: GASTAROID_QUEEN_ R Toe0
+    400052: GASTAROID_QUEEN_ R UpperArm
+    400054: GASTAROID_QUEEN_ Spine
+    400056: GASTAROID_QUEEN_ Spine1
+    400058: GASTAROID_QUEEN_ Tail
+    400060: GASTAROID_QUEEN_ Tail1
+    400062: GASTAROID_QUEEN_ Tail2
+    400064: GASTAROID_QUEEN_ Tail3
+    400066: GASTAROID_QUEEN_ Tail4
+    400068: GASTAROID_QUEEN_ Tail5
+    400070: GASTAROID_QUEEN_ Tail6
+    400072: GASTAROID_QUEEN_ Tail7
+    4300000: GASTAROID_QUEEN
+    7400000: Take 001
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: GASTAROID_QUEEN
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 0
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 2
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,136 @@
+fileFormatVersion: 2
+guid: 7993631202248db4c8941b65fee8fcf1
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: BOSS_
+    100004: BOSS_ Head
+    100006: BOSS_ L Calf
+    100008: BOSS_ L Clavicle
+    100010: BOSS_ L Finger0
+    100012: BOSS_ L Finger01
+    100014: BOSS_ L Finger1
+    100016: BOSS_ L Finger11
+    100018: BOSS_ L Foot
+    100020: BOSS_ L Forearm
+    100022: BOSS_ L Hand
+    100024: BOSS_ L Thigh
+    100026: BOSS_ L Toe0
+    100028: BOSS_ L UpperArm
+    100030: BOSS_ Neck
+    100032: BOSS_ Pelvis
+    100034: BOSS_ Queue de cheval 1
+    100036: BOSS_ R Calf
+    100038: BOSS_ R Clavicle
+    100040: BOSS_ R Finger0
+    100042: BOSS_ R Finger01
+    100044: BOSS_ R Finger1
+    100046: BOSS_ R Finger11
+    100048: BOSS_ R Foot
+    100050: BOSS_ R Forearm
+    100052: BOSS_ R Hand
+    100054: BOSS_ R Thigh
+    100056: BOSS_ R Toe0
+    100058: BOSS_ R UpperArm
+    100060: BOSS_ Spine
+    100062: BOSS_ Spine1
+    400000: //RootNode
+    400002: BOSS_
+    400004: BOSS_ Head
+    400006: BOSS_ L Calf
+    400008: BOSS_ L Clavicle
+    400010: BOSS_ L Finger0
+    400012: BOSS_ L Finger01
+    400014: BOSS_ L Finger1
+    400016: BOSS_ L Finger11
+    400018: BOSS_ L Foot
+    400020: BOSS_ L Forearm
+    400022: BOSS_ L Hand
+    400024: BOSS_ L Thigh
+    400026: BOSS_ L Toe0
+    400028: BOSS_ L UpperArm
+    400030: BOSS_ Neck
+    400032: BOSS_ Pelvis
+    400034: BOSS_ Queue de cheval 1
+    400036: BOSS_ R Calf
+    400038: BOSS_ R Clavicle
+    400040: BOSS_ R Finger0
+    400042: BOSS_ R Finger01
+    400044: BOSS_ R Finger1
+    400046: BOSS_ R Finger11
+    400048: BOSS_ R Foot
+    400050: BOSS_ R Forearm
+    400052: BOSS_ R Hand
+    400054: BOSS_ R Thigh
+    400056: BOSS_ R Toe0
+    400058: BOSS_ R UpperArm
+    400060: BOSS_ Spine
+    400062: BOSS_ Spine1
+    7400000: Take 001
+    9500000: //RootNode
+    11100000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 0
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 2
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

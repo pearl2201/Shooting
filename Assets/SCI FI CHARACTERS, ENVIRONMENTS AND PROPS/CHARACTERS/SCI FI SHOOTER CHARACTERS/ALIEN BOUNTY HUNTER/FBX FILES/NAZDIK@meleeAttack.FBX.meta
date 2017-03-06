@@ -1,0 +1,132 @@
+fileFormatVersion: 2
+guid: cb9ccf74021b1ee4e9b9b5d060deaf18
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: NAZDIK_
+    100004: NAZDIK_ Head
+    100006: NAZDIK_ L Calf
+    100008: NAZDIK_ L Clavicle
+    100010: NAZDIK_ L Finger0
+    100012: NAZDIK_ L Finger1
+    100014: NAZDIK_ L Foot
+    100016: NAZDIK_ L Forearm
+    100018: NAZDIK_ L Hand
+    100020: NAZDIK_ L Thigh
+    100022: NAZDIK_ L Toe0
+    100024: NAZDIK_ L Toe1
+    100026: NAZDIK_ L UpperArm
+    100028: NAZDIK_ Neck
+    100030: NAZDIK_ Pelvis
+    100032: NAZDIK_ Queue de cheval 1
+    100034: NAZDIK_ R Calf
+    100036: NAZDIK_ R Clavicle
+    100038: NAZDIK_ R Finger0
+    100040: NAZDIK_ R Finger1
+    100042: NAZDIK_ R Foot
+    100044: NAZDIK_ R Forearm
+    100046: NAZDIK_ R Hand
+    100048: NAZDIK_ R Thigh
+    100050: NAZDIK_ R Toe0
+    100052: NAZDIK_ R Toe1
+    100054: NAZDIK_ R UpperArm
+    100056: NAZDIK_ Spine
+    100058: NAZDIK_ Spine1
+    400000: //RootNode
+    400002: NAZDIK_
+    400004: NAZDIK_ Head
+    400006: NAZDIK_ L Calf
+    400008: NAZDIK_ L Clavicle
+    400010: NAZDIK_ L Finger0
+    400012: NAZDIK_ L Finger1
+    400014: NAZDIK_ L Foot
+    400016: NAZDIK_ L Forearm
+    400018: NAZDIK_ L Hand
+    400020: NAZDIK_ L Thigh
+    400022: NAZDIK_ L Toe0
+    400024: NAZDIK_ L Toe1
+    400026: NAZDIK_ L UpperArm
+    400028: NAZDIK_ Neck
+    400030: NAZDIK_ Pelvis
+    400032: NAZDIK_ Queue de cheval 1
+    400034: NAZDIK_ R Calf
+    400036: NAZDIK_ R Clavicle
+    400038: NAZDIK_ R Finger0
+    400040: NAZDIK_ R Finger1
+    400042: NAZDIK_ R Foot
+    400044: NAZDIK_ R Forearm
+    400046: NAZDIK_ R Hand
+    400048: NAZDIK_ R Thigh
+    400050: NAZDIK_ R Toe0
+    400052: NAZDIK_ R Toe1
+    400054: NAZDIK_ R UpperArm
+    400056: NAZDIK_ Spine
+    400058: NAZDIK_ Spine1
+    7400000: Take 001
+    9500000: //RootNode
+    11100000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 0
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 2
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
