@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private DataMap dataMap;
+    [SerializeField]
+    private Player player;
     private int turnPhaze;
     private InfoGame infoGame;
     public GAME_STATE currGameState;
@@ -25,6 +27,13 @@ public class GameManager : MonoBehaviour
         currGameState = GAME_STATE.SETUP;
         SetupInfo();
     }
+
+
+    public void Reset()
+    {
+
+    }
+
 
     void Update()
     {
@@ -62,7 +71,22 @@ public class GameManager : MonoBehaviour
         currGameState = GAME_STATE.SETUP;
 
         // count no enemy
-
+        int noEnemy = 0;
+        for (int i = 0; i < dataMap.listFakeTurnSpawn.Length; i++)
+        {
+            for (int j = 0; j < dataMap.listFakeTurnSpawn[i].listEnemyBase.Length; j++)
+            {
+                if (dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.MOVE_SHOOT_RAND_LINE)
+                {
+                    noEnemy += dataMap.listFakeTurnSpawn[i].listEnemyBase[j].noSpawn;
+                }
+                else
+                {
+                    noEnemy++;
+                }
+            }
+        }
+        player.Setup(this);
         currGameState = GAME_STATE.START;
     }
 

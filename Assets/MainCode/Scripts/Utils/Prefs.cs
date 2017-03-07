@@ -114,6 +114,19 @@ public class Prefs
     private static string KEY_VOLUME_MUSIC = "volume_music";
     private static string KEY_VOLUME_SOUNDFX = "volume_soundfx";
 
+    // list owner
+    private static string KEY_PRIMARY_GUN_OWN = "primary_gun_own";
+    private static string KEY_NO_BULLET_PRIMARY_GUN_OWN = "no_bullet_primary_gun";
+    private static string KEY_SECONDARY_GUN_OWN = "secondary_gun_own";
+    private static string KEY_ARMOR_OWN = "key_armor_own";
+
+    // list curr
+    private static string KEY_CURR_PRIMARY_GUN = "curr_primary_gun";
+    private static string KEY_CURR_SECONDARY_GUN = "curr_secondary_gun";
+    private static string KEY_CURR_ARMOR = "curr_armor";
+    private static string KEY_NO_BOMB = "no_bomb";
+
+    private static string KEY_COIN_OWNER = "coint_owner";
 
     ///// INIT
 
@@ -154,6 +167,101 @@ public class Prefs
     public void SetVolumeMusic(float volume)
     {
         SetFloat(KEY_VOLUME_MUSIC, volume);
+    }
+
+    public bool IsPrimaryGunBought(int id)
+    {
+        return GetBool(KEY_PRIMARY_GUN_OWN + id);
+    }
+
+    public bool IsSecondaryGunBought(int id)
+    {
+        return GetBool(KEY_SECONDARY_GUN_OWN + id);
+    }
+
+    public bool IsArmorBought(int id)
+    {
+        return GetBool(KEY_ARMOR_OWN + id);
+    }
+
+    public int GetNoBulletGun(int id)
+    {
+        return GetInt(KEY_NO_BULLET_PRIMARY_GUN_OWN + id);
+    }
+
+    public int GetNoGrenade()
+    {
+        return GetInt(KEY_NO_BOMB);
+    }
+
+    public void SetBoughtPrimaryGun(int id, bool isOwn)
+    {
+        SetBool(KEY_PRIMARY_GUN_OWN + id, isOwn);
+    }
+
+    public void SetBoughtSecondaryGun(int id, bool isOwn)
+    {
+        SetBool(KEY_SECONDARY_GUN_OWN, isOwn);
+    }
+
+    public void BuyBomb()
+    {
+        SetInt(KEY_NO_BOMB, GetNoGrenade() + 1);
+    }
+
+    public void BuyBulletPrimaryGun(int id, int countTotal)
+    {
+        SetInt(KEY_NO_BULLET_PRIMARY_GUN_OWN + id, countTotal);
+    }
+
+    public void AddCoin(int coin)
+    {
+        SetCoin(GetCoin() + coin);
+    }
+
+    public int GetCoin()
+    {
+        return GetInt(KEY_COIN_OWNER);
+    }
+
+    public void SubCoin(int coin)
+    {
+        SetCoin(GetCoin() - coin);
+    }
+
+    public void SetCoin(int coin)
+    {
+        SetInt(KEY_COIN_OWNER, coin);
+    }
+
+    public int GetCurrPrimaryGun()
+    {
+        return GetInt(KEY_CURR_PRIMARY_GUN);
+    }
+
+    public void SetCurrPrimaryGun(int id)
+    {
+        SetInt(KEY_CURR_PRIMARY_GUN, id);
+    }
+
+    public int GetCurrSecondaryGun()
+    {
+        return GetInt(KEY_CURR_SECONDARY_GUN);
+    }
+
+    public void SetSecondaryGun(int id)
+    {
+        SetInt(KEY_CURR_SECONDARY_GUN, id);
+    }
+
+    public void SetCurrArmor(int id)
+    {
+        SetInt(KEY_CURR_ARMOR, id);
+    }
+
+    public int GetCurrArmor()
+    {
+        return GetInt(KEY_CURR_ARMOR);
     }
 
 }

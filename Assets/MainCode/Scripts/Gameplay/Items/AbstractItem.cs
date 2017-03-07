@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-
-public abstract class AbstractItem
+using UnityEngine;
+[Serializable]
+public abstract class AbstractItem : ScriptableObject
 {
     public TYPE_ITEM typeItem;
+    public int id;
     public int noPossed;
     public int cost;
-    public string name;
+    public string nameItem;
+
 }
 

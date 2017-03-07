@@ -51,7 +51,7 @@ public enum GAME_STATE
 
 public enum PLAYER_STATE
 {
-    SHOOT, FREE
+    SHOOT, CHARGE, FREE
 }
 
 public enum ENEMY_PHAZE
