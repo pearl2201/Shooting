@@ -41,3 +41,20 @@ public enum TYPE_ENEMY : int
     MOVE_SHOOT_RAND_LINE = 21
 
 }
+
+
+public enum GAME_STATE
+{
+    PAUSE, PLAY, END, START, SETUP
+}
+
+
+public enum PLAYER_STATE
+{
+    SHOOT, FREE
+}
+
+public enum ENEMY_PHAZE
+{
+    WAIT, RUN, FINISH
+}

@@ -27,6 +27,11 @@ public class EnemyBase
         this.hp = hp;
     }
 
+    public virtual EnemyBase Clone()
+    {
+        return new EnemyBase(idEnemy, typeEnemy, hp);
+    }
+
 }
 
 [Serializable]
@@ -48,6 +53,11 @@ public class DataMoveEnemy : EnemyBase
         this.speedX = speedX;
         this.idLineMove = idLineMove;
     }
+
+    public override EnemyBase Clone()
+    {
+        return new DataMoveEnemy(idEnemy, typeEnemy, hp, speedX, idLineMove);
+    }
 }
 [Serializable]
 public class DataStaticEnemy : EnemyBase
@@ -60,8 +70,13 @@ public class DataStaticEnemy : EnemyBase
 
     public DataStaticEnemy(int idEnemy, TYPE_ENEMY typeEnemy, int hp, Vector3 pos) : base(idEnemy, typeEnemy, hp)
     {
-       
+
         this.pos = pos;
+    }
+
+    public override EnemyBase Clone()
+    {
+        return new DataStaticEnemy(idEnemy, typeEnemy, hp, pos);
     }
 }
 [Serializable]
@@ -76,11 +91,16 @@ public class DataBomb : DataStaticEnemy
         this.radiusExplosion = 0;
     }
 
-    public DataBomb(int idEnemy, TYPE_ENEMY typeEnemy, int hp, Vector3 pos,float damageExplosion, float radiusExplosion) : base(idEnemy, typeEnemy, hp, pos)
+    public DataBomb(int idEnemy, TYPE_ENEMY typeEnemy, int hp, Vector3 pos, float damageExplosion, float radiusExplosion) : base(idEnemy, typeEnemy, hp, pos)
     {
 
         this.damageExplosion = damageExplosion;
         this.radiusExplosion = radiusExplosion;
+    }
+
+    public override EnemyBase Clone()
+    {
+        return new DataBomb(idEnemy, typeEnemy, hp, pos, damageExplosion, radiusExplosion);
     }
 }
 [Serializable]
@@ -97,6 +117,11 @@ public class DataHpObj : DataStaticEnemy
     {
 
         this.hpAddition = hpAddition;
+    }
+
+    public override EnemyBase Clone()
+    {
+        return new DataHpObj(idEnemy, typeEnemy, hp, pos, hpAddition);
     }
 }
 [Serializable]
@@ -115,6 +140,11 @@ public class DataCoinObj : DataStaticEnemy
 
         this.moneyAddition = moneyAddition;
     }
+
+    public override EnemyBase Clone()
+    {
+        return new DataCoinObj(idEnemy, typeEnemy, hp, pos, moneyAddition);
+    }
 }
 [Serializable]
 public class DataDefObj : DataStaticEnemy
@@ -127,7 +157,12 @@ public class DataDefObj : DataStaticEnemy
     public DataDefObj(int idEnemy, TYPE_ENEMY typeEnemy, int hp, Vector3 pos) : base(idEnemy, typeEnemy, hp, pos)
     {
 
-        
+
+    }
+
+    public override EnemyBase Clone()
+    {
+        return new DataDefObj(idEnemy, typeEnemy, hp, pos);
     }
 }
 [Serializable]
@@ -152,30 +187,37 @@ public class DataMoveFixedShoot : EnemyBase
         this.damageAttack = damageAttack;
         this.idLineMoveShoot = idLineMoveShoot;
     }
+
+    public override EnemyBase Clone()
+    {
+        return new DataMoveFixedShoot(idEnemy, typeEnemy, hp, speedAttack, damageAttack, idLineMoveShoot);
+    }
 }
 [Serializable]
 public class DataMoveRandShoot : EnemyBase
 {
     public float speedAttack;
     public float damageAttack;
-    public int minSpawn;
-    public int maxSpawn;
+    public int noSpawn;
 
 
     public DataMoveRandShoot() : base()
     {
         this.speedAttack = 0;
         this.damageAttack = 0;
-        this.minSpawn = 1;
-        this.maxSpawn = 1;
-            }
-    public DataMoveRandShoot(int idEnemy, TYPE_ENEMY typeEnemy, int hp, float speedAttack, float damageAttack, int minSpawn, int maxSpawn) : base(idEnemy, typeEnemy, hp)
+        this.noSpawn = 1;
+    }
+    public DataMoveRandShoot(int idEnemy, TYPE_ENEMY typeEnemy, int hp, float speedAttack, float damageAttack, int noSpawn) : base(idEnemy, typeEnemy, hp)
     {
 
         this.speedAttack = speedAttack;
         this.damageAttack = damageAttack;
-        this.minSpawn = minSpawn;
-        this.maxSpawn = maxSpawn;
+        this.noSpawn = noSpawn;
+    }
+
+    public override EnemyBase Clone()
+    {
+        return new DataMoveRandShoot(idEnemy, typeEnemy, hp, speedAttack, damageAttack, noSpawn);
     }
 }
 
@@ -210,8 +252,7 @@ public class FullEnemyBase
     public Vector3 pos;
     public float speedAttack;
     public float damageAttack;
-    public int minSpawn;
-    public int maxSpawn;
+    public int noSpawn;
     public int idLineMoveShoot;
     public float moneyAddition;
     public float hpAddition;

@@ -10,3 +10,9 @@ public interface IPeople
     void Shooting();
     void Dying();
 }
+
+
+public interface IPoolObj
+{
+    void Reset();
+}

@@ -221,8 +221,7 @@ public class MapEditor : Editor
                     {
                         dataMap.listFakeTurnSpawn[i].listEnemyBase[j].speedAttack = EditorGUILayout.FloatField("Speed", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].speedAttack);
                         dataMap.listFakeTurnSpawn[i].listEnemyBase[j].damageAttack = EditorGUILayout.FloatField("Damage", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].damageAttack);
-                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].minSpawn = EditorGUILayout.IntField("Min Spawn", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].minSpawn);
-                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].maxSpawn = EditorGUILayout.IntField("Max Spawn", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].maxSpawn);
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].noSpawn = EditorGUILayout.IntField("Spawn", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].noSpawn);
 
                     }
                     else if (dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.MOVE_SHOOT_FIXED_LINE)

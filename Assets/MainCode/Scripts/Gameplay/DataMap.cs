@@ -38,7 +38,7 @@ public class DataMap : MonoBehaviour
                     }
                     else if (fE.typeEnemy == TYPE_ENEMY.MOVE_SHOOT_RAND_LINE)
                     {
-                        DataMoveRandShoot enemy = new DataMoveRandShoot(fE.idEnemy, fE.typeEnemy, fE.hp, fE.speedAttack, fE.damageAttack, fE.minSpawn, fE.maxSpawn);
+                        DataMoveRandShoot enemy = new DataMoveRandShoot(fE.idEnemy, fE.typeEnemy, fE.hp, fE.speedAttack, fE.damageAttack, fE.noSpawn);
                         dataTurn.listEnemyBase[i] = enemy;
                     }
                     else if (fE.typeEnemy == TYPE_ENEMY.MOVING)

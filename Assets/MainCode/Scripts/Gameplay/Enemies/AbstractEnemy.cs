@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 using UnityEngine;
-public class AbstractEnemy : MonoBehaviour
+public abstract class AbstractEnemy : MonoBehaviour, IPoolObj
 {
     public EnemyBase dataPeople;
 
@@ -14,18 +14,21 @@ public class AbstractEnemy : MonoBehaviour
 
     public string nameAnimRunLeft;
     public string nameAnimRunRight;
-    public string nameAnimShooting;
     public string nameAnimTakeDown;
 
+    private GameManager gameManager;
+
+    public ENEMY_PHAZE phaze;
 
     void Start()
     {
 
     }
 
-    public void RegisGameManager()
+    public virtual void Setup(GameManager gameManager, EnemyBase data)
     {
-
+        this.gameManager = gameManager;
+        this.dataPeople = data.Clone();
     }
 
     public void GetHit(EnemyComponents component, int damage)
@@ -40,10 +43,9 @@ public class AbstractEnemy : MonoBehaviour
         }
     }
 
-    public void Shooting()
+    public virtual void Reset()
     {
 
     }
-
 }
 
