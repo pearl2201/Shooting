@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class EnemyCoinItem : AbstractEnemy
 {
-
+    [HideInInspector]
     public DataCoinObj mDataAttack;
 
 

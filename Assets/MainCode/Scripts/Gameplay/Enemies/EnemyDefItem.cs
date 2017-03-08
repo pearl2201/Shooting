@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class EnemyDefItem : AbstractEnemy
 {
-
+    [HideInInspector]
     public DataDefObj mDataAttack;
 
 

@@ -7,11 +7,13 @@ using UnityEngine;
 
 public class EnemyMoveShootBullet : AbstractEnemy
 {
-
+    [SerializeField]
+    private ParticleSystem parShoot;
+    [HideInInspector]
     public DataAttackEnemy mDataAttack;
-
+    [HideInInspector]
     public LineMoveShoot lineMoveShoot;
-
+    [HideInInspector]
     public Vector3 realCoverPoint;
 
     public void Setup(GameManager gameManager, DataAttackEnemy mDataAttack, LineMoveShoot lineMoveShoot)

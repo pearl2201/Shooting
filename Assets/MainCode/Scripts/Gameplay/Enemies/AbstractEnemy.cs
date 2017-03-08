@@ -9,20 +9,25 @@ public abstract class AbstractEnemy : MonoBehaviour, IPoolObj
     public EnemyBase dataPeople;
 
     public Animation mainAnim;
-
-    public EnemyComponents[] arrEnemyComponents;
-
-    public string nameAnimRunLeft;
-    public string nameAnimRunRight;
-    public string nameAnimTakeDown;
+    [SerializeField]
+    protected EnemyComponents[] arrEnemyComponents;
+    [SerializeField]
+    protected string nameAnimRun;
+    [SerializeField]
+    protected string nameAnimAttack;
+    [SerializeField]
+    protected string nameAnimTakeDown;
+    [SerializeField]
+    protected string nameAnimDeath;
 
     protected GameManager gameManager;
 
     protected float timeWait;
     public ENEMY_PHAZE phaze;
-
-    public ParticleSystem parTakeDamage;
-    public ParticleSystem parDeath;
+    [SerializeField]
+    protected ParticleSystem parTakeDamage;
+    [SerializeField]
+    protected ParticleSystem parDeath;
     
     void Start()
     {

@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class EnemyBombItem : AbstractEnemy
 {
-
+    [HideInInspector]
     public DataBomb mDataAttack;
     
 

@@ -7,11 +7,11 @@ using UnityEngine;
 
 public class EnemyMovingItem : AbstractEnemy
 {
-
+    [HideInInspector]
     public DataMoveEnemy mDataAttack;
-
+    [HideInInspector]
     public LineMoveShoot lineMoveShoot;
-
+    [HideInInspector]
     public Vector3 realCoverPoint;
 
     public void Setup(GameManager gameManager, DataMoveEnemy mDataAttack, LineMoveShoot lineMoveShoot)
