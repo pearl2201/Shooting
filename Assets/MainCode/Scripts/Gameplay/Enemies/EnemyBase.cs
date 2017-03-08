@@ -165,59 +165,86 @@ public class DataDefObj : DataStaticEnemy
         return new DataDefObj(idEnemy, typeEnemy, hp, pos);
     }
 }
+
 [Serializable]
-public class DataMoveFixedShoot : EnemyBase
+public class DataAttackEnemy : EnemyBase
 {
+    public float moveSpeed;
     public float speedAttack;
     public float damageAttack;
-    public int idLineMoveShoot;
-
-    public DataMoveFixedShoot() : base()
+    public TYPE_ENEMY_ATTACK typeEnemyAtk;
+    public DataAttackEnemy() : base()
     {
         this.speedAttack = 0;
         this.damageAttack = 0;
-        this.idLineMoveShoot = 0;
+        this.moveSpeed = 0;
+        typeEnemyAtk = TYPE_ENEMY_ATTACK.SHOOT;
 
     }
 
-    public DataMoveFixedShoot(int idEnemy, TYPE_ENEMY typeEnemy, int hp, float speedAttack, float damageAttack, int idLineMoveShoot) : base(idEnemy, typeEnemy, hp)
+    public DataAttackEnemy(int idEnemy, TYPE_ENEMY typeEnemy, int hp, float moveSpeed, float speedAttack, float damageAttack, TYPE_ENEMY_ATTACK typeAtk) : base(idEnemy, typeEnemy, hp)
     {
-
+        this.moveSpeed = moveSpeed;
         this.speedAttack = speedAttack;
         this.damageAttack = damageAttack;
-        this.idLineMoveShoot = idLineMoveShoot;
+
+        this.typeEnemyAtk = typeAtk;
     }
 
     public override EnemyBase Clone()
     {
-        return new DataMoveFixedShoot(idEnemy, typeEnemy, hp, speedAttack, damageAttack, idLineMoveShoot);
+        return new DataAttackEnemy(idEnemy, typeEnemy, hp, moveSpeed, speedAttack, damageAttack, typeEnemyAtk);
+    }
+}
+
+[Serializable]
+public class DataMoveFixedShoot : DataAttackEnemy
+{
+
+    public int idLineMoveShoot;
+    public DataMoveFixedShoot() : base()
+    {
+
+        this.idLineMoveShoot = 0;
+
+    }
+
+    public DataMoveFixedShoot(int idEnemy, TYPE_ENEMY typeEnemy, int hp, float moveSpeed, float speedAttack, float damageAttack, int idLineMoveShoot, TYPE_ENEMY_ATTACK typeAtk) : base(idEnemy, typeEnemy, hp, moveSpeed, speedAttack, damageAttack, typeAtk)
+    {
+
+
+        this.idLineMoveShoot = idLineMoveShoot;
+
+    }
+
+    public override EnemyBase Clone()
+    {
+        return new DataMoveFixedShoot(idEnemy, typeEnemy, hp, moveSpeed, speedAttack, damageAttack, idLineMoveShoot, typeEnemyAtk);
     }
 }
 [Serializable]
-public class DataMoveRandShoot : EnemyBase
+public class DataMoveRandShoot : DataAttackEnemy
 {
-    public float speedAttack;
-    public float damageAttack;
+
     public int noSpawn;
 
 
     public DataMoveRandShoot() : base()
     {
-        this.speedAttack = 0;
-        this.damageAttack = 0;
+
         this.noSpawn = 1;
+
     }
-    public DataMoveRandShoot(int idEnemy, TYPE_ENEMY typeEnemy, int hp, float speedAttack, float damageAttack, int noSpawn) : base(idEnemy, typeEnemy, hp)
+    public DataMoveRandShoot(int idEnemy, TYPE_ENEMY typeEnemy, int hp, float moveSpeed, float speedAttack, float damageAttack, int noSpawn, TYPE_ENEMY_ATTACK typeAtk) : base(idEnemy, typeEnemy, hp, moveSpeed, speedAttack, damageAttack, typeAtk)
     {
 
-        this.speedAttack = speedAttack;
-        this.damageAttack = damageAttack;
+
         this.noSpawn = noSpawn;
     }
 
     public override EnemyBase Clone()
     {
-        return new DataMoveRandShoot(idEnemy, typeEnemy, hp, speedAttack, damageAttack, noSpawn);
+        return new DataMoveRandShoot(idEnemy, typeEnemy, hp, moveSpeed, speedAttack, damageAttack, noSpawn, typeEnemyAtk);
     }
 }
 
@@ -247,7 +274,7 @@ public class FullEnemyBase
     public int idEnemy;
     public TYPE_ENEMY typeEnemy;
     public int hp;
-    public float speedX;
+    public float moveSpeed;
     public int idLineMove;
     public Vector3 pos;
     public float speedAttack;
@@ -258,6 +285,7 @@ public class FullEnemyBase
     public float hpAddition;
     public float damageExplosion;
     public float radiusExplosion;
+    public TYPE_ENEMY_ATTACK typeAtk;
 }
 
 [Serializable]

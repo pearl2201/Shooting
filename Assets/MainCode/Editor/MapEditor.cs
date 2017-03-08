@@ -187,7 +187,7 @@ public class MapEditor : Editor
                     dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeEnemy = (TYPE_ENEMY)EditorGUILayout.EnumPopup("Type Enemy", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeEnemy);
                     if (dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.MOVING)
                     {
-                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].speedX = EditorGUILayout.FloatField("Speed", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].speedX);
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].moveSpeed = EditorGUILayout.FloatField("Speed", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].moveSpeed);
                         dataMap.listFakeTurnSpawn[i].listEnemyBase[j].idLineMove = EditorGUILayout.IntField("Line Move", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].idLineMove);
 
                     }
@@ -219,14 +219,18 @@ public class MapEditor : Editor
                     }
                     else if (dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.MOVE_SHOOT_RAND_LINE)
                     {
-                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].speedAttack = EditorGUILayout.FloatField("Speed", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].speedAttack);
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeAtk = (TYPE_ENEMY_ATTACK)EditorGUILayout.EnumPopup("Type Enemy Atk", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeAtk);
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].moveSpeed = EditorGUILayout.FloatField("Move Speed", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].moveSpeed);
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].speedAttack = EditorGUILayout.FloatField("Atk Speed", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].speedAttack);
                         dataMap.listFakeTurnSpawn[i].listEnemyBase[j].damageAttack = EditorGUILayout.FloatField("Damage", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].damageAttack);
                         dataMap.listFakeTurnSpawn[i].listEnemyBase[j].noSpawn = EditorGUILayout.IntField("Spawn", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].noSpawn);
 
                     }
                     else if (dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.MOVE_SHOOT_FIXED_LINE)
                     {
-                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].speedAttack = EditorGUILayout.FloatField("Speed", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].speedAttack);
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeAtk = (TYPE_ENEMY_ATTACK)EditorGUILayout.EnumPopup("Type Enemy Atk", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeAtk);
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].moveSpeed = EditorGUILayout.FloatField("Move Speed", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].moveSpeed);
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].speedAttack = EditorGUILayout.FloatField("Atk Speed", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].speedAttack);
                         dataMap.listFakeTurnSpawn[i].listEnemyBase[j].damageAttack = EditorGUILayout.FloatField("Damage", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].damageAttack);
                         dataMap.listFakeTurnSpawn[i].listEnemyBase[j].idLineMoveShoot = EditorGUILayout.IntField("Speed", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].idLineMoveShoot);
 

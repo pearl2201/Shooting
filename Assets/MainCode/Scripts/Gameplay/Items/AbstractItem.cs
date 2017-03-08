@@ -9,7 +9,7 @@ public abstract class AbstractItem : ScriptableObject
 {
     public TYPE_ITEM typeItem;
     public int id;
-    public int noPossed;
+    
     public int cost;
     public string nameItem;
 

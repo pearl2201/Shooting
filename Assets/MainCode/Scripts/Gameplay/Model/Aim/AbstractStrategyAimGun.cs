@@ -13,18 +13,17 @@ public abstract class AbstractStrategyAimGun : MonoBehaviour
     [SerializeField]
     protected tk2dCamera mCam;
     [SerializeField]
-    protected Camera pCam;
+    public Camera pCam;
+  
     [SerializeField]
-    protected GameObject cube;
-    [SerializeField]
-    protected GameObject tieucu;
+    protected GameManager gameManager;
     void Update()
     {
-        if (isUpdateGun)
+        if (isUpdateGun && gameManager.currGameState == GAME_STATE.PLAY)
         {
             UpdatePosition();
         }
-        
+
     }
 
     public abstract void UpdatePosition();
@@ -32,7 +31,8 @@ public abstract class AbstractStrategyAimGun : MonoBehaviour
     public virtual void TouchDown()
     {
         Debug.Log("touch don");
-        isUpdateGun = true;
+        if (gameManager.currGameState == GAME_STATE.PLAY)
+            isUpdateGun = true;
     }
 
     public void TouchUp()

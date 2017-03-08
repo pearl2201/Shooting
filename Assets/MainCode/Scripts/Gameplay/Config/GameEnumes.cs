@@ -58,3 +58,16 @@ public enum ENEMY_PHAZE
 {
     WAIT, RUN, FINISH
 }
+
+public enum TYPE_PLAYER_GUN
+{
+    PRIMARY_GUN,
+    SECONDARY_GUN
+}
+
+public enum TYPE_ENEMY_ATTACK
+{
+    SHOOT,
+    SHOOT_GRENADE,
+    KNIFE
+}

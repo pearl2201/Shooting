@@ -36,20 +36,9 @@ public class RelativeAimStrategy : AbstractStrategyAimGun
             oldPosition = currPosition;
         }
 
-        RaycastHit hit;
+      
 
-        if (Physics.Raycast(tieucu.transform.position, (tieucu.transform.position - pCam.transform.position) * 10, out hit))
-
-        {
-            if (hit.collider.tag == "Enemy")
-            {
-                Debug.Log("hit enemy");
-                hit.collider.tag = "Finish";
-            }
-        }
-
-
-        Debug.DrawRay(tieucu.transform.position, (tieucu.transform.position - pCam.transform.position) * 10, Color.green);
+        Debug.DrawRay(player.currGun.tieucu.transform.position, (player.currGun.tieucu.transform.position - pCam.transform.position) * 10, Color.green);
 
 
     }
