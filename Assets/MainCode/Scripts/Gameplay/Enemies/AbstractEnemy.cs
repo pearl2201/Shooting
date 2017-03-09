@@ -6,6 +6,7 @@ using System.Text;
 using UnityEngine;
 public abstract class AbstractEnemy : MonoBehaviour, IPoolObj
 {
+    [HideInInspector]
     public EnemyBase dataPeople;
 
     public Animation mainAnim;
@@ -19,15 +20,17 @@ public abstract class AbstractEnemy : MonoBehaviour, IPoolObj
     protected string nameAnimTakeDown;
     [SerializeField]
     protected string nameAnimDeath;
-
+    [SerializeField]
+    protected string nameAnimIdle;
     protected GameManager gameManager;
 
     protected float timeWait;
+    [HideInInspector]
     public ENEMY_PHAZE phaze;
     [SerializeField]
-    protected ParticleSystem parTakeDamage;
+    protected string parTakeDamage;
     [SerializeField]
-    protected ParticleSystem parDeath;
+    protected string parDeath;
     
     void Start()
     {

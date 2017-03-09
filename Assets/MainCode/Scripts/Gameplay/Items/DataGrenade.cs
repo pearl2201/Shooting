@@ -9,6 +9,5 @@ public class DataGrenade: AbstractItem
     public int damage;
     public int firerate;
     public int accuracy;
-    public int number;
 }
 

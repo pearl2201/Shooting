@@ -10,13 +10,17 @@ public class PoolPrefabLookupManager : Singleton<PoolPrefabLookupManager>
 
     private List<string> listKey;
 
-    void Start()
+    void Awake()
     {
         listKey = new List<string>();
         for (int i = 0; i < arrPrefabLookup.Length; i++)
         {
             listKey.Add(arrPrefabLookup[i].key);
         }
+    }
+    void Start()
+    {
+        
     }
 
     public GameObject lookPrefab(string key)
@@ -36,6 +40,7 @@ public class PoolPrefabLookupManager : Singleton<PoolPrefabLookupManager>
 
     public static GameObject LookPrefab(string key)
     {
+        Debug.Log("key: " + key);
         return PoolPrefabLookupManager.Instance.lookPrefab(key);
     }
     #endregion

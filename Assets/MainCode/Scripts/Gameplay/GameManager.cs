@@ -38,15 +38,14 @@ public class GameManager : MonoBehaviour
     private int vStart, noEnemy;
     private float cdrUpdate;
     private List<AbstractEnemy> listPrefabEnemyInit;
-    [SerializeField]
-    public List<ParticleSystem> listParticleInit;
-    public GameObject prefabGrenade;
+  
 
     public Transform rootEnemy;
 
     void Start()
     {
         listPrefabEnemyInit = new List<AbstractEnemy>();
+        listCurrEnemy = new List<AbstractEnemy>();
         currGameState = GAME_STATE.SETUP;
         SetupInfo();
     }
@@ -165,7 +164,7 @@ public class GameManager : MonoBehaviour
                 }
                 else if (dt.typeEnemyAtk == TYPE_ENEMY_ATTACK.KNIFE)
                 {
-                    prefab = PoolPrefabLookupManager.LookPrefab("AttackKnife" + dt.idEnemy);
+                    prefab = PoolPrefabLookupManager.LookPrefab("Melee" + dt.idEnemy);
                 }
 
             }

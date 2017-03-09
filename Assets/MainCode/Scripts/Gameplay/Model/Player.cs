@@ -34,19 +34,21 @@ public class Player : MonoBehaviour, IPoolObj
         this.gameManager = gameManager;
         hp = 100;
         {
-            GameObject goPrefab = Resources.Load<GameObject>("PrimaryGun/" + Prefs.Instance.GetCurrPrimaryGun());
-            primaryGun = Instantiate(goPrefab).GetComponent<AbstractGun>();
+            GameObject goPrefab = PoolPrefabLookupManager.LookPrefab("PrimaryGun" + Prefs.Instance.GetCurrPrimaryGun());
+            primaryGun = PoolManager.SpawnObject(goPrefab).GetComponent<AbstractGun>();
             primaryGun.noBullet = Prefs.Instance.GetNoBulletGun(primaryGun.dataGun.id);
             primaryGun.transform.SetParent(transform);
             primaryGun.transform.localPosition = Vector3.zero;
+            primaryGun.gameObject.SetActive(false);
         }
         {
-            GameObject goPrefab = Resources.Load<GameObject>("Secondary/" + Prefs.Instance.GetCurrSecondaryGun());
-            primaryGun = Instantiate(goPrefab).GetComponent<AbstractGun>();
-            primaryGun.noBullet = Prefs.Instance.GetNoBulletGun(primaryGun.dataGun.id);
-            primaryGun.noBulletActive = Mathf.Min(primaryGun.dataGun.noArmoPerCharge, primaryGun.noBullet);
-            primaryGun.transform.SetParent(transform);
-            primaryGun.transform.localPosition = Vector3.zero;
+            GameObject goPrefab = PoolPrefabLookupManager.LookPrefab("Secondary" + Prefs.Instance.GetCurrSecondaryGun());
+            secondaryGun = PoolManager.SpawnObject(goPrefab).GetComponent<AbstractGun>();
+            secondaryGun.noBullet = secondaryGun.dataGun.totalBullet;
+            secondaryGun.noBulletActive = Mathf.Min(secondaryGun.dataGun.noBulletPerCharge, secondaryGun.noBullet);
+            secondaryGun.transform.SetParent(transform);
+            secondaryGun.transform.localPosition = Vector3.zero;
+            secondaryGun.gameObject.SetActive(false);
         }
         {
             dataGrenade = Resources.Load<DataGrenade>("Grenade/Grenade");
@@ -158,7 +160,7 @@ public class Player : MonoBehaviour, IPoolObj
     {
         playerState = PLAYER_STATE.CHARGE;
         yield return new WaitForSeconds(1f);
-        currGun.noBulletActive = currGun.dataGun.noArmoPerCharge;
+        currGun.noBulletActive = currGun.dataGun.noBulletPerCharge;
         gameManager.UpdateUiChangeGun();
         playerState = PLAYER_STATE.FREE;
 

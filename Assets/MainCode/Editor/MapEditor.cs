@@ -91,8 +91,8 @@ public class MapEditor : Editor
                 EditorGUI.indentLevel = 2;
 
                 dataMap.listLineMoveShooting[i].startP = EditorGUILayout.Vector3Field("Start Point", dataMap.listLineMoveShooting[i].startP);
-                dataMap.listLineMoveShooting[i].endP = EditorGUILayout.Vector3Field("Start Point", dataMap.listLineMoveShooting[i].endP);
-                dataMap.listLineMoveShooting[i].coverP = EditorGUILayout.Vector3Field("Start Point", dataMap.listLineMoveShooting[i].coverP);
+                dataMap.listLineMoveShooting[i].endP = EditorGUILayout.Vector3Field("End Point", dataMap.listLineMoveShooting[i].endP);
+                dataMap.listLineMoveShooting[i].coverP = EditorGUILayout.Vector3Field("Cover Point", dataMap.listLineMoveShooting[i].coverP);
                 dataMap.listLineMoveShooting[i].radius = EditorGUILayout.FloatField("Radius", dataMap.listLineMoveShooting[i].radius);
             }
 
@@ -164,11 +164,11 @@ public class MapEditor : Editor
                     {
                         if (j< dataMap.listFakeTurnSpawn[i].listEnemyBase.Length)
                         {
-                            tmpDataTurn[i] = dataMap.listFakeTurnSpawn[i].listEnemyBase[j];
+                            tmpDataTurn[j] = dataMap.listFakeTurnSpawn[i].listEnemyBase[j];
                         }
                         else
                         {
-                            tmpDataTurn[i] = new FullEnemyBase();
+                            tmpDataTurn[j] = new FullEnemyBase();
                         }
                         
                     }
@@ -232,7 +232,7 @@ public class MapEditor : Editor
                         dataMap.listFakeTurnSpawn[i].listEnemyBase[j].moveSpeed = EditorGUILayout.FloatField("Move Speed", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].moveSpeed);
                         dataMap.listFakeTurnSpawn[i].listEnemyBase[j].speedAttack = EditorGUILayout.FloatField("Atk Speed", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].speedAttack);
                         dataMap.listFakeTurnSpawn[i].listEnemyBase[j].damageAttack = EditorGUILayout.FloatField("Damage", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].damageAttack);
-                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].idLineMoveShoot = EditorGUILayout.IntField("Speed", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].idLineMoveShoot);
+                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].idLineMoveShoot = EditorGUILayout.IntField("Id Line", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].idLineMoveShoot);
 
                     }
                 }
