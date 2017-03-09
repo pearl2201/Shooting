@@ -8,7 +8,7 @@ using UnityEngine;
 public class EnemyMoveShootBullet : AbstractEnemy
 {
     [SerializeField]
-    private ParticleSystem parShoot;
+    private string parShoot;
     [HideInInspector]
     public DataAttackEnemy mDataAttack;
     [HideInInspector]
