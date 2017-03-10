@@ -28,7 +28,7 @@ public class RelativeAimStrategy : AbstractStrategyAimGun
             float deltaY = (-oldPosition.y + currPosition.y) * Constants.DEFAULT_RELATIVE_AIM;
 
             posGun = player.currGun.transform.position;
-            posGun.x += deltaX;
+            posGun.x -= deltaX;
             posGun.y += deltaY;
             posGun.x = Mathf.Clamp(posGun.x, -Constants.MARGIN_GUN_X, Constants.MARGIN_GUN_X);
             posGun.y = Mathf.Clamp(posGun.y, -Constants.MARGIN_GUN_Y, Constants.MARGIN_GUN_Y);
