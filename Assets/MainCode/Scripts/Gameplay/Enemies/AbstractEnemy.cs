@@ -31,7 +31,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IPoolObj
     protected string parTakeDamage;
     [SerializeField]
     protected string parDeath;
-    
+
     void Start()
     {
 
@@ -44,20 +44,38 @@ public abstract class AbstractEnemy : MonoBehaviour, IPoolObj
         timeWait = UnityEngine.Random.Range(0, 2f);
     }
 
-    public void GetHit(EnemyComponents component, int damage)
+    public void GetHit(EnemyComponents component, int damage, Vector3 hitPoint)
     {
+
         if (component.typeComponent == TYPE_COMPONENT_ENEMY.HEADER)
         {
             dataPeople.hp -= damage * 2;
+            Debug.Log("get hit: head: " + dataPeople.hp);
         }
         else if (component.typeComponent == TYPE_COMPONENT_ENEMY.BODY)
         {
             dataPeople.hp -= damage;
+            Debug.Log("get hit: body: " + dataPeople.hp);
+            {
+
+            }
         }
+
 
         if (dataPeople.hp <= 0)
         {
+            ParticleSystem ps = PoolManager.SpawnObject(PoolPrefabLookupManager.LookPrefab("BigBlood")).GetComponent<ParticleSystem>();
+            ps.transform.position = hitPoint;
+            ps.Play();
+            AutoPool.AttackPool(ps.gameObject, ps.duration);
             Dying();
+        }
+        else
+        {
+            ParticleSystem ps = PoolManager.SpawnObject(PoolPrefabLookupManager.LookPrefab("SmallBlood")).GetComponent<ParticleSystem>();
+            ps.transform.position = hitPoint;
+            ps.Play();
+            AutoPool.AttackPool(ps.gameObject, ps.duration);
         }
     }
 

@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
         listPrefabEnemyInit = new List<AbstractEnemy>();
         listCurrEnemy = new List<AbstractEnemy>();
         currGameState = GAME_STATE.SETUP;
+        currAim = relativeAimStg;
         SetupInfo();
     }
 
@@ -331,6 +332,10 @@ public class GameManager : MonoBehaviour
         txtNoEnemy.text = noEnemy.ToString();
     }
 
+    public void AttackPlayer(int damage)
+    {
+        player.BeAttack(damage);
+    }
 
 
     public void ClickUseGrenade()

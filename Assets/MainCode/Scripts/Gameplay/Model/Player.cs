@@ -65,6 +65,7 @@ public class Player : MonoBehaviour, IPoolObj
                 currGun = primaryGun;
             }
         }
+        playerState = PLAYER_STATE.FREE;
     }
 
     public void Reset()
@@ -91,6 +92,7 @@ public class Player : MonoBehaviour, IPoolObj
 
     IEnumerator IEShooting()
     {
+        Debug.Log("shoot");
         playerState = PLAYER_STATE.SHOOT;
         yield return new WaitForSeconds(Constants.DEFAULT_SPEED_SHOOTING * (10 - currGun.dataGun.firerate) / 10);
         RaycastHit hit;
@@ -100,10 +102,12 @@ public class Player : MonoBehaviour, IPoolObj
         {
             if (hit.collider.tag == "Enemy")
             {
+                Debug.Log("hit");
+               
                 EnemyComponents enemyComponents = hit.collider.GetComponent<EnemyComponents>();
                 if (enemyComponents != null)
                 {
-                    enemyComponents.GetHit(currGun.dataGun.damage);
+                    enemyComponents.GetHit(currGun.dataGun.damage, hit.point);
                 }
             }
         }
@@ -191,19 +195,22 @@ public class Player : MonoBehaviour, IPoolObj
 
     public void BeAttack(int damage)
     {
+        Debug.Log("be attack");
         hp -= damage;
+        if (crtBeAttacked != null)
+        {
+            StopCoroutine(crtBeAttacked);
+        }
+        crtBeAttacked = IEBeAttack();
+        StartCoroutine(crtBeAttacked);
+
         if (hp <= 0)
         {
             gameManager.LoseGame();
         }
         else
         {
-            if (crtBeAttacked != null)
-            {
-                StopCoroutine(crtBeAttacked);
-            }
-            crtBeAttacked = IEBeAttack();
-            StopCoroutine(crtBeAttacked);
+
 
         }
     }
@@ -211,7 +218,7 @@ public class Player : MonoBehaviour, IPoolObj
     IEnumerator IEBeAttack()
     {
         sprBeAttacked.gameObject.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.4f);
         sprBeAttacked.gameObject.SetActive(false);
     }
 

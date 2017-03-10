@@ -10,9 +10,9 @@ public class EnemyComponents : MonoBehaviour
 
     public TYPE_COMPONENT_ENEMY typeComponent;
 
-    public void GetHit(int damage)
+    public void GetHit(int damage, Vector3 posAtk)
     {
-        abstractEnemy.GetHit(this, damage);
+        abstractEnemy.GetHit(this, damage, posAtk);
     }
 
 }
