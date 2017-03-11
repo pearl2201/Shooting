@@ -77,6 +77,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IPoolObj
             dataPeople.hp -= damage;
             if (dataPeople.hp <= 0)
             {
+                SoundManager.Instance.Play("enemyPain1");
                 ParticleSystem ps = PoolManager.SpawnObject(PoolPrefabLookupManager.LookPrefab("BigBlood")).GetComponent<ParticleSystem>();
                 ps.transform.position = hitPoint;
                 ps.Play();
@@ -88,6 +89,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IPoolObj
             }
             else
             {
+                SoundManager.Instance.Play("enemyPain1");
                 ParticleSystem ps = PoolManager.SpawnObject(PoolPrefabLookupManager.LookPrefab("SmallBlood")).GetComponent<ParticleSystem>();
                 ps.transform.position = hitPoint;
                 ps.Play();

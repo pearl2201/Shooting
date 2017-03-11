@@ -103,21 +103,40 @@ public class Player : MonoBehaviour, IPoolObj
     {
         Debug.Log("shoot");
         playerState = PLAYER_STATE.SHOOT;
+        if (currTypeGun == TYPE_PLAYER_GUN.PRIMARY_GUN)
+        {
+            SoundManager.Instance.Play("primaryShot");
+        }
+        else
+        {
+            SoundManager.Instance.Play("primaryShot");
+        }
         yield return new WaitForSeconds(Constants.DEFAULT_SPEED_SHOOTING * (10 - currGun.dataGun.firerate) / 10);
+        SoundManager.Instance.Play("explo");
+        Vector3 oriTieuCu = currGun.tieucu.transform.position;
+        float x = UnityEngine.Random.Range(-Constants.DEFAULT_DISTANCE_ACCURACY * (10 - currGun.dataGun.accuracy), Constants.DEFAULT_DISTANCE_ACCURACY * (10 - currGun.dataGun.accuracy));
+        float y = UnityEngine.Random.Range(-Constants.DEFAULT_DISTANCE_ACCURACY * (10 - currGun.dataGun.accuracy), Constants.DEFAULT_DISTANCE_ACCURACY * (10 - currGun.dataGun.accuracy));
+        // currGun.transform.position += new Vector3(x, y, 0);
+        iTween.MoveTo(currGun.gameObject, iTween.Hash("position", currGun.transform.position + new Vector3(x, y, 0), "time", 0.2f, "easetype", iTween.EaseType.easeOutElastic));
         RaycastHit hit;
 
-        if (Physics.Raycast(currGun.tieucu.transform.position, (currGun.tieucu.transform.position - gameManager.currAim.pCam.transform.position) * 10, out hit))
-
+        if (Physics.Raycast(oriTieuCu, (oriTieuCu - gameManager.currAim.pCam.transform.position) * 10, out hit))
         {
             if (hit.collider.tag == "Enemy")
             {
                 Debug.Log("hit");
-               
+
                 EnemyComponents enemyComponents = hit.collider.GetComponent<EnemyComponents>();
                 if (enemyComponents != null)
                 {
-                    enemyComponents.GetHit(currGun.dataGun.damage, hit.point,false);
+                    enemyComponents.GetHit(currGun.dataGun.damage, hit.point, false);
                 }
+            }
+            else
+            {
+                GameObject go = PoolManager.SpawnObject(PoolPrefabLookupManager.LookPrefab("hit"));
+                go.transform.position = hit.point;
+                AutoPool.AttackPool(go, 2f);
             }
         }
         if (currTypeGun == TYPE_PLAYER_GUN.PRIMARY_GUN)
@@ -139,7 +158,10 @@ public class Player : MonoBehaviour, IPoolObj
             currGun.noBulletActive--;
             gameManager.UpdateUiChangeGun();
         }
+        // Move gun:
 
+     
+       
         playerState = PLAYER_STATE.FREE;
     }
 
@@ -155,8 +177,9 @@ public class Player : MonoBehaviour, IPoolObj
     IEnumerator IEShootGrenade()
     {
         playerState = PLAYER_STATE.SHOOT;
+        SoundManager.Instance.Play("primaryShot");
         yield return new WaitForSeconds(Constants.DEFAULT_SPEED_SHOOTING * (10 - dataGrenade.firerate) / 10);
-        Vector3 speedGrenade = Vector3.Normalize((currGun.tieucu.transform.position - gameManager.currAim.pCam.transform.position))*20;
+        Vector3 speedGrenade = Vector3.Normalize((currGun.tieucu.transform.position - gameManager.currAim.pCam.transform.position)) * 20;
         PlayerGrenade pGrenade = PoolManager.SpawnObject(PoolPrefabLookupManager.LookPrefab("PlayerGrenade")).GetComponent<PlayerGrenade>();
         pGrenade.Setup(gameManager, speedGrenade, currGun.tieucu.transform.position);
         noGrenade--;
@@ -208,7 +231,9 @@ public class Player : MonoBehaviour, IPoolObj
     public void BeAttack(int damage)
     {
         Debug.Log("be attack");
+        SoundManager.Instance.Play("explo");
         hp -= damage;
+        gameManager.UpdateUIHp();
         if (crtBeAttacked != null)
         {
             StopCoroutine(crtBeAttacked);
@@ -219,16 +244,25 @@ public class Player : MonoBehaviour, IPoolObj
         if (hp <= 0)
         {
             gameManager.LoseGame();
+            SoundManager.Instance.Play("playerDeath");
         }
         else
         {
-
+            SoundManager.Instance.Play("playerHurt");
 
         }
     }
 
     IEnumerator IEBeAttack()
     {
+        {
+            iTween itScript = gameManager.currAim.pCam.GetComponent<iTween>();
+            if (itScript != null)
+            {
+                Destroy(itScript);
+            }
+        }
+        iTween.ShakePosition(gameManager.currAim.pCam.gameObject, new Vector3(5f,5f,5f), 0.4f);
         sprBeAttacked.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.4f);
         sprBeAttacked.gameObject.SetActive(false);

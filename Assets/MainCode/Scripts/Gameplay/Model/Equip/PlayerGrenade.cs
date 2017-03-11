@@ -32,6 +32,7 @@ public class PlayerGrenade : MonoBehaviour, IPoolObj
     private void Explo()
     {
         isExplo = true;
+        SoundManager.Instance.Play("explo");
         List<AbstractEnemy> listAbstractEnemyExplo = new List<AbstractEnemy>();
         for (int i = 0; i < gameManager.listFullObj.Count; i++)
         {

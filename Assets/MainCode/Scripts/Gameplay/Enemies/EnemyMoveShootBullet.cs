@@ -16,12 +16,13 @@ public class EnemyMoveShootBullet : AbstractEnemy
     [HideInInspector]
     public Vector3 realCoverPoint;
 
-    public void Setup(GameManager gameManager, DataAttackEnemy mDataAttack, LineMoveShoot lineMoveShoot)
+    public void Setup(GameManager gameManager, DataAttackEnemy mDataAttack, LineMoveShoot _lineMoveShoot)
     {
         Setup(gameManager, mDataAttack);
+        Debug.Log("setup again");
         this.mDataAttack = (DataAttackEnemy)dataPeople;
-        this.lineMoveShoot = lineMoveShoot;
-        realCoverPoint = lineMoveShoot.coverP;
+        this.lineMoveShoot = _lineMoveShoot;
+        realCoverPoint = _lineMoveShoot.coverP;
         phaze = ENEMY_PHAZE.WAIT;
         StartCoroutine(IEAction());
     }
@@ -36,6 +37,7 @@ public class EnemyMoveShootBullet : AbstractEnemy
 
     IEnumerator MoveIn()
     {
+        phaze = ENEMY_PHAZE.RUN;
         // set animation
         {
             AnimationClip clip = mainAnim.GetClip(nameAnimRun);
@@ -43,7 +45,7 @@ public class EnemyMoveShootBullet : AbstractEnemy
             mainAnim.Play();
         }
 
-
+        SoundManager.Instance.Play("enemyRoar1");
         if (lineMoveShoot.startP.x > realCoverPoint.x)
         {
             Debug.Log("set rotate right");
@@ -55,6 +57,7 @@ public class EnemyMoveShootBullet : AbstractEnemy
             Debug.Log("set rotate left");
             transform.localEulerAngles = new Vector3(0, 90, 0);
         }
+        transform.position = lineMoveShoot.startP;
         float timeMove = Vector3.Magnitude(realCoverPoint - lineMoveShoot.startP) / mDataAttack.moveSpeed;
         Debug.Log("moveSpeed: " + mDataAttack.moveSpeed);
         iTween.MoveTo(gameObject, iTween.Hash("position", realCoverPoint, "time", timeMove, "easetype", iTween.EaseType.linear));
@@ -73,6 +76,8 @@ public class EnemyMoveShootBullet : AbstractEnemy
 
     IEnumerator MoveOut()
     {
+        phaze = ENEMY_PHAZE.RUN;
+        SoundManager.Instance.Play("enemyRoar1");
         {
             AnimationClip clip = mainAnim.GetClip(nameAnimRun);
             mainAnim.clip = clip;
@@ -102,6 +107,7 @@ public class EnemyMoveShootBullet : AbstractEnemy
     IEnumerator Attack()
     {
         // set animation
+        phaze = ENEMY_PHAZE.PLAY;
         bool isAttack = true;
         while (isAttack)
         {
@@ -110,9 +116,11 @@ public class EnemyMoveShootBullet : AbstractEnemy
             // set idle
 
             // yield 
+            yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 2f));
 
-            isAttack = UnityEngine.Random.Range(0, 3) == 0;
             {
+                SoundManager.Instance.Play("enemyAttack1");
+                SoundManager.Instance.Play("secondaryShot");
                 AnimationClip clip = mainAnim.GetClip(nameAnimAttack);
                 mainAnim.clip = clip;
                 mainAnim.Play();
@@ -121,7 +129,7 @@ public class EnemyMoveShootBullet : AbstractEnemy
                 yield return new WaitForSeconds(clip.length * 0.5f);
             }
 
-            bool isReAttack = UnityEngine.Random.Range(0, 3) == 0;
+            bool isReAttack = UnityEngine.Random.Range(0, 10) != 0;
             if (isReAttack)
             {
                 {
@@ -129,7 +137,7 @@ public class EnemyMoveShootBullet : AbstractEnemy
                     clip.wrapMode = WrapMode.Loop;
                     mainAnim.clip = clip;
                     mainAnim.Play();
-                    yield return new WaitForSeconds(clip.length);
+                    yield return new WaitForSeconds(UnityEngine.Random.Range(1f, 2f));
                 }
             }
             else
@@ -139,6 +147,7 @@ public class EnemyMoveShootBullet : AbstractEnemy
 
         }
         yield return null;
+
     }
 
     public override void Dying()
@@ -157,6 +166,7 @@ public class EnemyMoveShootBullet : AbstractEnemy
 
         phaze = ENEMY_PHAZE.DYING;
         {
+            SoundManager.Instance.Play("enemyDeath1");
             AnimationClip clip = mainAnim.GetClip(nameAnimDeath);
             mainAnim.clip = clip;
             mainAnim.Play();

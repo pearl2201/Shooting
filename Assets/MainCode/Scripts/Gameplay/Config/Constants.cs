@@ -12,6 +12,7 @@ public class Constants
     public static float MARGIN_GUN_Y = 6f;
 
     public static float DEFAULT_SPEED_SHOOTING = 0.5f;
+    public static float DEFAULT_DISTANCE_ACCURACY = 0.02f;
 }
 
 
