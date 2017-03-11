@@ -42,7 +42,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IPoolObj
     {
         this.gameManager = gameManager;
         this.dataPeople = data.Clone();
-        timeWait = UnityEngine.Random.Range(0, 2f);
+        timeWait = UnityEngine.Random.Range(0, 5f);
     }
 
     public void GetHit(EnemyComponents component, int damage, Vector3 hitPoint, bool isGrenade)

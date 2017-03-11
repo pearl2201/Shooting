@@ -45,7 +45,7 @@ public enum TYPE_ENEMY : int
 
 public enum GAME_STATE
 {
-    PAUSE, PLAY, END, START, SETUP
+    PAUSE, PLAY, END, START, SETUP,TRANSFER
 }
 
 

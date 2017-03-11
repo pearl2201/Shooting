@@ -260,12 +260,18 @@ public class Player : MonoBehaviour, IPoolObj
             if (itScript != null)
             {
                 Destroy(itScript);
+            }else
+            {
+                iTween.ShakePosition(gameManager.currAim.pCam.gameObject, new Vector3(1f, 1f, 1f), 0.4f);
             }
         }
-        iTween.ShakePosition(gameManager.currAim.pCam.gameObject, new Vector3(5f,5f,5f), 0.4f);
+       
+     
         sprBeAttacked.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.4f);
-        sprBeAttacked.gameObject.SetActive(false);
+      
+       
+       sprBeAttacked.gameObject.SetActive(false);
     }
 
 

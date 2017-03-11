@@ -116,11 +116,11 @@ public class EnemyMoveShootBullet : AbstractEnemy
             // set idle
 
             // yield 
-            yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 2f));
+            yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 5f));
 
             {
                 SoundManager.Instance.Play("enemyAttack1");
-                SoundManager.Instance.Play("secondaryShot");
+             
                 AnimationClip clip = mainAnim.GetClip(nameAnimAttack);
                 mainAnim.clip = clip;
                 mainAnim.Play();
@@ -129,7 +129,7 @@ public class EnemyMoveShootBullet : AbstractEnemy
                 yield return new WaitForSeconds(clip.length * 0.5f);
             }
 
-            bool isReAttack = UnityEngine.Random.Range(0, 10) != 0;
+            bool isReAttack = UnityEngine.Random.Range(0, 100) != 0;
             if (isReAttack)
             {
                 {

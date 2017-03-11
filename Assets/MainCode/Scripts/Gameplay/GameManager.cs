@@ -98,9 +98,19 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    SetupPhaze(turnPhaze);
+                    currGameState = GAME_STATE.TRANSFER;
+                    cdrUpdate = 0;
+                 
                 }
             }
+        }else if (currGameState == GAME_STATE.TRANSFER)
+        {
+            cdrUpdate += Time.deltaTime;
+            if (cdrUpdate>=2f)
+            {
+                SetupPhaze(turnPhaze);
+            }
+          
         }
     }
 
