@@ -56,6 +56,7 @@ public class EnemyMoveShootBullet : AbstractEnemy
             transform.localEulerAngles = new Vector3(0, 90, 0);
         }
         float timeMove = Vector3.Magnitude(realCoverPoint - lineMoveShoot.startP) / mDataAttack.moveSpeed;
+        Debug.Log("moveSpeed: " + mDataAttack.moveSpeed);
         iTween.MoveTo(gameObject, iTween.Hash("position", realCoverPoint, "time", timeMove, "easetype", iTween.EaseType.linear));
         yield return new WaitForSeconds(timeMove);
         {
