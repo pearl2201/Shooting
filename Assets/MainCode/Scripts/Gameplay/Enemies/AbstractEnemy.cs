@@ -49,19 +49,29 @@ public abstract class AbstractEnemy : MonoBehaviour, IPoolObj
 
         if (component.typeComponent == TYPE_COMPONENT_ENEMY.HEADER)
         {
-            dataPeople.hp -= damage * 2;
+            GetHit(damage * 2, hitPoint);
             Debug.Log("get hit: head: " + dataPeople.hp);
         }
         else if (component.typeComponent == TYPE_COMPONENT_ENEMY.BODY)
         {
-            dataPeople.hp -= damage;
+            GetHit(damage, hitPoint);
             Debug.Log("get hit: body: " + dataPeople.hp);
-            {
-
-            }
+           
         }
 
 
+
+    }
+
+    public void GetHit(int damage)
+    {
+        GetHit(damage, transform.position);
+    }
+
+    public void GetHit(int damage, Vector3 hitPoint)
+    {
+        Debug.Log("Enemy: " + gameObject.name + " take damge: " + hitPoint);
+        dataPeople.hp -= damage;
         if (dataPeople.hp <= 0)
         {
             ParticleSystem ps = PoolManager.SpawnObject(PoolPrefabLookupManager.LookPrefab("BigBlood")).GetComponent<ParticleSystem>();
@@ -78,7 +88,6 @@ public abstract class AbstractEnemy : MonoBehaviour, IPoolObj
             AutoPool.AttackPool(ps.gameObject, ps.duration);
         }
     }
-
     public abstract void Dying();
 
     public virtual void Reset()

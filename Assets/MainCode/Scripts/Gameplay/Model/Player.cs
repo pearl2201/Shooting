@@ -51,21 +51,30 @@ public class Player : MonoBehaviour, IPoolObj
             secondaryGun.gameObject.SetActive(false);
         }
         {
-            dataGrenade = Resources.Load<DataGrenade>("Grenade/Grenade");
-            dataEquipment = Resources.Load<DataEquipment>("Equipment/" + Prefs.Instance.GetCurrArmor());
+            dataGrenade = Resources.Load<DataGrenade>("DataGrenade/Grenade");
+            dataEquipment = Resources.Load<DataEquipment>("DataEquipment/" + Prefs.Instance.GetCurrArmor());
             noGrenade = Prefs.Instance.GetNoGrenade();
         }
         {
             if (primaryGun.noBullet == 0)
             {
                 currGun = secondaryGun;
+                currTypeGun = TYPE_PLAYER_GUN.SECONDARY_GUN;
             }
             else
             {
                 currGun = primaryGun;
+                currTypeGun = TYPE_PLAYER_GUN.PRIMARY_GUN;
             }
         }
         playerState = PLAYER_STATE.FREE;
+
+        {
+            // fake data:
+            noGrenade = 10;
+        }
+
+
     }
 
     public void Reset()
@@ -147,6 +156,9 @@ public class Player : MonoBehaviour, IPoolObj
     {
         playerState = PLAYER_STATE.SHOOT;
         yield return new WaitForSeconds(Constants.DEFAULT_SPEED_SHOOTING * (10 - dataGrenade.firerate) / 10);
+        Vector3 speedGrenade = Vector3.Normalize((currGun.tieucu.transform.position - gameManager.currAim.pCam.transform.position))*20;
+        PlayerGrenade pGrenade = PoolManager.SpawnObject(PoolPrefabLookupManager.LookPrefab("PlayerGrenade")).GetComponent<PlayerGrenade>();
+        pGrenade.Setup(gameManager, speedGrenade, currGun.tieucu.transform.position);
         noGrenade--;
         gameManager.UpdateUIGrenade();
         playerState = PLAYER_STATE.FREE;

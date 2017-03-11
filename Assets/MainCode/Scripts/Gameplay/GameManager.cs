@@ -18,8 +18,9 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public GAME_STATE oldGameState;
 
-    private List<AbstractEnemy> listCurrEnemy;
-
+    private List<AbstractEnemy> listCurrEnemy; // only count real attack enemy
+    [HideInInspector]
+    public List<AbstractEnemy> listFullObj; // count all enemy can take damage;
     [SerializeField]
     private EndGamePopup popupEndGame;
     [SerializeField]
@@ -38,7 +39,7 @@ public class GameManager : MonoBehaviour
     private int vStart, noEnemy;
     private float cdrUpdate;
     private List<AbstractEnemy> listPrefabEnemyInit;
-  
+
 
     public Transform rootEnemy;
 
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
     {
         listPrefabEnemyInit = new List<AbstractEnemy>();
         listCurrEnemy = new List<AbstractEnemy>();
+        listFullObj = new List<AbstractEnemy>();
         currGameState = GAME_STATE.SETUP;
         currAim = relativeAimStg;
         SetupInfo();
@@ -124,6 +126,10 @@ public class GameManager : MonoBehaviour
         }
         player.Setup(this);
         infoGame = new InfoGame(noEnemy);
+        UpdateUiChangeGun();
+        UpdateUIGrenade();
+        UpdateUIHp();
+        UpdateUINoEnemy();
         cdrUpdate = 0;
         vStart = 3;
         txtStart.text = vStart.ToString();
@@ -158,6 +164,7 @@ public class GameManager : MonoBehaviour
                     enemy.transform.SetParent(rootEnemy);
                     enemy.Setup(this, dt, dataMap.listLineMoveShooting[dt.idLineMoveShoot]);
                     listCurrEnemy.Add(enemy);
+                    listFullObj.Add(enemy);
                 }
                 else if (dt.typeEnemyAtk == TYPE_ENEMY_ATTACK.SHOOT_GRENADE)
                 {
@@ -184,6 +191,7 @@ public class GameManager : MonoBehaviour
                         enemy.transform.SetParent(rootEnemy);
                         enemy.Setup(this, dt, dataMap.listLineMoveShooting[idLineMoving]);
                         listCurrEnemy.Add(enemy);
+                        listFullObj.Add(enemy);
                     }
                     else if (dt.typeEnemyAtk == TYPE_ENEMY_ATTACK.SHOOT_GRENADE)
                     {
@@ -203,6 +211,7 @@ public class GameManager : MonoBehaviour
                 enemy.transform.position = dataMap.listLineMoveShooting[dt.idLineMove].startP;
                 enemy.transform.SetParent(rootEnemy);
                 enemy.Setup(this, dt, dataMap.listLineMoveShooting[dt.idLineMove]);
+                listFullObj.Add(enemy);
 
             }
             else if (listEnemyGen[i].typeEnemy == TYPE_ENEMY.STATIC_BOMB)
@@ -213,6 +222,7 @@ public class GameManager : MonoBehaviour
                 enemy.transform.position = dt.pos;
                 enemy.transform.SetParent(rootEnemy);
                 enemy.Setup(this, dt);
+                listFullObj.Add(enemy);
             }
             else if (listEnemyGen[i].typeEnemy == TYPE_ENEMY.STATIC_DEF)
             {
@@ -222,6 +232,7 @@ public class GameManager : MonoBehaviour
                 enemy.transform.position = dt.pos;
                 enemy.transform.SetParent(rootEnemy);
                 enemy.Setup(this, dt);
+                listFullObj.Add(enemy);
             }
             else if (listEnemyGen[i].typeEnemy == TYPE_ENEMY.STATIC_GOLD)
             {
@@ -231,6 +242,7 @@ public class GameManager : MonoBehaviour
                 enemy.transform.position = dt.pos;
                 enemy.transform.SetParent(rootEnemy);
                 enemy.Setup(this, dt);
+                listFullObj.Add(enemy);
             }
             else if (listEnemyGen[i].typeEnemy == TYPE_ENEMY.STATIC_HP)
             {
@@ -240,6 +252,7 @@ public class GameManager : MonoBehaviour
                 enemy.transform.position = dt.pos;
                 enemy.transform.SetParent(rootEnemy);
                 enemy.Setup(this, dt);
+                listFullObj.Add(enemy);
             }
         }
 
@@ -277,8 +290,19 @@ public class GameManager : MonoBehaviour
 
     public void RemoveEnemy(AbstractEnemy enemy)
     {
-        if (listCurrEnemy.Contains(enemy)) ;
-        listCurrEnemy.Remove(enemy);
+        if (listCurrEnemy.Contains(enemy))
+        {
+            listCurrEnemy.Remove(enemy);
+        }
+        if (listFullObj.Contains(enemy))
+        {
+            listFullObj.Remove(enemy);
+        }
+        else
+        {
+            Debug.Log("Error Enemy");
+        }
+
         PoolManager.Instance.releaseObject(enemy.gameObject);
     }
 
@@ -313,7 +337,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateUiChangeGun()
     {
-        txtBullet.text = player.currGun.noBulletActive + "//" + player.currGun.noBullet;
+        txtBullet.text = player.currGun.noBulletActive + "/" + player.currGun.noBullet;
     }
 
     public void UpdateUIGrenade()
