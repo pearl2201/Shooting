@@ -116,7 +116,7 @@ public class Player : MonoBehaviour, IPoolObj
                 EnemyComponents enemyComponents = hit.collider.GetComponent<EnemyComponents>();
                 if (enemyComponents != null)
                 {
-                    enemyComponents.GetHit(currGun.dataGun.damage, hit.point);
+                    enemyComponents.GetHit(currGun.dataGun.damage, hit.point,false);
                 }
             }
         }

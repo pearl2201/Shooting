@@ -31,7 +31,7 @@ public class EnemyMoveShootBullet : AbstractEnemy
         yield return new WaitForSeconds(timeWait);
         yield return StartCoroutine(MoveIn());
         yield return StartCoroutine(Attack());
-        // yield return StartCoroutine(MoveOut());
+        yield return StartCoroutine(MoveOut());
     }
 
     IEnumerator MoveIn()
@@ -62,6 +62,7 @@ public class EnemyMoveShootBullet : AbstractEnemy
         {
             AnimationClip clip = mainAnim.GetClip(nameAnimIdle);
             mainAnim.clip = clip;
+            clip.wrapMode = WrapMode.Loop;
             mainAnim.Play();
 
         }
@@ -72,10 +73,30 @@ public class EnemyMoveShootBullet : AbstractEnemy
 
     IEnumerator MoveOut()
     {
+        {
+            AnimationClip clip = mainAnim.GetClip(nameAnimRun);
+            mainAnim.clip = clip;
+            mainAnim.Play();
+        }
+
+
+        if (lineMoveShoot.endP.x < realCoverPoint.x)
+        {
+            Debug.Log("set rotate right");
+            transform.localEulerAngles = new Vector3(0, -90, 0);
+
+        }
+        else
+        {
+            Debug.Log("set rotate left");
+            transform.localEulerAngles = new Vector3(0, 90, 0);
+        }
         // set animation
-        float timeMove = Vector3.SqrMagnitude(realCoverPoint - lineMoveShoot.endP) / mDataAttack.moveSpeed;
-        iTween.MoveTo(gameObject, lineMoveShoot.endP, timeMove);
-        yield return timeMove;
+        float timeMove = Mathf.Abs(Vector3.Magnitude(realCoverPoint - lineMoveShoot.endP)) / mDataAttack.moveSpeed;
+        iTween.MoveTo(gameObject, iTween.Hash("position", lineMoveShoot.endP, "time", timeMove, "easetype", iTween.EaseType.linear));
+        yield return new WaitForSeconds(timeMove);
+        phaze = ENEMY_PHAZE.FINISH;
+        gameManager.RemoveEnemy(this);
     }
 
     IEnumerator Attack()
@@ -95,7 +116,7 @@ public class EnemyMoveShootBullet : AbstractEnemy
                 AnimationClip clip = mainAnim.GetClip(nameAnimAttack);
                 mainAnim.clip = clip;
                 mainAnim.Play();
-                yield return new WaitForSeconds(clip.length*0.5f);
+                yield return new WaitForSeconds(clip.length * 0.5f);
                 gameManager.AttackPlayer((int)mDataAttack.damageAttack);
                 yield return new WaitForSeconds(clip.length * 0.5f);
             }
@@ -105,6 +126,7 @@ public class EnemyMoveShootBullet : AbstractEnemy
             {
                 {
                     AnimationClip clip = mainAnim.GetClip(nameAnimIdle);
+                    clip.wrapMode = WrapMode.Loop;
                     mainAnim.clip = clip;
                     mainAnim.Play();
                     yield return new WaitForSeconds(clip.length);
@@ -143,7 +165,7 @@ public class EnemyMoveShootBullet : AbstractEnemy
         }
         phaze = ENEMY_PHAZE.FINISH;
         gameManager.RemoveEnemy(this);
-        
+
 
     }
 }

@@ -180,16 +180,24 @@ public class GameManager : MonoBehaviour
             {
                 DataMoveRandShoot dt = (DataMoveRandShoot)listEnemyGen[i];
                 GameObject prefab = null;
+                List<int> listLine = new List<int>();
+                for (int k =0; k<dataMap.listLineMoveShooting.Length; k++)
+                {
+                    listLine.Add(k);
+                }
                 for (int j = 0; j < dt.noSpawn; j++)
                 {
                     if (dt.typeEnemyAtk == TYPE_ENEMY_ATTACK.SHOOT)
                     {
                         prefab = PoolPrefabLookupManager.LookPrefab("AttackShoot" + dt.idEnemy);
                         EnemyMoveShootBullet enemy = PoolManager.Instance.spawnObject(prefab).GetComponent<EnemyMoveShootBullet>();
-                        int idLineMoving = UnityEngine.Random.Range(0, dataMap.listLineMoveShooting.Length);
-                        enemy.transform.position = dataMap.listLineMoveShooting[idLineMoving].startP;
+                        int idLineMoving = UnityEngine.Random.Range(0, listLine.Count);
+                        LineMoveShoot lineAtk = dataMap.listLineMoveShooting[listLine[idLineMoving]];
+                        listLine.Remove(idLineMoving);
+
+                        enemy.transform.position = lineAtk.startP;
                         enemy.transform.SetParent(rootEnemy);
-                        enemy.Setup(this, dt, dataMap.listLineMoveShooting[idLineMoving]);
+                        enemy.Setup(this, dt,lineAtk);
                         listCurrEnemy.Add(enemy);
                         listFullObj.Add(enemy);
                     }
@@ -293,6 +301,7 @@ public class GameManager : MonoBehaviour
         if (listCurrEnemy.Contains(enemy))
         {
             listCurrEnemy.Remove(enemy);
+            noEnemy--;
         }
         if (listFullObj.Contains(enemy))
         {
@@ -304,6 +313,7 @@ public class GameManager : MonoBehaviour
         }
 
         PoolManager.Instance.releaseObject(enemy.gameObject);
+        UpdateUINoEnemy();
     }
 
     public void AddHp(int hp)

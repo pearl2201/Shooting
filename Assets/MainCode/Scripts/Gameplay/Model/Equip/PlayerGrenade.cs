@@ -37,7 +37,7 @@ public class PlayerGrenade : MonoBehaviour, IPoolObj
         {
             if (Vector3.Distance(transform.position, gameManager.listFullObj[i].transform.position) < 10)
             {
-                gameManager.listFullObj[i].GetHit(dataGrenade.damage);
+                gameManager.listFullObj[i].GetHit(dataGrenade.damage,true);
             }
         }
         {

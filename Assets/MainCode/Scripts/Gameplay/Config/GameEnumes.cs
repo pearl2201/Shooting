@@ -56,7 +56,7 @@ public enum PLAYER_STATE
 
 public enum ENEMY_PHAZE
 {
-    WAIT, RUN, DYING,FINISH
+    WAIT, RUN, DYING, FINISH, PLAY
 }
 
 public enum TYPE_PLAYER_GUN

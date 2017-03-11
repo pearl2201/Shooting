@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using System.Collections;
 using UnityEngine;
 public abstract class AbstractEnemy : MonoBehaviour, IPoolObj
 {
@@ -44,50 +45,94 @@ public abstract class AbstractEnemy : MonoBehaviour, IPoolObj
         timeWait = UnityEngine.Random.Range(0, 2f);
     }
 
-    public void GetHit(EnemyComponents component, int damage, Vector3 hitPoint)
+    public void GetHit(EnemyComponents component, int damage, Vector3 hitPoint, bool isGrenade)
     {
 
         if (component.typeComponent == TYPE_COMPONENT_ENEMY.HEADER)
         {
-            GetHit(damage * 2, hitPoint);
+            GetHit(damage * 2, hitPoint, isGrenade);
             Debug.Log("get hit: head: " + dataPeople.hp);
         }
         else if (component.typeComponent == TYPE_COMPONENT_ENEMY.BODY)
         {
-            GetHit(damage, hitPoint);
+            GetHit(damage, hitPoint, isGrenade);
             Debug.Log("get hit: body: " + dataPeople.hp);
-           
+
         }
 
 
 
     }
 
-    public void GetHit(int damage)
+    public void GetHit(int damage, bool isGrenade)
     {
-        GetHit(damage, transform.position);
+        GetHit(damage, transform.position, isGrenade);
     }
 
-    public void GetHit(int damage, Vector3 hitPoint)
+    public void GetHit(int damage, Vector3 hitPoint, bool isGrenade)
     {
-        Debug.Log("Enemy: " + gameObject.name + " take damge: " + hitPoint);
-        dataPeople.hp -= damage;
-        if (dataPeople.hp <= 0)
+        if (phaze == ENEMY_PHAZE.PLAY)
         {
-            ParticleSystem ps = PoolManager.SpawnObject(PoolPrefabLookupManager.LookPrefab("BigBlood")).GetComponent<ParticleSystem>();
-            ps.transform.position = hitPoint;
-            ps.Play();
-            AutoPool.AttackPool(ps.gameObject, ps.duration);
-            Dying();
+            Debug.Log("Enemy: " + gameObject.name + " take damge: " + hitPoint);
+            dataPeople.hp -= damage;
+            if (dataPeople.hp <= 0)
+            {
+                ParticleSystem ps = PoolManager.SpawnObject(PoolPrefabLookupManager.LookPrefab("BigBlood")).GetComponent<ParticleSystem>();
+                ps.transform.position = hitPoint;
+                ps.Play();
+
+
+                AutoPool.AttackPool(ps.gameObject, ps.duration);
+
+                Dying();
+            }
+            else
+            {
+                ParticleSystem ps = PoolManager.SpawnObject(PoolPrefabLookupManager.LookPrefab("SmallBlood")).GetComponent<ParticleSystem>();
+                ps.transform.position = hitPoint;
+                ps.Play();
+                AutoPool.AttackPool(ps.gameObject, ps.duration);
+                StartCoroutine(IETakeDamage());
+            }
         }
-        else
+        else if (isGrenade)
         {
-            ParticleSystem ps = PoolManager.SpawnObject(PoolPrefabLookupManager.LookPrefab("SmallBlood")).GetComponent<ParticleSystem>();
-            ps.transform.position = hitPoint;
-            ps.Play();
-            AutoPool.AttackPool(ps.gameObject, ps.duration);
+            dataPeople.hp -= damage;
+            if (dataPeople.hp < 0)
+            {
+                ParticleSystem ps = PoolManager.SpawnObject(PoolPrefabLookupManager.LookPrefab("BigBlood")).GetComponent<ParticleSystem>();
+                ps.transform.position = hitPoint;
+                ps.Play();
+
+
+                AutoPool.AttackPool(ps.gameObject, ps.duration);
+
+                Dying();
+            }
+        }
+
+    }
+
+    IEnumerator IETakeDamage()
+    {
+        {
+            AnimationClip clip = mainAnim.GetClip(nameAnimTakeDown);
+            mainAnim.clip = clip;
+            mainAnim.Play();
+
+            yield return new WaitForSeconds(clip.length);
+        }
+
+        {
+            AnimationClip clip = mainAnim.GetClip(nameAnimIdle);
+            clip.wrapMode = WrapMode.Loop;
+            mainAnim.clip = clip;
+            mainAnim.Play();
+
+            yield return new WaitForSeconds(clip.length);
         }
     }
+
     public abstract void Dying();
 
     public virtual void Reset()
