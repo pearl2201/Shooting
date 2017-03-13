@@ -126,7 +126,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IPoolObj
         {
             AnimationClip clip = mainAnim.GetClip(nameAnimTakeDown);
             mainAnim.clip = clip;
-            mainAnim.Play();
+            mainAnim.CrossFade(nameAnimTakeDown);
 
             yield return new WaitForSeconds(clip.length);
         }
@@ -135,8 +135,8 @@ public abstract class AbstractEnemy : MonoBehaviour, IPoolObj
             AnimationClip clip = mainAnim.GetClip(nameAnimIdle);
             clip.wrapMode = WrapMode.Loop;
             mainAnim.clip = clip;
-            mainAnim.Play();
-
+            mainAnim.CrossFade(nameAnimIdle);
+            
             yield return new WaitForSeconds(clip.length);
         }
     }

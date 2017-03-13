@@ -117,7 +117,7 @@ public class EnemyMoveMelee : AbstractEnemy
         {
             AnimationClip clip = mainAnim.GetClip(nameAnimRun);
             mainAnim.clip = clip;
-            mainAnim.Play();
+            mainAnim.CrossFade(nameAnimRun);
         }
         while (currPos.z <= gameManager.currAim.pCam.transform.position.z - 11f && isFullHp)
         {
@@ -125,7 +125,13 @@ public class EnemyMoveMelee : AbstractEnemy
             transform.position = currPos;
             yield return null;
         }
-
+        {
+            AnimationClip clip = mainAnim.GetClip(nameAnimIdle);
+            clip.wrapMode = WrapMode.Loop;
+            mainAnim.clip = clip;
+            mainAnim.CrossFade(nameAnimIdle);
+            
+        }
         while (isAttack)
         {
             if (isFirstAttack)
@@ -144,7 +150,8 @@ public class EnemyMoveMelee : AbstractEnemy
 
                 AnimationClip clip = mainAnim.GetClip(nameAnimAttack);
                 mainAnim.clip = clip;
-                mainAnim.Play();
+               
+                mainAnim.CrossFade(nameAnimAttack);
                 yield return new WaitForSeconds(clip.length * 0.5f);
                 gameManager.AttackPlayer((int)mDataAttack.damageAttack);
                 yield return new WaitForSeconds(clip.length * 0.5f);
@@ -157,7 +164,7 @@ public class EnemyMoveMelee : AbstractEnemy
                     AnimationClip clip = mainAnim.GetClip(nameAnimIdle);
                     clip.wrapMode = WrapMode.Loop;
                     mainAnim.clip = clip;
-                    mainAnim.Play();
+                    mainAnim.CrossFade(nameAnimIdle);
                     yield return new WaitForSeconds(UnityEngine.Random.Range(1f, 2f));
                 }
             }
@@ -175,7 +182,7 @@ public class EnemyMoveMelee : AbstractEnemy
         {
             AnimationClip clip = mainAnim.GetClip(nameAnimRun);
             mainAnim.clip = clip;
-            mainAnim.Play();
+            mainAnim.CrossFade(nameAnimRun);
         }
         while (currPos.z >= realCoverPoint.z)
         {
@@ -212,7 +219,7 @@ public class EnemyMoveMelee : AbstractEnemy
             SoundManager.Instance.Play("enemyDeath1");
             AnimationClip clip = mainAnim.GetClip(nameAnimDeath);
             mainAnim.clip = clip;
-            mainAnim.Play();
+            mainAnim.CrossFade(nameAnimDeath);
             Debug.Log("length death: " + clip.length);
             yield return new WaitForSeconds(clip.length);
         }

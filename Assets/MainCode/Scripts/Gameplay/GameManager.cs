@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private DataMap dataMap;
     [SerializeField]
-    private Player player;
+    public Player player;
     private int turnPhaze;
     private InfoGame infoGame;
     public GAME_STATE currGameState;
