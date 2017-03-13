@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     private int vStart, noEnemy;
     private float cdrUpdate;
     private List<AbstractEnemy> listPrefabEnemyInit;
-
+    public bool isKeepTouchShoot;
 
     public Transform rootEnemy;
 
@@ -100,17 +100,18 @@ public class GameManager : MonoBehaviour
                 {
                     currGameState = GAME_STATE.TRANSFER;
                     cdrUpdate = 0;
-                 
+
                 }
             }
-        }else if (currGameState == GAME_STATE.TRANSFER)
+        }
+        else if (currGameState == GAME_STATE.TRANSFER)
         {
             cdrUpdate += Time.deltaTime;
-            if (cdrUpdate>=2f)
+            if (cdrUpdate >= 2f)
             {
                 SetupPhaze(turnPhaze);
             }
-          
+
         }
     }
 
@@ -159,7 +160,12 @@ public class GameManager : MonoBehaviour
     {
         currGameState = GAME_STATE.SETUP;
         EnemyBase[] listEnemyGen = dataMap.GetDataSpawn()[phaze].listEnemyBase;
-
+        
+        List<int> listLine = new List<int>();
+        for (int k = 0; k < dataMap.listLineMoveShooting.Length; k++)
+        {
+            listLine.Add(k);
+        }
         for (int i = 0; i < listEnemyGen.Length; i++)
         {
             if (listEnemyGen[i].typeEnemy == TYPE_ENEMY.MOVE_SHOOT_FIXED_LINE)
@@ -172,6 +178,7 @@ public class GameManager : MonoBehaviour
                     EnemyMoveShootBullet enemy = PoolManager.Instance.spawnObject(prefab).GetComponent<EnemyMoveShootBullet>();
                     enemy.transform.position = dataMap.listLineMoveShooting[dt.idLineMoveShoot].startP;
                     enemy.transform.SetParent(rootEnemy);
+                    listLine.Remove(dt.idLineMoveShoot);
                     enemy.Setup(this, dt, dataMap.listLineMoveShooting[dt.idLineMoveShoot]);
                     listCurrEnemy.Add(enemy);
                     listFullObj.Add(enemy);
@@ -183,18 +190,24 @@ public class GameManager : MonoBehaviour
                 else if (dt.typeEnemyAtk == TYPE_ENEMY_ATTACK.KNIFE)
                 {
                     prefab = PoolPrefabLookupManager.LookPrefab("Melee" + dt.idEnemy);
+                    EnemyMoveMelee enemy = PoolManager.Instance.spawnObject(prefab).GetComponent<EnemyMoveMelee>();
+                    enemy.transform.position = dataMap.listLineMoveShooting[dt.idLineMoveShoot].startP;
+                    enemy.transform.SetParent(rootEnemy);
+                    listLine.Remove(dt.idLineMoveShoot);
+                    enemy.Setup(this, dt, dataMap.listLineMoveShooting[dt.idLineMoveShoot]);
+                    listCurrEnemy.Add(enemy);
+                    listFullObj.Add(enemy);
                 }
 
             }
-            else if (listEnemyGen[i].typeEnemy == TYPE_ENEMY.MOVE_SHOOT_RAND_LINE)
+
+        }
+        for (int i = 0; i < listEnemyGen.Length; i++)
+        {
+            if (listEnemyGen[i].typeEnemy == TYPE_ENEMY.MOVE_SHOOT_RAND_LINE)
             {
                 DataMoveRandShoot dt = (DataMoveRandShoot)listEnemyGen[i];
                 GameObject prefab = null;
-                List<int> listLine = new List<int>();
-                for (int k =0; k<dataMap.listLineMoveShooting.Length; k++)
-                {
-                    listLine.Add(k);
-                }
                 for (int j = 0; j < dt.noSpawn; j++)
                 {
                     if (dt.typeEnemyAtk == TYPE_ENEMY_ATTACK.SHOOT)
@@ -207,7 +220,7 @@ public class GameManager : MonoBehaviour
 
                         enemy.transform.position = lineAtk.startP;
                         enemy.transform.SetParent(rootEnemy);
-                        enemy.Setup(this, dt,lineAtk);
+                        enemy.Setup(this, dt, lineAtk);
                         listCurrEnemy.Add(enemy);
                         listFullObj.Add(enemy);
                     }
@@ -217,7 +230,18 @@ public class GameManager : MonoBehaviour
                     }
                     else if (dt.typeEnemyAtk == TYPE_ENEMY_ATTACK.KNIFE)
                     {
-                        prefab = PoolPrefabLookupManager.LookPrefab("AttackKnife" + dt.idEnemy);
+
+                        prefab = PoolPrefabLookupManager.LookPrefab("Melee" + dt.idEnemy);
+                        EnemyMoveMelee enemy = PoolManager.Instance.spawnObject(prefab).GetComponent<EnemyMoveMelee>();
+                        int idLineMoving = UnityEngine.Random.Range(0, listLine.Count);
+                        LineMoveShoot lineAtk = dataMap.listLineMoveShooting[listLine[idLineMoving]];
+                        listLine.Remove(idLineMoving);
+
+                        enemy.transform.position = lineAtk.startP;
+                        enemy.transform.SetParent(rootEnemy);
+                        enemy.Setup(this, dt, lineAtk);
+                        listCurrEnemy.Add(enemy);
+                        listFullObj.Add(enemy);
                     }
                 }
             }
@@ -273,7 +297,6 @@ public class GameManager : MonoBehaviour
                 listFullObj.Add(enemy);
             }
         }
-
 
         currGameState = GAME_STATE.PLAY;
     }
@@ -347,11 +370,23 @@ public class GameManager : MonoBehaviour
 
     public void ClickShooting()
     {
+
+    }
+
+    public void TouchDownShooting()
+    {
+        isKeepTouchShoot = true;
         player.Shooting();
+    }
+
+    public void TouchUpShooting()
+    {
+        isKeepTouchShoot = false;
     }
 
     public void ClickChangeGun()
     {
+        isKeepTouchShoot = false;
         player.ChangeGun();
     }
 
@@ -384,16 +419,19 @@ public class GameManager : MonoBehaviour
 
     public void ClickUseGrenade()
     {
+        isKeepTouchShoot = false;
         player.ShootGrenade();
     }
 
     public void ClickChargeGun()
     {
+        isKeepTouchShoot = false;
         player.ChangeGun();
     }
 
     public void ClickPause()
     {
+        isKeepTouchShoot = false;
         if (currGameState != GAME_STATE.PAUSE)
         {
             oldGameState = currGameState;

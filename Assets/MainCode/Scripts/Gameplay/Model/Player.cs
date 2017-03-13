@@ -118,7 +118,7 @@ public class Player : MonoBehaviour, IPoolObj
         iTween.MoveTo(currGun.gameObject, iTween.Hash("position", currGun.transform.position + new Vector3(x, y, 0), "time", Constants.DEFAULT_SPEED_SHOOTING * (10 - currGun.dataGun.firerate) / 10, "easetype", iTween.EaseType.easeOutElastic));
         yield return new WaitForSeconds(Constants.DEFAULT_SPEED_SHOOTING * (10 - currGun.dataGun.firerate) / 10);
         SoundManager.Instance.Play("explo");
-      
+
         RaycastHit hit;
 
         if (Physics.Raycast(oriTieuCu, (oriTieuCu - gameManager.currAim.pCam.transform.position) * 10, out hit))
@@ -161,9 +161,14 @@ public class Player : MonoBehaviour, IPoolObj
         }
         // Move gun:
 
-     
-       
+
+
         playerState = PLAYER_STATE.FREE;
+
+        if ((gameManager.currGameState == GAME_STATE.PLAY || gameManager.currGameState == GAME_STATE.TRANSFER || gameManager.currGameState == GAME_STATE.SETUP) && gameManager.isKeepTouchShoot)
+        {
+            Shooting();
+        }
     }
 
 
@@ -261,18 +266,19 @@ public class Player : MonoBehaviour, IPoolObj
             if (itScript != null)
             {
                 Destroy(itScript);
-            }else
+            }
+            else
             {
                 iTween.ShakePosition(gameManager.currAim.pCam.gameObject, new Vector3(1f, 1f, 1f), 0.4f);
             }
         }
-       
-     
+
+
         sprBeAttacked.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.4f);
-      
-       
-       sprBeAttacked.gameObject.SetActive(false);
+
+
+        sprBeAttacked.gameObject.SetActive(false);
     }
 
 

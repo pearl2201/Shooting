@@ -133,8 +133,8 @@ public class Prefs
     void Init()
     {
         SetInt(KEY_VERSION_CODE, VERSION_KEYCODE);
-        SetVolumeMusic(1);
-        SetVolumeSoundFx(1);
+        SetVolumeMusic(0);
+        SetVolumeSoundFx(0);
         // init
 
 

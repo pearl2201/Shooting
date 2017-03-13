@@ -33,6 +33,8 @@ public abstract class AbstractEnemy : MonoBehaviour, IPoolObj
     [SerializeField]
     protected string parDeath;
 
+    protected bool isFullHp;
+    protected bool isFirstAttack;
     void Start()
     {
 
@@ -42,6 +44,8 @@ public abstract class AbstractEnemy : MonoBehaviour, IPoolObj
     {
         this.gameManager = gameManager;
         this.dataPeople = data.Clone();
+        isFirstAttack = true;
+        isFullHp = true;
         timeWait = UnityEngine.Random.Range(0, 5f);
     }
 
@@ -75,6 +79,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IPoolObj
         {
             Debug.Log("Enemy: " + gameObject.name + " take damge: " + hitPoint);
             dataPeople.hp -= damage;
+            isFullHp = false;
             if (dataPeople.hp <= 0)
             {
                 SoundManager.Instance.Play("enemyPain1");
@@ -100,6 +105,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IPoolObj
         else if (isGrenade)
         {
             dataPeople.hp -= damage;
+            isFullHp = false;
             if (dataPeople.hp < 0)
             {
                 ParticleSystem ps = PoolManager.SpawnObject(PoolPrefabLookupManager.LookPrefab("BigBlood")).GetComponent<ParticleSystem>();
