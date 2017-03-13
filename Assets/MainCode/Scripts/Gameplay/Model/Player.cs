@@ -111,13 +111,14 @@ public class Player : MonoBehaviour, IPoolObj
         {
             SoundManager.Instance.Play("primaryShot");
         }
-        yield return new WaitForSeconds(Constants.DEFAULT_SPEED_SHOOTING * (10 - currGun.dataGun.firerate) / 10);
-        SoundManager.Instance.Play("explo");
         Vector3 oriTieuCu = currGun.tieucu.transform.position;
         float x = UnityEngine.Random.Range(-Constants.DEFAULT_DISTANCE_ACCURACY * (10 - currGun.dataGun.accuracy), Constants.DEFAULT_DISTANCE_ACCURACY * (10 - currGun.dataGun.accuracy));
         float y = UnityEngine.Random.Range(-Constants.DEFAULT_DISTANCE_ACCURACY * (10 - currGun.dataGun.accuracy), Constants.DEFAULT_DISTANCE_ACCURACY * (10 - currGun.dataGun.accuracy));
         // currGun.transform.position += new Vector3(x, y, 0);
-        iTween.MoveTo(currGun.gameObject, iTween.Hash("position", currGun.transform.position + new Vector3(x, y, 0), "time", 0.2f, "easetype", iTween.EaseType.easeOutElastic));
+        iTween.MoveTo(currGun.gameObject, iTween.Hash("position", currGun.transform.position + new Vector3(x, y, 0), "time", Constants.DEFAULT_SPEED_SHOOTING * (10 - currGun.dataGun.firerate) / 10, "easetype", iTween.EaseType.easeOutElastic));
+        yield return new WaitForSeconds(Constants.DEFAULT_SPEED_SHOOTING * (10 - currGun.dataGun.firerate) / 10);
+        SoundManager.Instance.Play("explo");
+      
         RaycastHit hit;
 
         if (Physics.Raycast(oriTieuCu, (oriTieuCu - gameManager.currAim.pCam.transform.position) * 10, out hit))

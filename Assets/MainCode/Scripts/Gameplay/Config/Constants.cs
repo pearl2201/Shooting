@@ -8,10 +8,11 @@ public class Constants
 {
 
     public static float DEFAULT_RELATIVE_AIM = 3;
-    public static float MARGIN_GUN_X = 9f;
-    public static float MARGIN_GUN_Y = 6f;
+    public static float MARGIN_GUN_TOP_X = 5f;
+    public static float MARGIN_GUN_TOP_Y = 4.5f;
+    public static float MARGIN_GUN_BOT_Y = -2f;
 
-    public static float DEFAULT_SPEED_SHOOTING = 0.5f;
+    public static float DEFAULT_SPEED_SHOOTING = 0.2f;
     public static float DEFAULT_DISTANCE_ACCURACY = 0.02f;
 }
 

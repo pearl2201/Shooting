@@ -11,5 +11,10 @@ public class EndGamePopup : MonoBehaviour
     {
 
     }
+
+    public void Reload()
+    {
+        Application.LoadLevel(Application.loadedLevel);
+    }
 }
 
