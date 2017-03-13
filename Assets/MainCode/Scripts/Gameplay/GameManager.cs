@@ -186,6 +186,13 @@ public class GameManager : MonoBehaviour
                 else if (dt.typeEnemyAtk == TYPE_ENEMY_ATTACK.SHOOT_GRENADE)
                 {
                     prefab = PoolPrefabLookupManager.LookPrefab("AttackShootGrenade" + dt.idEnemy);
+                    EnemyMoveShootGrenade enemy = PoolManager.Instance.spawnObject(prefab).GetComponent<EnemyMoveShootGrenade>();
+                    enemy.transform.position = dataMap.listLineMoveShooting[dt.idLineMoveShoot].startP;
+                    enemy.transform.SetParent(rootEnemy);
+                    listLine.Remove(dt.idLineMoveShoot);
+                    enemy.Setup(this, dt, dataMap.listLineMoveShooting[dt.idLineMoveShoot]);
+                    listCurrEnemy.Add(enemy);
+                    listFullObj.Add(enemy);
                 }
                 else if (dt.typeEnemyAtk == TYPE_ENEMY_ATTACK.KNIFE)
                 {
@@ -227,6 +234,16 @@ public class GameManager : MonoBehaviour
                     else if (dt.typeEnemyAtk == TYPE_ENEMY_ATTACK.SHOOT_GRENADE)
                     {
                         prefab = PoolPrefabLookupManager.LookPrefab("AttackShootGrenade" + dt.idEnemy);
+                        EnemyMoveShootGrenade enemy = PoolManager.Instance.spawnObject(prefab).GetComponent<EnemyMoveShootGrenade>();
+                        int idLineMoving = UnityEngine.Random.Range(0, listLine.Count);
+                        LineMoveShoot lineAtk = dataMap.listLineMoveShooting[listLine[idLineMoving]];
+                        listLine.Remove(idLineMoving);
+
+                        enemy.transform.position = lineAtk.startP;
+                        enemy.transform.SetParent(rootEnemy);
+                        enemy.Setup(this, dt, lineAtk);
+                        listCurrEnemy.Add(enemy);
+                        listFullObj.Add(enemy);
                     }
                     else if (dt.typeEnemyAtk == TYPE_ENEMY_ATTACK.KNIFE)
                     {

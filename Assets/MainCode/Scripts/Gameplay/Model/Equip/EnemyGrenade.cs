@@ -7,18 +7,20 @@ using UnityEngine;
 public class EnemyGrenade : MonoBehaviour, IPoolObj
 {
     private int damage;
-       
+
     private bool isExplo;
     private GameManager gameManager;
-    public void Setup(GameManager gameManager, Vector3 pos, Vector3 posDest, int damage)
+    public void Setup(GameManager gameManager, Vector3 pos, Vector3 posDest, int damage, float timeShoot)
     {
         this.gameManager = gameManager;
         this.damage = damage;
         transform.position = pos;
         isExplo = false;
-
-        float timeMoving = Vector3.Distance(posDest, pos) / 20;
-        iTween.MoveTo(gameObject, iTween.Hash("position", posDest, "time", timeMoving, "easetype", iTween.EaseType.easeInOutCirc, "oncompletetarget", gameObject, "oncomplete", "Explo"));
+        posDest.x = 0;
+        Vector3 middle = (pos + posDest) * 0.5f;
+        middle.y += Vector3.Distance(posDest, pos) / Mathf.Sqrt(3);
+        float timeMoving = Vector3.Distance(posDest, pos) / 8;
+        iTween.MoveTo(gameObject, iTween.Hash("path", new Vector3[] { pos,middle, posDest }, "time", timeShoot, "easetype", iTween.EaseType.linear, "oncompletetarget", gameObject, "oncomplete", "Explo"));
     }
 
 
@@ -27,14 +29,8 @@ public class EnemyGrenade : MonoBehaviour, IPoolObj
     {
         isExplo = true;
         SoundManager.Instance.Play("explo");
-        List<AbstractEnemy> listAbstractEnemyExplo = new List<AbstractEnemy>();
-        for (int i = 0; i < gameManager.listFullObj.Count; i++)
-        {
-            if (Vector3.Distance(transform.position, gameManager.listFullObj[i].transform.position) < 10)
-            {
-                gameManager.listFullObj[i].GetHit(damage, true);
-            }
-        }
+
+        gameManager.AttackPlayer((int)damage);
         {
             GameObject explo = PoolManager.SpawnObject(PoolPrefabLookupManager.LookPrefab("Explosion"));
             explo.transform.position = transform.position;

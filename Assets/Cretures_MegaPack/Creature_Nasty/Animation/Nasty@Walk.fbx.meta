@@ -100,8 +100,9 @@ ModelImporter:
     400090: Tail6_M
     400092: Tail7_M
     4300000: Body
-    7400000: Take 001
+    7400000: Walk
     9500000: //RootNode
+    11100000: //RootNode
     13700000: Body
   materials:
     importMaterials: 1
@@ -123,7 +124,129 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Walk
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 32
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Body
+        weight: 1
+      - path: Root_M
+        weight: 1
+      - path: Root_M/BackLeg1_L
+        weight: 1
+      - path: Root_M/BackLeg1_L/BackLeg2_L
+        weight: 1
+      - path: Root_M/BackLeg1_L/BackLeg2_L/BackLeg3_L
+        weight: 1
+      - path: Root_M/BackLeg1_L/BackLeg2_L/BackLeg3_L/BackLeg4_L
+        weight: 1
+      - path: Root_M/BackLeg1_R
+        weight: 1
+      - path: Root_M/BackLeg1_R/BackLeg2_R
+        weight: 1
+      - path: Root_M/BackLeg1_R/BackLeg2_R/BackLeg3_R
+        weight: 1
+      - path: Root_M/BackLeg1_R/BackLeg2_R/BackLeg3_R/BackLeg4_R
+        weight: 1
+      - path: Root_M/Spine1_M
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/FrontLeg1_L
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/FrontLeg1_L/FrontLeg2_L
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/FrontLeg1_L/FrontLeg2_L/FrontLeg3_L
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/FrontLeg1_L/FrontLeg2_L/FrontLeg3_L/FrontLeg4_L
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/FrontLeg1_R
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/FrontLeg1_R/FrontLeg2_R
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/FrontLeg1_R/FrontLeg2_R/FrontLeg3_R
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/FrontLeg1_R/FrontLeg2_R/FrontLeg3_R/FrontLeg4_R
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/Hand1_L
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/Hand1_L/Hand2_L
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/Hand1_L/Hand2_L/Hand3_L
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/Hand1_L/Hand2_L/Hand3_L/Hand4_L
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/Hand1_L/Hand2_L/Hand3_L/Hand4_L/Hand5_L
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/Hand1_R
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/Hand1_R/Hand2_R
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/Hand1_R/Hand2_R/Hand3_R
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/Hand1_R/Hand2_R/Hand3_R/Hand4_R
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/Hand1_R/Hand2_R/Hand3_R/Hand4_R/Hand5_R
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/Head_M
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/Head_M/Antenna1_L
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/Head_M/Antenna1_L/Antenna2_L
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/Head_M/Antenna1_L/Antenna2_L/Antenna3_L
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/Head_M/Antenna1_R
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/Head_M/Antenna1_R/Antenna2_R
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/Head_M/Antenna1_R/Antenna2_R/Antenna3_R
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/Head_M/HeadEnd_M
+        weight: 1
+      - path: Root_M/Spine1_M/Chest_M/Head_M/Jaw
+        weight: 1
+      - path: Root_M/Tail1_M
+        weight: 1
+      - path: Root_M/Tail1_M/Tail2_M
+        weight: 1
+      - path: Root_M/Tail1_M/Tail2_M/Tail3_M
+        weight: 1
+      - path: Root_M/Tail1_M/Tail2_M/Tail3_M/Tail4_M
+        weight: 1
+      - path: Root_M/Tail1_M/Tail2_M/Tail3_M/Tail4_M/Tail5_M
+        weight: 1
+      - path: Root_M/Tail1_M/Tail2_M/Tail3_M/Tail4_M/Tail5_M/Tail6_M
+        weight: 1
+      - path: Root_M/Tail1_M/Tail2_M/Tail3_M/Tail4_M/Tail5_M/Tail6_M/Tail7_M
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -161,7 +284,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 1
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

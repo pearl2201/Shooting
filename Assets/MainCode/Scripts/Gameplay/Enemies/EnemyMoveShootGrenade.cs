@@ -16,6 +16,8 @@ public class EnemyMoveShootGrenade : AbstractEnemy
     public Vector3 realCoverPoint;
     [SerializeField]
     protected Transform pointAtk;
+    [SerializeField]
+    private float timeShoot;
     public void Setup(GameManager gameManager, DataAttackEnemy mDataAttack, LineMoveShoot _lineMoveShoot)
     {
         Setup(gameManager, mDataAttack);
@@ -124,13 +126,15 @@ public class EnemyMoveShootGrenade : AbstractEnemy
                 AnimationClip clip = mainAnim.GetClip(nameAnimAttack);
                 mainAnim.clip = clip;
                 mainAnim.Play();
+              
+                yield return new WaitForSeconds(timeShoot);
+              
+             
                 {
                     EnemyGrenade en = PoolManager.SpawnObject(PoolPrefabLookupManager.LookPrefab("EnemyGrenade")).GetComponent<EnemyGrenade>();
-                    en.Setup(gameManager, pointAtk.transform.position, gameManager.player.currGun.transform.position, (int)mDataAttack.damageAttack);
+                    en.Setup(gameManager, pointAtk.transform.position, gameManager.player.currGun.transform.position, (int)mDataAttack.damageAttack, (clip.length - timeShoot)/2);
                 }
-                yield return new WaitForSeconds(clip.length * 0.5f);
-                gameManager.AttackPlayer((int)mDataAttack.damageAttack);
-                yield return new WaitForSeconds(clip.length * 0.5f);
+                yield return new WaitForSeconds(clip.length-timeShoot);
             }
 
             bool isReAttack = UnityEngine.Random.Range(0, 100) != 0;
@@ -141,7 +145,7 @@ public class EnemyMoveShootGrenade : AbstractEnemy
                     clip.wrapMode = WrapMode.Loop;
                     mainAnim.clip = clip;
                     mainAnim.Play();
-                    yield return new WaitForSeconds(UnityEngine.Random.Range(1f, 2f));
+                    yield return new WaitForSeconds(UnityEngine.Random.Range(1f, 4f));
                 }
             }
             else
