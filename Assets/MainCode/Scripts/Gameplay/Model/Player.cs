@@ -22,22 +22,30 @@ public class Player : MonoBehaviour, IPoolObj
     [SerializeField]
     private GameObject sprBeAttacked;
     public int hp;
+    public int energy;
 
     private GameManager gameManager;
 
     public PLAYER_STATE playerState;
     public TYPE_PLAYER_GUN currTypeGun;
     public IEnumerator crtBeAttacked;
+    [SerializeField]
+    private GameObject parentGun;
+
+    [SerializeField]
+    private GameObject[] listSprChargeGun;
 
     public void Setup(GameManager gameManager)
     {
         this.gameManager = gameManager;
         hp = 100;
+        energy = 0;
         {
             GameObject goPrefab = PoolPrefabLookupManager.LookPrefab("PrimaryGun" + Prefs.Instance.GetCurrPrimaryGun());
             primaryGun = PoolManager.SpawnObject(goPrefab).GetComponent<AbstractGun>();
             primaryGun.noBullet = Prefs.Instance.GetNoBulletGun(primaryGun.dataGun.id);
-            primaryGun.transform.SetParent(transform);
+            primaryGun.noBulletActive = Mathf.Min(primaryGun.dataGun.noBulletPerCharge, primaryGun.noBullet);
+            primaryGun.transform.SetParent(parentGun.transform);
             primaryGun.transform.localPosition = Vector3.zero;
             primaryGun.gameObject.SetActive(false);
         }
@@ -46,7 +54,7 @@ public class Player : MonoBehaviour, IPoolObj
             secondaryGun = PoolManager.SpawnObject(goPrefab).GetComponent<AbstractGun>();
             secondaryGun.noBullet = secondaryGun.dataGun.totalBullet;
             secondaryGun.noBulletActive = Mathf.Min(secondaryGun.dataGun.noBulletPerCharge, secondaryGun.noBullet);
-            secondaryGun.transform.SetParent(transform);
+            secondaryGun.transform.SetParent(parentGun.transform);
             secondaryGun.transform.localPosition = Vector3.zero;
             secondaryGun.gameObject.SetActive(false);
         }
@@ -77,6 +85,16 @@ public class Player : MonoBehaviour, IPoolObj
 
     }
 
+
+    void LateUpdate()
+    {
+        Vector3 posGun = parentGun.transform.position;
+        posGun.x = Mathf.Clamp(posGun.x, -Constants.MARGIN_GUN_TOP_X, Constants.MARGIN_GUN_TOP_X);
+        posGun.y = Mathf.Clamp(posGun.y, Constants.MARGIN_GUN_BOT_Y, Constants.MARGIN_GUN_TOP_Y);
+        parentGun.transform.position = posGun;
+
+
+    }
     public void Reset()
     {
 
@@ -103,6 +121,12 @@ public class Player : MonoBehaviour, IPoolObj
     {
         Debug.Log("shoot");
         playerState = PLAYER_STATE.SHOOT;
+        energy += 5;
+        if (energy >= 100)
+        {
+            energy = 100;
+        }
+        gameManager.UpdateUIEnergy();
         if (currTypeGun == TYPE_PLAYER_GUN.PRIMARY_GUN)
         {
             SoundManager.Instance.Play("primaryShot");
@@ -182,6 +206,12 @@ public class Player : MonoBehaviour, IPoolObj
 
     IEnumerator IEShootGrenade()
     {
+        energy += 10;
+        if (energy >= 100)
+        {
+            energy = 100;
+        }
+        gameManager.UpdateUIEnergy();
         playerState = PLAYER_STATE.SHOOT;
         SoundManager.Instance.Play("primaryShot");
         yield return new WaitForSeconds(Constants.DEFAULT_SPEED_SHOOTING * (10 - dataGrenade.firerate) / 10);
@@ -203,12 +233,50 @@ public class Player : MonoBehaviour, IPoolObj
 
     IEnumerator IERecharge()
     {
+        if (currGun != null)
+        {
+            currGun.gameObject.SetActive(false);
+        }
         playerState = PLAYER_STATE.CHARGE;
-        yield return new WaitForSeconds(1f);
-        currGun.noBulletActive = currGun.dataGun.noBulletPerCharge;
-        gameManager.UpdateUiChangeGun();
-        playerState = PLAYER_STATE.FREE;
 
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j <= i; j++)
+            {
+                listSprChargeGun[j].gameObject.SetActive(true);
+            }
+            for (int j = i + 1; j < 8; j++)
+            {
+                listSprChargeGun[j].gameObject.SetActive(false);
+            }
+            yield return new WaitForSeconds(0.25f);
+        }
+
+        gameManager.UpdateUiChangeGun();
+        for (int j = 0; j < 8; j++)
+        {
+            listSprChargeGun[j].gameObject.SetActive(false);
+        }
+        playerState = PLAYER_STATE.FREE;
+        if (currGun != null)
+        {
+            currGun.gameObject.SetActive(true);
+        }
+
+    }
+
+    public void ClickUseEnergy()
+    {
+        if (energy == 100 && playerState == PLAYER_STATE.FREE)
+        {
+            StartCoroutine(IEUseEnergy());
+        }
+    }
+
+
+    IEnumerator IEUseEnergy()
+    {
+        yield return null;
     }
 
     public void ChangeGun()
@@ -216,15 +284,17 @@ public class Player : MonoBehaviour, IPoolObj
         if (currTypeGun == TYPE_PLAYER_GUN.PRIMARY_GUN)
         {
             currGun = secondaryGun;
+            bool stateCurrGun = currGun.gameObject.activeSelf;
             primaryGun.gameObject.SetActive(false);
-            secondaryGun.gameObject.SetActive(true);
+            secondaryGun.gameObject.SetActive(stateCurrGun);
         }
         else
         {
             if (primaryGun.noBullet > 0)
             {
                 currGun = primaryGun;
-                primaryGun.gameObject.SetActive(true);
+                bool stateCurrGun = currGun.gameObject.activeSelf;
+                primaryGun.gameObject.SetActive(stateCurrGun);
                 secondaryGun.gameObject.SetActive(false);
             }
             else
@@ -236,9 +306,19 @@ public class Player : MonoBehaviour, IPoolObj
 
     public void BeAttack(int damage)
     {
-        Debug.Log("be attack");
+
         SoundManager.Instance.Play("explo");
         hp -= damage;
+        if (hp < 0)
+        {
+            hp = 0;
+        }
+        energy += damage / 2;
+        if (energy >= 100)
+        {
+            energy = 100;
+        }
+        gameManager.UpdateUIEnergy();
         gameManager.UpdateUIHp();
         if (crtBeAttacked != null)
         {

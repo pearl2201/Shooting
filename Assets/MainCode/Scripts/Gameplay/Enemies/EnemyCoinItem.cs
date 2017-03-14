@@ -26,8 +26,8 @@ public class EnemyCoinItem : AbstractEnemy
 
     public override void Dying()
     {
-
-
+        gameManager.AddCoin((int)mDataAttack.moneyAddition);
+        gameManager.RemoveEnemy(this);
     }
 }
 

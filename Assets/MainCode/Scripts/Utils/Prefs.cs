@@ -135,6 +135,13 @@ public class Prefs
         SetInt(KEY_VERSION_CODE, VERSION_KEYCODE);
         SetVolumeMusic(0);
         SetVolumeSoundFx(0);
+        SetNoGrenade(10);
+        SetCurrPrimaryGun(0);
+        SetSecondaryGun(0);
+        SetCurrArmor(0);
+        SetBoughtPrimaryGun(0, true);
+        SetBoughtSecondaryGun(0, true);
+        SetBulletPrimaryGun(0, 450);
         // init
 
 
@@ -209,11 +216,20 @@ public class Prefs
         SetInt(KEY_NO_BOMB, GetNoGrenade() + 1);
     }
 
+    public void SetNoGrenade(int nogrenade)
+    {
+        SetInt(KEY_NO_BOMB, nogrenade);
+    }
+
     public void BuyBulletPrimaryGun(int id, int countTotal)
     {
         SetInt(KEY_NO_BULLET_PRIMARY_GUN_OWN + id, countTotal);
     }
 
+    public void SetBulletPrimaryGun(int id, int noBullet)
+    {
+        SetInt(KEY_NO_BULLET_PRIMARY_GUN_OWN + id, noBullet);
+    }
     public void AddCoin(int coin)
     {
         SetCoin(GetCoin() + coin);

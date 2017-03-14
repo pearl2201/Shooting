@@ -87,13 +87,13 @@ public class EnemyMoveShootBullet : AbstractEnemy
 
         if (lineMoveShoot.endP.x < realCoverPoint.x)
         {
-            Debug.Log("set rotate right");
+            
             transform.localEulerAngles = new Vector3(0, -90, 0);
 
         }
         else
         {
-            Debug.Log("set rotate left");
+
             transform.localEulerAngles = new Vector3(0, 90, 0);
         }
         // set animation

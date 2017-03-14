@@ -7,6 +7,15 @@ using UnityEngine;
 public class PauseGamePopup : MonoBehaviour
 {
 
+    public void BackToMenu()
+    {
+
+    }
+
+    public void UnPause()
+    {
+
+    }
 
 }
 

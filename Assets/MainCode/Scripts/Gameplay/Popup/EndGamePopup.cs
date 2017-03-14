@@ -16,5 +16,21 @@ public class EndGamePopup : MonoBehaviour
     {
         Application.LoadLevel(Application.loadedLevel);
     }
+
+    public void OpenShop()
+    {
+
+    }
+
+    public void Continue()
+    {
+
+    }
+
+    public void OpenMap()
+    {
+
+    }
+
 }
 

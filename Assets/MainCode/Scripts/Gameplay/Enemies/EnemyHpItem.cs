@@ -26,7 +26,8 @@ public class EnemyHpItem : AbstractEnemy
 
     public override void Dying()
     {
-
+        gameManager.AddHp((int)mDataAttack.hpAddition);
+        gameManager.RemoveEnemy(this);
 
     }
 }

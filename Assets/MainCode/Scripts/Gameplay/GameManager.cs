@@ -33,15 +33,22 @@ public class GameManager : MonoBehaviour
     private ScaleAimStrategy scaleAimStg;
 
     [SerializeField]
-    private tk2dTextMesh txtStart, txtHp, txtNoGrenade, txtNoEnemy, txtBullet;
+    private tk2dTextMesh txtStart, txtNoGrenade, txtNoEnemy, txtBullet, txtTimer;
     [SerializeField]
-    private tk2dSprite sprPrimaryGun, sprSecondaryGun;
+    private tk2dClippedSprite cSprHp, cSprEnergy;
+    [SerializeField]
+    private tk2dSprite sprPrimaryGun, sprSecondaryGun, sprSpecialSKill;
     private int vStart, noEnemy;
     private float cdrUpdate;
     private List<AbstractEnemy> listPrefabEnemyInit;
     public bool isKeepTouchShoot;
 
+    private float timer;
     public Transform rootEnemy;
+    [SerializeField]
+    private tk2dSprite[] arrSprBullet;
+    private float percentRotateCamera = 0;
+    private bool isRotateCameraToLeft;
 
     void Start()
     {
@@ -81,10 +88,29 @@ public class GameManager : MonoBehaviour
         }
         else if (currGameState == GAME_STATE.END)
         {
-
+            if (isRotateCameraToLeft)
+            {
+                percentRotateCamera += Time.deltaTime * 0.2f;
+                if (percentRotateCamera >= 1)
+                {
+                    isRotateCameraToLeft = false;
+                    percentRotateCamera = 1;
+                }
+            }
+            else
+            {
+                percentRotateCamera -= Time.deltaTime * 0.2f;
+                if (percentRotateCamera <= 1)
+                {
+                    isRotateCameraToLeft = true;
+                    percentRotateCamera = 0;
+                }
+            }
+            currAim.pCam.transform.eulerAngles = new Vector3(0, 180 + 20 * (-0.5f + percentRotateCamera), 0);
         }
         else if (currGameState == GAME_STATE.PLAY)
         {
+            timer -= Time.deltaTime;
             if (listCurrEnemy.Count > 0)
             {
 
@@ -106,6 +132,7 @@ public class GameManager : MonoBehaviour
         }
         else if (currGameState == GAME_STATE.TRANSFER)
         {
+            timer -= Time.deltaTime;
             cdrUpdate += Time.deltaTime;
             if (cdrUpdate >= 2f)
             {
@@ -113,6 +140,7 @@ public class GameManager : MonoBehaviour
             }
 
         }
+        txtTimer.text = Mathf.Floor(timer / 60).ToString("00") + ":" + (timer % 60).ToString("00");
     }
 
     void SetupInfo()
@@ -141,10 +169,13 @@ public class GameManager : MonoBehaviour
         UpdateUIGrenade();
         UpdateUIHp();
         UpdateUINoEnemy();
+        UpdateUIEnergy();
         cdrUpdate = 0;
         vStart = 3;
         txtStart.text = vStart.ToString();
         txtStart.gameObject.SetActive(true);
+        timer = 6000;
+
         currGameState = GAME_STATE.START;
     }
 
@@ -153,6 +184,8 @@ public class GameManager : MonoBehaviour
         txtStart.gameObject.SetActive(false);
         player.currGun.gameObject.SetActive(true);
         turnPhaze = 0;
+
+
         SetupPhaze(turnPhaze);
     }
 
@@ -160,7 +193,7 @@ public class GameManager : MonoBehaviour
     {
         currGameState = GAME_STATE.SETUP;
         EnemyBase[] listEnemyGen = dataMap.GetDataSpawn()[phaze].listEnemyBase;
-        
+
         List<int> listLine = new List<int>();
         for (int k = 0; k < dataMap.listLineMoveShooting.Length; k++)
         {
@@ -217,6 +250,7 @@ public class GameManager : MonoBehaviour
                 GameObject prefab = null;
                 for (int j = 0; j < dt.noSpawn; j++)
                 {
+                    Debug.Log("listLine: " + listLine.Count);
                     if (dt.typeEnemyAtk == TYPE_ENEMY_ATTACK.SHOOT)
                     {
                         prefab = PoolPrefabLookupManager.LookPrefab("AttackShoot" + dt.idEnemy);
@@ -344,6 +378,8 @@ public class GameManager : MonoBehaviour
     public void SetupPopupEndGame(bool isSuccess)
     {
         popupEndGame.gameObject.SetActive(true);
+        percentRotateCamera = 0.5f;
+        isRotateCameraToLeft = UnityEngine.Random.Range(0, 2) == 0;
     }
 
     public void RemoveEnemy(AbstractEnemy enemy)
@@ -370,7 +406,7 @@ public class GameManager : MonoBehaviour
     {
         player.hp += hp;
         player.hp = Mathf.Clamp(0, player.hp, 100);
-        txtHp.text = player.hp.ToString();
+        UpdateUIHp();
     }
 
     public void AddCoin(int coin)
@@ -404,24 +440,58 @@ public class GameManager : MonoBehaviour
     public void ClickChangeGun()
     {
         isKeepTouchShoot = false;
-        player.ChangeGun();
+        player.Recharge();
     }
 
     public void UpdateUiChangeGun()
     {
         txtBullet.text = player.currGun.noBulletActive + "/" + player.currGun.noBullet;
+        int percentBulletActive = (int)(((float)player.currGun.noBulletActive)*10 / player.currGun.dataGun.noBulletPerCharge);
+
+        for (int i = 0; i < 10; i++)
+        {
+            if (i < percentBulletActive)
+            {
+                arrSprBullet[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                arrSprBullet[i].gameObject.SetActive(false);
+            }
+
+        }
+
     }
 
     public void UpdateUIGrenade()
     {
-        txtNoGrenade.text = player.noGrenade.ToString();
+        //txtNoGrenade.text = player.noGrenade.ToString();
+        txtNoGrenade.text = "";
     }
 
     public void UpdateUIHp()
     {
 
-        txtHp.text = player.hp.ToString();
+        Rect r = new Rect(0, 0, ((float)player.hp) / 100, 1);
+        cSprHp.ClipRect = r;
     }
+
+    public void UpdateUIEnergy()
+    {
+        Rect r = new Rect(0, 0, ((float)player.energy)/100, 1);
+        cSprEnergy.ClipRect = r;
+        if (player.energy >= 100)
+        {
+            sprSpecialSKill.color = Color.white;
+        }
+        else
+        {
+            sprSpecialSKill.color = new Color(0, 0, 0, 0.6f);
+        }
+
+    }
+
+
 
     public void UpdateUINoEnemy()
     {
@@ -463,6 +533,11 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
             popupPauseGame.gameObject.SetActive(false);
         }
+    }
+
+    public void ClickUseSpecialSkill()
+    {
+
     }
 }
 
