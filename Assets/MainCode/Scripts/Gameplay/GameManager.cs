@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 percentRotateCamera -= Time.deltaTime * 0.2f;
-                if (percentRotateCamera <= 1)
+                if (percentRotateCamera >=0)
                 {
                     isRotateCameraToLeft = true;
                     percentRotateCamera = 0;
@@ -440,14 +440,24 @@ public class GameManager : MonoBehaviour
     public void ClickChangeGun()
     {
         isKeepTouchShoot = false;
-        player.Recharge();
+        player.ChangeGun();
+
     }
 
     public void UpdateUiChangeGun()
     {
         txtBullet.text = player.currGun.noBulletActive + "/" + player.currGun.noBullet;
-        int percentBulletActive = (int)(((float)player.currGun.noBulletActive)*10 / player.currGun.dataGun.noBulletPerCharge);
-
+        int percentBulletActive = (int)(((float)player.currGun.noBulletActive) * 10 / player.currGun.dataGun.noBulletPerCharge);
+        if (player.currTypeGun == TYPE_PLAYER_GUN.PRIMARY_GUN)
+        {
+            sprPrimaryGun.gameObject.SetActive(true);
+            sprSecondaryGun.gameObject.SetActive(false);
+        }
+        else
+        {
+            sprSecondaryGun.gameObject.SetActive(true);
+            sprPrimaryGun.gameObject.SetActive(false);
+        }
         for (int i = 0; i < 10; i++)
         {
             if (i < percentBulletActive)
@@ -457,6 +467,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 arrSprBullet[i].gameObject.SetActive(false);
+
             }
 
         }
@@ -478,7 +489,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateUIEnergy()
     {
-        Rect r = new Rect(0, 0, ((float)player.energy)/100, 1);
+        Rect r = new Rect(0, 0, ((float)player.energy) / 100, 1);
         cSprEnergy.ClipRect = r;
         if (player.energy >= 100)
         {
@@ -513,7 +524,7 @@ public class GameManager : MonoBehaviour
     public void ClickChargeGun()
     {
         isKeepTouchShoot = false;
-        player.ChangeGun();
+        player.Recharge();
     }
 
     public void ClickPause()
@@ -537,7 +548,8 @@ public class GameManager : MonoBehaviour
 
     public void ClickUseSpecialSkill()
     {
-
+        player.hp = 100;
+        UpdateUIHp();
     }
 }
 

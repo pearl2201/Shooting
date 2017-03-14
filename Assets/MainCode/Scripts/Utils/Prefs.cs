@@ -26,6 +26,7 @@ public class Prefs
 
     public Prefs()
     {
+        PlayerPrefs.DeleteAll();
         if (PlayerPrefs.HasKey(KEY_VERSION_CODE))
         {
             if (PlayerPrefs.GetInt(KEY_VERSION_CODE) != VERSION_KEYCODE)
@@ -132,9 +133,10 @@ public class Prefs
 
     void Init()
     {
+        Debug.Log("Init");
         SetInt(KEY_VERSION_CODE, VERSION_KEYCODE);
-        SetVolumeMusic(0);
-        SetVolumeSoundFx(0);
+        SetVolumeMusic(1);
+        SetVolumeSoundFx(1);
         SetNoGrenade(10);
         SetCurrPrimaryGun(0);
         SetSecondaryGun(0);

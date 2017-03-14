@@ -45,15 +45,18 @@ public class Player : MonoBehaviour, IPoolObj
             primaryGun = PoolManager.SpawnObject(goPrefab).GetComponent<AbstractGun>();
             primaryGun.noBullet = Prefs.Instance.GetNoBulletGun(primaryGun.dataGun.id);
             primaryGun.noBulletActive = Mathf.Min(primaryGun.dataGun.noBulletPerCharge, primaryGun.noBullet);
+            primaryGun.noBullet -= primaryGun.noBulletActive;
             primaryGun.transform.SetParent(parentGun.transform);
             primaryGun.transform.localPosition = Vector3.zero;
             primaryGun.gameObject.SetActive(false);
+            Debug.Log("no bullet primary Gun: " + primaryGun.noBullet);
         }
         {
             GameObject goPrefab = PoolPrefabLookupManager.LookPrefab("Secondary" + Prefs.Instance.GetCurrSecondaryGun());
             secondaryGun = PoolManager.SpawnObject(goPrefab).GetComponent<AbstractGun>();
             secondaryGun.noBullet = secondaryGun.dataGun.totalBullet;
             secondaryGun.noBulletActive = Mathf.Min(secondaryGun.dataGun.noBulletPerCharge, secondaryGun.noBullet);
+            secondaryGun.noBullet -= secondaryGun.noBulletActive;
             secondaryGun.transform.SetParent(parentGun.transform);
             secondaryGun.transform.localPosition = Vector3.zero;
             secondaryGun.gameObject.SetActive(false);
@@ -121,7 +124,7 @@ public class Player : MonoBehaviour, IPoolObj
     {
         Debug.Log("shoot");
         playerState = PLAYER_STATE.SHOOT;
-        energy += 5;
+        energy += 2;
         if (energy >= 100)
         {
             energy = 100;
@@ -166,7 +169,7 @@ public class Player : MonoBehaviour, IPoolObj
         }
         if (currTypeGun == TYPE_PLAYER_GUN.PRIMARY_GUN)
         {
-            currGun.noBullet--;
+
             currGun.noBulletActive--;
             if (currGun.noBullet == 0)
             {
@@ -206,7 +209,7 @@ public class Player : MonoBehaviour, IPoolObj
 
     IEnumerator IEShootGrenade()
     {
-        energy += 10;
+        energy += 5;
         if (energy >= 100)
         {
             energy = 100;
@@ -227,7 +230,15 @@ public class Player : MonoBehaviour, IPoolObj
     {
         if (playerState == PLAYER_STATE.FREE)
         {
-            StartCoroutine(IERecharge());
+            if (currGun.noBullet > 0)
+            {
+                StartCoroutine(IERecharge());
+            }
+            else
+            {
+                ChangeGun();
+            }
+
         }
     }
 
@@ -251,7 +262,9 @@ public class Player : MonoBehaviour, IPoolObj
             }
             yield return new WaitForSeconds(0.25f);
         }
-
+        currGun.noBulletActive = Mathf.Min(currGun.dataGun.noBulletPerCharge, currGun.noBullet);
+        if (currTypeGun == TYPE_PLAYER_GUN.PRIMARY_GUN)
+            currGun.noBullet -= currGun.noBulletActive;
         gameManager.UpdateUiChangeGun();
         for (int j = 0; j < 8; j++)
         {
@@ -281,21 +294,30 @@ public class Player : MonoBehaviour, IPoolObj
 
     public void ChangeGun()
     {
+        Vector3 oldPos = currGun.transform.position;
         if (currTypeGun == TYPE_PLAYER_GUN.PRIMARY_GUN)
         {
-            currGun = secondaryGun;
+
             bool stateCurrGun = currGun.gameObject.activeSelf;
+            currGun = secondaryGun;
             primaryGun.gameObject.SetActive(false);
             secondaryGun.gameObject.SetActive(stateCurrGun);
+            currTypeGun = TYPE_PLAYER_GUN.SECONDARY_GUN;
+            currGun.transform.position = oldPos;
+            gameManager.UpdateUiChangeGun();
         }
         else
         {
             if (primaryGun.noBullet > 0)
             {
-                currGun = primaryGun;
+
                 bool stateCurrGun = currGun.gameObject.activeSelf;
+                currGun = primaryGun;
                 primaryGun.gameObject.SetActive(stateCurrGun);
                 secondaryGun.gameObject.SetActive(false);
+                currTypeGun = TYPE_PLAYER_GUN.PRIMARY_GUN;
+                currGun.transform.position = oldPos;
+                gameManager.UpdateUiChangeGun();
             }
             else
             {
@@ -313,7 +335,7 @@ public class Player : MonoBehaviour, IPoolObj
         {
             hp = 0;
         }
-        energy += damage / 2;
+        energy += 5;
         if (energy >= 100)
         {
             energy = 100;
