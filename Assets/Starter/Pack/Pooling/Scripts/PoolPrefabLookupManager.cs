@@ -4,14 +4,36 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class PoolPrefabLookupManager : Singleton<PoolPrefabLookupManager>
+public class PoolPrefabLookupManager : MonoBehaviour
 {
+
+    private static PoolPrefabLookupManager _instance;
+
+    public static PoolPrefabLookupManager Instance
+    {
+        get
+        {
+            return _instance;
+        }
+    }
     public PrefabLookup[] arrPrefabLookup;
 
     private List<string> listKey;
 
     void Awake()
     {
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            if (_instance!=this)
+            {
+                Destroy(gameObject);
+            }
+        }
         listKey = new List<string>();
         for (int i = 0; i < arrPrefabLookup.Length; i++)
         {
@@ -20,7 +42,7 @@ public class PoolPrefabLookupManager : Singleton<PoolPrefabLookupManager>
     }
     void Start()
     {
-        
+
     }
 
     public GameObject lookPrefab(string key)
@@ -40,7 +62,7 @@ public class PoolPrefabLookupManager : Singleton<PoolPrefabLookupManager>
 
     public static GameObject LookPrefab(string key)
     {
-        Debug.Log("key: " + key);
+
         return PoolPrefabLookupManager.Instance.lookPrefab(key);
     }
     #endregion

@@ -14,7 +14,7 @@ public class EndGamePopup : MonoBehaviour
 
     public void Reload()
     {
-        Application.LoadLevel(Application.loadedLevel);
+        pScreenManager.Instance.ReloadLevel(pScreenManager.SCREEN_GAME);
     }
 
     public void OpenShop()

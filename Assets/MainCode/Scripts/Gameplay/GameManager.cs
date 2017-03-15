@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
         currGameState = GAME_STATE.SETUP;
         currAim = relativeAimStg;
         SetupInfo();
+
     }
 
 
@@ -71,20 +72,28 @@ public class GameManager : MonoBehaviour
     {
         if (currGameState == GAME_STATE.START)
         {
-            cdrUpdate += Time.deltaTime;
-            if (cdrUpdate >= 1)
+            if (pScreenManager.Instance.IsLockScreen())
             {
-                vStart--;
-                if (vStart == -1)
+
+            }
+            else
+            {
+                cdrUpdate += Time.deltaTime;
+                if (cdrUpdate >= 1)
                 {
-                    SetupPlay();
-                }
-                else
-                {
-                    txtStart.text = vStart.ToString();
-                    cdrUpdate = 0;
+                    vStart--;
+                    if (vStart == -1)
+                    {
+                        SetupPlay();
+                    }
+                    else
+                    {
+                        txtStart.text = vStart.ToString();
+                        cdrUpdate = 0;
+                    }
                 }
             }
+
         }
         else if (currGameState == GAME_STATE.END)
         {
@@ -100,7 +109,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 percentRotateCamera -= Time.deltaTime * 0.2f;
-                if (percentRotateCamera >=0)
+                if (percentRotateCamera <= 0)
                 {
                     isRotateCameraToLeft = true;
                     percentRotateCamera = 0;
@@ -175,7 +184,7 @@ public class GameManager : MonoBehaviour
         txtStart.text = vStart.ToString();
         txtStart.gameObject.SetActive(true);
         timer = 6000;
-
+        pScreenManager.Instance.SetQueueUnlockScreen();
         currGameState = GAME_STATE.START;
     }
 
@@ -378,6 +387,10 @@ public class GameManager : MonoBehaviour
     public void SetupPopupEndGame(bool isSuccess)
     {
         popupEndGame.gameObject.SetActive(true);
+        for (int i = 0; i < listFullObj.Count; i++)
+        {
+            PoolManager.Instance.releaseObject(listFullObj[i].gameObject);
+        }
         percentRotateCamera = 0.5f;
         isRotateCameraToLeft = UnityEngine.Random.Range(0, 2) == 0;
     }

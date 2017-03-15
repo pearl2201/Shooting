@@ -50,18 +50,18 @@ public class EnemyMoveShootGrenade : AbstractEnemy
         SoundManager.Instance.Play("enemyRoar1");
         if (lineMoveShoot.startP.x > realCoverPoint.x)
         {
-            Debug.Log("set rotate right");
+            
             transform.localEulerAngles = new Vector3(0, -90, 0);
 
         }
         else
         {
-            Debug.Log("set rotate left");
+            
             transform.localEulerAngles = new Vector3(0, 90, 0);
         }
         transform.position = lineMoveShoot.startP;
         float timeMove = Vector3.Magnitude(realCoverPoint - lineMoveShoot.startP) / mDataAttack.moveSpeed;
-        Debug.Log("moveSpeed: " + mDataAttack.moveSpeed);
+
         iTween.MoveTo(gameObject, iTween.Hash("position", realCoverPoint, "time", timeMove, "easetype", iTween.EaseType.linear));
         yield return new WaitForSeconds(timeMove);
         {
