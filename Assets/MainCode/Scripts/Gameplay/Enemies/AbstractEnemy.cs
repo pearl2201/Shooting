@@ -73,7 +73,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IPoolObj
         GetHit(damage, transform.position, isGrenade);
     }
 
-    public void GetHit(int damage, Vector3 hitPoint, bool isGrenade)
+    public virtual void GetHit(int damage, Vector3 hitPoint, bool isGrenade)
     {
         if (phaze == ENEMY_PHAZE.PLAY)
         {

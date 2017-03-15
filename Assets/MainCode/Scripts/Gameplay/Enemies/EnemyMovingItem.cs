@@ -45,7 +45,7 @@ public class EnemyMovingItem : AbstractEnemy
             phaze = ENEMY_PHAZE.FINISH;
             Dying();
         }
-                
+
 
 
     }
@@ -61,6 +61,9 @@ public class EnemyMovingItem : AbstractEnemy
 
         phaze = ENEMY_PHAZE.FINISH;
         gameManager.RemoveEnemy(this);
+    }
+    public virtual void GetHit(int damage, Vector3 hitPoint, bool isGrenade)
+    {
     }
 }
 
