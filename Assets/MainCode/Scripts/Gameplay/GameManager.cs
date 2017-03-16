@@ -310,9 +310,9 @@ public class GameManager : MonoBehaviour
                 DataMoveEnemy dt = (DataMoveEnemy)listEnemyGen[i];
                 GameObject prefab = PoolPrefabLookupManager.LookPrefab("EnemyMove" + dt.idEnemy);
                 EnemyMovingItem enemy = PoolManager.Instance.spawnObject(prefab).GetComponent<EnemyMovingItem>();
-                enemy.transform.position = dataMap.listLineMoveShooting[dt.idLineMove].startP;
+                enemy.transform.position = dataMap.lineFlying.startP;
                 enemy.transform.SetParent(rootEnemy);
-                enemy.Setup(this, dt, dataMap.listLineMoveShooting[dt.idLineMove]);
+                enemy.Setup(this, dt, dataMap.lineFlying);
                 listFullObj.Add(enemy);
 
             }
@@ -329,7 +329,7 @@ public class GameManager : MonoBehaviour
             else if (listEnemyGen[i].typeEnemy == TYPE_ENEMY.STATIC_DEF)
             {
                 DataDefObj dt = (DataDefObj)listEnemyGen[i];
-                GameObject prefab = PoolPrefabLookupManager.LookPrefab("StaticBomb" + dt.idEnemy);
+                GameObject prefab = PoolPrefabLookupManager.LookPrefab("StaticDef" + dt.idEnemy);
                 EnemyDefItem enemy = PoolManager.Instance.spawnObject(prefab).GetComponent<EnemyDefItem>();
                 enemy.transform.position = dt.pos;
                 enemy.transform.SetParent(rootEnemy);
@@ -339,7 +339,7 @@ public class GameManager : MonoBehaviour
             else if (listEnemyGen[i].typeEnemy == TYPE_ENEMY.STATIC_GOLD)
             {
                 DataCoinObj dt = (DataCoinObj)listEnemyGen[i];
-                GameObject prefab = PoolPrefabLookupManager.LookPrefab("StaticBomb" + dt.idEnemy);
+                GameObject prefab = PoolPrefabLookupManager.LookPrefab("StaticCoin" + dt.idEnemy);
                 EnemyCoinItem enemy = PoolManager.Instance.spawnObject(prefab).GetComponent<EnemyCoinItem>();
                 enemy.transform.position = dt.pos;
                 enemy.transform.SetParent(rootEnemy);
@@ -349,7 +349,7 @@ public class GameManager : MonoBehaviour
             else if (listEnemyGen[i].typeEnemy == TYPE_ENEMY.STATIC_HP)
             {
                 DataHpObj dt = (DataHpObj)listEnemyGen[i];
-                GameObject prefab = PoolPrefabLookupManager.LookPrefab("StaticBomb" + dt.idEnemy);
+                GameObject prefab = PoolPrefabLookupManager.LookPrefab("StaticHp" + dt.idEnemy);
                 EnemyHpItem enemy = PoolManager.Instance.spawnObject(prefab).GetComponent<EnemyHpItem>();
                 enemy.transform.position = dt.pos;
                 enemy.transform.SetParent(rootEnemy);
@@ -364,12 +364,24 @@ public class GameManager : MonoBehaviour
 
     public void CreateGoldItemAt(Vector3 pos)
     {
-
+        DataCoinObj dt = new DataCoinObj(0, TYPE_ENEMY.STATIC_GOLD, 0,pos, 100);
+        GameObject prefab = PoolPrefabLookupManager.LookPrefab("StaticCoin" + dt.idEnemy);
+        EnemyCoinItem enemy = PoolManager.Instance.spawnObject(prefab).GetComponent<EnemyCoinItem>();
+        enemy.transform.position = dt.pos;
+        enemy.transform.SetParent(rootEnemy);
+        enemy.Setup(this, dt);
+        listFullObj.Add(enemy);
     }
 
     public void CreateHpItemAt(Vector3 pos)
     {
-
+        DataHpObj dt = new DataHpObj(0, TYPE_ENEMY.STATIC_GOLD, 0, pos, 100);
+        GameObject prefab = PoolPrefabLookupManager.LookPrefab("StaticHp" + dt.idEnemy);
+        EnemyHpItem enemy = PoolManager.Instance.spawnObject(prefab).GetComponent<EnemyHpItem>();
+        enemy.transform.position = dt.pos;
+        enemy.transform.SetParent(rootEnemy);
+        enemy.Setup(this, dt);
+        listFullObj.Add(enemy);
     }
 
     public void WinGame()

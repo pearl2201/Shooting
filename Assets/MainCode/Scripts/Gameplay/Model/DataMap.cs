@@ -8,7 +8,7 @@ using UnityEngine;
 public class DataMap : MonoBehaviour
 {
     public int idMap;
-
+    public LineMoveShoot lineFlying;
     public LineMoveShoot[] listLineMoveShooting;
     public DataFakeInfoTurnSpawn[] listFakeTurnSpawn;
 
@@ -44,7 +44,7 @@ public class DataMap : MonoBehaviour
                     }
                     else if (fE.typeEnemy == TYPE_ENEMY.MOVING)
                     {
-                        DataMoveEnemy enemy = new DataMoveEnemy(fE.idEnemy, fE.typeEnemy, fE.hp, fE.moveSpeed, fE.idLineMove);
+                        DataMoveEnemy enemy = new DataMoveEnemy(fE.idEnemy, fE.typeEnemy, fE.hp, fE.moveSpeed);
                         listEB.Add(enemy);
                     }
                     else if (fE.typeEnemy == TYPE_ENEMY.STATIC_BOMB)

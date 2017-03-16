@@ -38,7 +38,6 @@ public class EnemyBase
 public class DataMoveEnemy : EnemyBase
 {
     public float speedX;
-    public int idLineMove;
 
     public DataMoveEnemy() : base()
     {
@@ -48,15 +47,14 @@ public class DataMoveEnemy : EnemyBase
         */
     }
 
-    public DataMoveEnemy(int idEnemy, TYPE_ENEMY typeEnemy, int hp, float speedX, int idLineMove) : base(idEnemy, typeEnemy, hp)
+    public DataMoveEnemy(int idEnemy, TYPE_ENEMY typeEnemy, int hp, float speedX) : base(idEnemy, typeEnemy, hp)
     {
         this.speedX = speedX;
-        this.idLineMove = idLineMove;
     }
 
     public override EnemyBase Clone()
     {
-        return new DataMoveEnemy(idEnemy, typeEnemy, hp, speedX, idLineMove);
+        return new DataMoveEnemy(idEnemy, typeEnemy, hp, speedX);
     }
 }
 [Serializable]

@@ -38,9 +38,23 @@ public class MapEditor : Editor
         dataSO.Update();
 
         dataMap.idMap = EditorGUILayout.IntField("ID Map", dataMap.idMap);
-
         EditorGUILayout.Separator();
+        if (dataMap.lineFlying==null)
+        {
+            dataMap.lineFlying = new LineMoveShoot();
+        }
+        {
+            EditorGUILayout.LabelField("Line Flying");
 
+            EditorGUI.indentLevel = 1;
+
+            dataMap.lineFlying.startP = EditorGUILayout.Vector3Field("Start Point", dataMap.lineFlying.startP);
+            dataMap.lineFlying.endP = EditorGUILayout.Vector3Field("End Point", dataMap.lineFlying.endP);
+            dataMap.lineFlying.coverP = EditorGUILayout.Vector3Field("Cover Point", dataMap.lineFlying.coverP);
+            dataMap.lineFlying.radius = EditorGUILayout.FloatField("Radius", dataMap.lineFlying.radius);
+        }
+        EditorGUILayout.Separator();
+        EditorGUI.indentLevel = 0;
         noLine = EditorGUILayout.IntField("No Line", noLine);
         if (noLine > 0)
         {
@@ -188,7 +202,7 @@ public class MapEditor : Editor
                     if (dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.MOVING)
                     {
                         dataMap.listFakeTurnSpawn[i].listEnemyBase[j].moveSpeed = EditorGUILayout.FloatField("Speed", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].moveSpeed);
-                        dataMap.listFakeTurnSpawn[i].listEnemyBase[j].idLineMove = EditorGUILayout.IntField("Line Move", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].idLineMove);
+                      
 
                     }
                     else if (dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.STATIC_BOMB)
