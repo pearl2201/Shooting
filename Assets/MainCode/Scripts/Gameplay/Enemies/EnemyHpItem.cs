@@ -15,10 +15,10 @@ public class EnemyHpItem : AbstractEnemy
 
     public void Setup(GameManager gameManager, DataHpObj mDataAttack)
     {
-        Setup(gameManager, mDataAttack);
+        base.Setup(gameManager, mDataAttack);
         this.mDataAttack = (DataHpObj)dataPeople;
 
-        phaze = ENEMY_PHAZE.WAIT;
+        phaze = ENEMY_PHAZE.PLAY;
     }
 
 

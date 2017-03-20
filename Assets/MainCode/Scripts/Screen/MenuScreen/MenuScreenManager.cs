@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class SplashScreenManager : MonoBehaviour
+public class MenuScreenManager : MonoBehaviour
 {
 
     void Start()
     {
-        pScreenManager.Instance.LoadLevel(pScreenManager.SCREEN_INTRO);
+        pScreenManager.Instance.LoadLevel2(pScreenManager.SCREEN_INTRO_OUT,true);
     }
-
 }
 

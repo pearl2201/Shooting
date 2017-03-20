@@ -6,7 +6,9 @@ using UnityEngine;
 public class ShopPage : MonoBehaviour
 {
 
-    public int currIdPage;
+    public TYPE_ITEM typePage;
+
+    public int currIdItemSelection;
 
     public void ClickBuyItem()
     {

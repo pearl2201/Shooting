@@ -15,7 +15,7 @@ public class EnemyCoinItem : AbstractEnemy
 
     public void Setup(GameManager gameManager, DataCoinObj mDataAttack)
     {
-        Setup(gameManager, mDataAttack);
+        base.Setup(gameManager, mDataAttack);
         this.mDataAttack = (DataCoinObj)dataPeople;
 
         phaze = ENEMY_PHAZE.PLAY;
@@ -49,7 +49,7 @@ public class EnemyCoinItem : AbstractEnemy
 
             Dying();
         }
-        
+
 
 
     }

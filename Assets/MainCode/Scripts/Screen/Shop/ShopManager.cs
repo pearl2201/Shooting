@@ -36,7 +36,7 @@ public class ShopManager : MonoBehaviour
 
     public void ClickPlay()
     {
-        Application.LoadLevel("Game");
+        pScreenManager.Instance.LoadLevel(pScreenManager.SCREEN_GAME);
     }
 
 }

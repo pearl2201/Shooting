@@ -155,7 +155,9 @@ public class GameManager : MonoBehaviour
     void SetupInfo()
     {
         currGameState = GAME_STATE.SETUP;
-
+        dataMap = Instantiate(Resources.Load<GameObject>("Screen/Map")).GetComponent<DataMap>();
+        dataMap.transform.SetParent(transform);
+        dataMap.transform.localPosition = new Vector3(0, 11, 25.4f);
         // count no enemy
         noEnemy = 0;
         for (int i = 0; i < dataMap.listFakeTurnSpawn.Length; i++)
@@ -184,6 +186,7 @@ public class GameManager : MonoBehaviour
         txtStart.text = vStart.ToString();
         txtStart.gameObject.SetActive(true);
         timer = 6000;
+
         pScreenManager.Instance.SetQueueUnlockScreen();
         currGameState = GAME_STATE.START;
     }
@@ -364,7 +367,7 @@ public class GameManager : MonoBehaviour
 
     public void CreateGoldItemAt(Vector3 pos)
     {
-        DataCoinObj dt = new DataCoinObj(0, TYPE_ENEMY.STATIC_GOLD, 0,pos, 100);
+        DataCoinObj dt = new DataCoinObj(0, TYPE_ENEMY.STATIC_GOLD, 0, pos, 100);
         GameObject prefab = PoolPrefabLookupManager.LookPrefab("StaticCoin" + dt.idEnemy);
         EnemyCoinItem enemy = PoolManager.Instance.spawnObject(prefab).GetComponent<EnemyCoinItem>();
         enemy.transform.position = dt.pos;
