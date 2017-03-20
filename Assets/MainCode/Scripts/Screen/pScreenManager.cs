@@ -136,7 +136,7 @@ public class pScreenManager : MonoBehaviour
             isLockScreen2 = true;
             isAllowSetUnLockScreenAuto = isAutoUnlock;
 
-            if (currentScreenObject == null)
+            if (currentScreenObject != null)
             {
                 Destroy(currentScreenObject);
             }

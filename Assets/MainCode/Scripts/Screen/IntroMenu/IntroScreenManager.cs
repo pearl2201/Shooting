@@ -9,7 +9,7 @@ public class IntroScreenManager : MonoBehaviour
 
     public void ClickStart()
     {
-
+        pScreenManager.Instance.LoadLevel2(pScreenManager.SCREEN_INTRO_PICKMAP, false);
     }
 
     public void ClickMoreGame()

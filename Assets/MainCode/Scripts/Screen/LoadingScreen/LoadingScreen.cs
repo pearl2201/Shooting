@@ -9,7 +9,7 @@ public class LoadingScreen : MonoBehaviour
 
     void Start()
     {
-        pScreenManager.Instance.LoadLevel(pScreenManager.SCREEN_GAME);
+        pScreenManager.Instance.LoadLevel(pScreenManager.SCREEN_INTRO);
     }
 }
 

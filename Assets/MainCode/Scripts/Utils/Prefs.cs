@@ -135,7 +135,7 @@ public class Prefs
     {
         Debug.Log("Init");
         SetInt(KEY_VERSION_CODE, VERSION_KEYCODE);
-        SetVolumeMusic(1);
+        SetVolumeMusic(0);
         SetVolumeSoundFx(1);
         SetNoGrenade(10);
         SetCurrPrimaryGun(0);
