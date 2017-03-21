@@ -45,7 +45,7 @@ public enum TYPE_ENEMY : int
 
 public enum GAME_STATE
 {
-    PAUSE, PLAY, END, START, SETUP,TRANSFER
+    PAUSE, PLAY, END, START, SETUP, TRANSFER
 }
 
 
@@ -70,4 +70,26 @@ public enum TYPE_ENEMY_ATTACK
     SHOOT,
     SHOOT_GRENADE,
     KNIFE
+}
+
+public enum TYPE_MAP_MISSION
+{
+    CLEAR_ENEMY,
+    REACH_SCORE
+}
+
+public enum TYPE_IAP
+{
+    NONE
+}
+
+
+public enum TYPE_DAILYQUEST
+{
+    NONE
+}
+
+public enum TYPE_ACHIVEMENT
+{
+    NONE
 }

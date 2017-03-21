@@ -6,13 +6,19 @@ using UnityEngine;
 
 public class PauseGamePopup : MonoBehaviour
 {
+    private GameManager gameManager;
 
     public void BackToMenu()
     {
-
+        pScreenManager.Instance.LoadLevel(pScreenManager.SCREEN_INTRO);
     }
 
     public void UnPause()
+    {
+        gameManager.ClickPause();
+    }
+
+    public void ClickOption()
     {
 
     }

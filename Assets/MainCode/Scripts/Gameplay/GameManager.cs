@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     private tk2dSprite[] arrSprBullet;
     private float percentRotateCamera = 0;
     private bool isRotateCameraToLeft;
-
+    private GameOptionPopup popupOption;
     void Start()
     {
         listPrefabEnemyInit = new List<AbstractEnemy>();
@@ -572,6 +572,43 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
             popupPauseGame.gameObject.SetActive(false);
         }
+    }
+
+    public void OpenPausePopup()
+    {
+        if (currGameState != GAME_STATE.PAUSE)
+        {
+            oldGameState = currGameState;
+            currGameState = GAME_STATE.PAUSE;
+            popupPauseGame.gameObject.SetActive(true);
+            Time.timeScale = 0;
+
+        }
+    }
+
+    public void ClosePausePopup()
+    {
+        if (currGameState == GAME_STATE.PAUSE)
+        {
+            currGameState = oldGameState;
+            Time.timeScale = 1;
+            popupPauseGame.gameObject.SetActive(false);
+
+        }
+    }
+
+    public void OpenOptionPopup()
+    {
+        popupPauseGame.gameObject.SetActive(false);
+
+        popupOption.gameObject.SetActive(true);
+    }
+
+    public void CloseOptionPopup()
+    {
+        popupPauseGame.gameObject.SetActive(true);
+
+        popupOption.gameObject.SetActive(false);
     }
 
     public void ClickUseSpecialSkill()

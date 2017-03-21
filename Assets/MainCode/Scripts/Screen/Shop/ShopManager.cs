@@ -47,9 +47,9 @@ public class ShopManager : MonoBehaviour
         pageEquipment.gameObject.SetActive(typePage == TYPE_ITEM.EQUIPMENT);
     }
 
-    public void ClickPlay()
+    public void ClickBack()
     {
-        pScreenManager.Instance.LoadLevel(pScreenManager.SCREEN_GAME);
+        pScreenManager.Instance.LoadLevel2(pScreenManager.SCREEN_INTRO_PICKMAP,true);
     }
 
 }

@@ -22,5 +22,42 @@ public class IntroScreenManager : MonoBehaviour
 
     }
 
+    public void OpenFacebook()
+    {
+
+    }
+
+    public void OpenHelp()
+    {
+
+    }
+
+    public void OpenMoreGame()
+    {
+
+    }
+
+    public void OpenAchivement()
+    {
+
+    }
+
+   
+
+    public void OpenIAP()
+    {
+
+    }
+
+    public void OpenSetting()
+    {
+
+    }
+
+    public void OpenLeaderBoard()
+    {
+
+    }
+
 }
 

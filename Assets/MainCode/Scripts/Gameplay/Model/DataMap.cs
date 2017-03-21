@@ -8,6 +8,10 @@ using UnityEngine;
 public class DataMap : MonoBehaviour
 {
     public int idMap;
+    public string titleMap;
+    public MissionMini[] arrMission;
+    public string hint;
+
     public LineMoveShoot lineFlying;
     public LineMoveShoot[] listLineMoveShooting;
     public DataFakeInfoTurnSpawn[] listFakeTurnSpawn;
@@ -85,3 +89,10 @@ public class DataMap : MonoBehaviour
 
 }
 
+
+[Serializable]
+public class MissionMini
+{
+    public TYPE_MAP_MISSION typeMission;
+    public int valueMission;
+}

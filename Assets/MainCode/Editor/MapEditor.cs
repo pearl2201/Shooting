@@ -9,8 +9,10 @@ public class MapEditor : Editor
     private int noLine = 0;
     private int noTurn = 0;
     private SerializedObject dataSO;
+    private int noMission = 0;
     private DataMap dataMap;
     private int[] arrCountEnemyInTurn;
+    private bool foldMission;
     void OnEnable()
     {
 
@@ -23,13 +25,14 @@ public class MapEditor : Editor
         }
         noLine = dataMap.listLineMoveShooting.Length;
         noTurn = dataMap.listFakeTurnSpawn.Length;
+       
         arrCountEnemyInTurn = new int[noTurn];
         for (int i = 0; i < noTurn; i++)
         {
             arrCountEnemyInTurn[i] = dataMap.listFakeTurnSpawn[i].listEnemyBase.Length;
         }
         Debug.Log("on enbla");
-
+        noMission = dataMap.arrMission.Length;
     }
 
     public override void OnInspectorGUI()
@@ -38,8 +41,70 @@ public class MapEditor : Editor
         dataSO.Update();
 
         dataMap.idMap = EditorGUILayout.IntField("ID Map", dataMap.idMap);
+        dataMap.titleMap = EditorGUILayout.TextField("Title Map", dataMap.titleMap);
+        dataMap.hint = EditorGUILayout.TextField("Hint", dataMap.hint);
+        
         EditorGUILayout.Separator();
-        if (dataMap.lineFlying==null)
+
+        noMission = EditorGUILayout.IntField("No Mission", noMission);
+        if (noMission > 0)
+        {
+
+            if (dataMap.arrMission == null)
+            {
+                dataMap.arrMission = new MissionMini[noMission];
+                for (int i = 0; i < Mathf.Min(noMission, dataMap.arrMission.Length); i++)
+                {
+                    dataMap.arrMission[i] = new MissionMini();
+                }
+
+            }
+            else if (noMission != dataMap.arrMission.Length)
+            {
+                MissionMini[] tmpData = new MissionMini[noMission];
+                for (int i = 0; i < noMission; i++)
+                {
+                    if (i < dataMap.arrMission.Length)
+                    {
+                        tmpData[i] = dataMap.arrMission[i];
+                    }
+                    else
+                    {
+                        tmpData[i] = new MissionMini();
+                    }
+
+                }
+                dataMap.arrMission = tmpData;
+            }
+
+            for (int i = 0; i < dataMap.arrMission.Length; i++)
+            {
+                if (dataMap.arrMission[i] == null)
+                {
+                    dataMap.arrMission[i] = new MissionMini();
+
+                }
+                else
+                {
+
+                }
+
+                EditorGUI.indentLevel = 1;
+
+                EditorGUILayout.LabelField("Line " + i);
+
+                EditorGUI.indentLevel = 2;
+
+                dataMap.arrMission[i].typeMission = (TYPE_MAP_MISSION) EditorGUILayout.EnumPopup("TYPE_MISSION", dataMap.arrMission[i].typeMission);
+                dataMap.arrMission[i].valueMission = EditorGUILayout.IntField("Value", dataMap.arrMission[i].valueMission);
+                
+            }
+
+
+        }
+
+        EditorGUILayout.Separator();
+        if (dataMap.lineFlying == null)
         {
             dataMap.lineFlying = new LineMoveShoot();
         }
@@ -176,7 +241,7 @@ public class MapEditor : Editor
                     FullEnemyBase[] tmpDataTurn = new FullEnemyBase[arrCountEnemyInTurn[i]];
                     for (int j = 0; j < arrCountEnemyInTurn[i]; j++)
                     {
-                        if (j< dataMap.listFakeTurnSpawn[i].listEnemyBase.Length)
+                        if (j < dataMap.listFakeTurnSpawn[i].listEnemyBase.Length)
                         {
                             tmpDataTurn[j] = dataMap.listFakeTurnSpawn[i].listEnemyBase[j];
                         }
@@ -184,7 +249,7 @@ public class MapEditor : Editor
                         {
                             tmpDataTurn[j] = new FullEnemyBase();
                         }
-                        
+
                     }
 
                     dataMap.listFakeTurnSpawn[i].listEnemyBase = tmpDataTurn;
@@ -202,7 +267,7 @@ public class MapEditor : Editor
                     if (dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.MOVING)
                     {
                         dataMap.listFakeTurnSpawn[i].listEnemyBase[j].moveSpeed = EditorGUILayout.FloatField("Speed", dataMap.listFakeTurnSpawn[i].listEnemyBase[j].moveSpeed);
-                      
+
 
                     }
                     else if (dataMap.listFakeTurnSpawn[i].listEnemyBase[j].typeEnemy == TYPE_ENEMY.STATIC_BOMB)

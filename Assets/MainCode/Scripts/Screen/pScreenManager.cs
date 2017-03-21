@@ -38,6 +38,12 @@ public class pScreenManager : MonoBehaviour
     public static string SCREEN_INTRO_OUT = "IntroOut";
     public static string SCREEN_INTRO_PICKMAP = "IntroPickMap";
     public static string SCREEN_INTRO_STORE = "IntroStore";
+    public static string SCREEN_INTRO_IAP = "IntroIAP";
+    public static string SCREEN_INTRO_DAILYQUEST = "IntroDailyQuest";
+    public static string SCREEN_INTRO_ACHIVEMENT = "IntroAchivement";
+    
+
+
     #endregion
 
     #region private
@@ -143,7 +149,7 @@ public class pScreenManager : MonoBehaviour
             oldScreenName = currScreenName;
             currScreenName = GAME_MAP_0;
 
-            currentScreenObject = Instantiate(Resources.Load<GameObject>("Screen/" + nameLevel));
+            currentScreenObject = Instantiate(Resources.Load<GameObject>("Screen/Map/" + nameLevel));
 
 
             if (isAllowSetUnLockScreenAuto)
