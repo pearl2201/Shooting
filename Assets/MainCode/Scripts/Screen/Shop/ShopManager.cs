@@ -49,7 +49,12 @@ public class ShopManager : MonoBehaviour
 
     public void ClickBack()
     {
-        pScreenManager.Instance.LoadLevel2(pScreenManager.SCREEN_INTRO_PICKMAP,true);
+        pScreenManager.Instance.LoadBackScreen();
+    }
+
+    public void ClickWatchAds()
+    {
+
     }
 
 }

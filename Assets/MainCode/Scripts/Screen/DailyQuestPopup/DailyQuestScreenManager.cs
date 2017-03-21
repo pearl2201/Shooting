@@ -8,5 +8,11 @@ public class DailyQuestScreenManager : MonoBehaviour
 {
 
     public DailyQuestScreenItem[] arrDailyQuest;
+
+
+    public void Back()
+    {
+        pScreenManager.Instance.LoadBackScreen();
+    }
 }
 

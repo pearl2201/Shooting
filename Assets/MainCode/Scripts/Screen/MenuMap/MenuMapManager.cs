@@ -11,6 +11,13 @@ public class MenuMapManager : MonoBehaviour
         pScreenManager.Instance.SetQueueUnlockScreen();
     }
 
+
+    public void SelectPage(int IDPage)
+    {
+
+    }
+
+
     public void ChooseMap(ItemMap map)
     {
         Registry.CURR_ID_MAP = map.idLevel;
@@ -30,7 +37,7 @@ public class MenuMapManager : MonoBehaviour
 
     public void ClickBack()
     {
-        pScreenManager.Instance.LoadLevel2(pScreenManager.SCREEN_INTRO_OUT, false);
+        pScreenManager.Instance.LoadLevel2(pScreenManager.SCREEN_INTRO_OUT,true);
     }
 
 }

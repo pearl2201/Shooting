@@ -34,13 +34,13 @@ public class pScreenManager : MonoBehaviour
     #region nameScreen
     public static string SCREEN_GAME = "DemoScene";
     public static string SCREEN_INTRO = "IntroScene";
-    public static string GAME_MAP_0 = "Map0";
-    public static string SCREEN_INTRO_OUT = "IntroOut";
-    public static string SCREEN_INTRO_PICKMAP = "IntroPickMap";
-    public static string SCREEN_INTRO_STORE = "IntroStore";
-    public static string SCREEN_INTRO_IAP = "IntroIAP";
-    public static string SCREEN_INTRO_DAILYQUEST = "IntroDailyQuest";
-    public static string SCREEN_INTRO_ACHIVEMENT = "IntroAchivement";
+    public static string GAME_MAP_0 = "Map/Map0";
+    public static string SCREEN_INTRO_OUT = "Intro/IntroOut";
+    public static string SCREEN_INTRO_PICKMAP = "Intro/IntroPickMap";
+    public static string SCREEN_INTRO_STORE = "Intro/IntroStore";
+    public static string SCREEN_INTRO_IAP = "Intro/IntroIAP";
+    public static string SCREEN_INTRO_DAILYQUEST = "Intro/IntroDailyQuest";
+    public static string SCREEN_INTRO_ACHIVEMENT = "Intro/IntroAchivement";
     
 
 
@@ -147,9 +147,9 @@ public class pScreenManager : MonoBehaviour
                 Destroy(currentScreenObject);
             }
             oldScreenName = currScreenName;
-            currScreenName = GAME_MAP_0;
+            currScreenName = nameLevel;
 
-            currentScreenObject = Instantiate(Resources.Load<GameObject>("Screen/Map/" + nameLevel));
+            currentScreenObject = Instantiate(Resources.Load<GameObject>("Screen/" + nameLevel));
 
 
             if (isAllowSetUnLockScreenAuto)
@@ -163,7 +163,7 @@ public class pScreenManager : MonoBehaviour
     {
         if (oldScreenName != "")
         {
-            LoadLevel(oldScreenName);
+            LoadLevel2(oldScreenName, true);
         }
     }
 

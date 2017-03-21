@@ -33,7 +33,7 @@ public class IAPScreenManager : MonoBehaviour
 
     public void Back()
     {
-
+        pScreenManager.Instance.LoadBackScreen();
     }
 
     public void RestoreIAP()
