@@ -7,10 +7,10 @@ public abstract class ShopPageBase : MonoBehaviour
 {
 
     public TYPE_ITEM typePage;
-
+    [HideInInspector]
     public ItemShop currItem;
     public ShopManager shopManager;
-
+    [SerializeField]
     protected ItemShop[] arrItem;
     void Start()
     {

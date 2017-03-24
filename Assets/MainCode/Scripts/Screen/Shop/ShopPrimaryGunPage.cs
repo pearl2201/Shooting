@@ -12,24 +12,22 @@ public class ShopPrimaryGunPage : ShopPageBase
     private GameObject goEquip, goBuyBullet, goBuyItem, goBoardBuyBullet;
     [SerializeField]
     private tk2dClippedSprite csprDamage, csprFirerate, csprAccuracy;
+    [SerializeField]
+    private tk2dSprite sprItem;
 
     private DataGun dataGun;
 
-    void Start()
-    {
-
-    }
 
     public override void ClickBuyItem()
     {
         if (Prefs.Instance.GetCoin() >= currItem.dataItem.cost)
         {
-            Prefs.Instance.SetBoughtPrimaryGun(currItem.dataItem.id, true);
+            Prefs.Instance.SetBoughtPrimaryGun(dataGun.id, true);
             Prefs.Instance.SubCoin(currItem.dataItem.cost);
             Prefs.Instance.SetCurrPrimaryGun(currItem.dataItem.id);
             Prefs.Instance.SetBulletPrimaryGun(currItem.dataItem.id, dataGun.totalBullet);
             goBuyItem.gameObject.SetActive(true);
-            goBoardBuyBullet.gameObject.SetActive(true);
+            ShowInfoItem(currItem);
 
 
             shopManager.UpdateCoin();
@@ -38,12 +36,119 @@ public class ShopPrimaryGunPage : ShopPageBase
 
     public override void ShowInfoItem(ItemShop item)
     {
+
+        for (int i = 0; i < arrItem.Length; i++)
+        {
+
+            if (!Prefs.Instance.IsPrimaryGunBought(arrItem[i].dataItem.id))
+            {
+                arrItem[i].SetStatus(STATUS_ITEMSHOP.NOTBOUGHT);
+                arrItem[i].SetActive(false);
+            }
+            else
+            {
+                if (arrItem[i] != item)
+                {
+                    arrItem[i].SetStatus(STATUS_ITEMSHOP.BOUGHT);
+                }
+                else
+                {
+                    arrItem[i].SetStatus(STATUS_ITEMSHOP.SELECT);
+                }
+                if (arrItem[i].dataItem.id == Prefs.Instance.GetCurrPrimaryGun())
+                {
+                    arrItem[i].SetActive(true);
+                }
+                else
+                {
+                    arrItem[i].SetActive(false);
+                }
+            }
+
+        }
+        currItem = item;
         dataGun = (DataGun)item.dataItem;
+        csprDamage.ClipRect = new Rect(0, 0, ((float)dataGun.damage) / 10, 1);
+        csprAccuracy.ClipRect = new Rect(0, 0, ((float)dataGun.accuracy) / 10, 1);
+        csprFirerate.ClipRect = new Rect(0, 0, ((float)dataGun.firerate) / 10, 1);
+        txtName.text = dataGun.nameItem;
+        txtArmo.text = dataGun.noBulletPerCharge + "/" + dataGun.totalBullet;
+        if (Prefs.Instance.IsPrimaryGunBought(dataGun.id))
+        {
+            txtCost.gameObject.SetActive(false);
+            goBuyItem.gameObject.SetActive(false);
+            goBoardBuyBullet.gameObject.SetActive(true);
+            int currNoBullet = Prefs.Instance.GetNoBulletGun(dataGun.id);
+            txtCurrBullet.text = currNoBullet + "/" + dataGun.totalBullet;
+            if (currNoBullet <= dataGun.totalBullet - dataGun.noBulletPerBought)
+            {
+                txtInfoBuyBullet.text = dataGun.noBulletPerBought + "/" + dataGun.costBulletPerBought;
+                goBuyBullet.gameObject.SetActive(true);
+            }
+            else if (currNoBullet < dataGun.totalBullet)
+            {
+                txtInfoBuyBullet.text = (dataGun.totalBullet - currNoBullet) + "/" + dataGun.costBulletPerBought * (dataGun.totalBullet - currNoBullet) / dataGun.noBulletPerBought;
+                goBuyBullet.gameObject.SetActive(true);
+            }
+            else
+            {
+                goBuyBullet.gameObject.SetActive(false);
+            }
+            if (Prefs.Instance.GetCurrPrimaryGun() != dataGun.id)
+            {
+                goEquip.gameObject.SetActive(true);
+            }
+            else
+            {
+                goEquip.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            txtCost.gameObject.SetActive(true);
+            goBuyItem.gameObject.SetActive(true);
+            txtCost.text = dataGun.cost.ToString();
+            goBoardBuyBullet.gameObject.SetActive(false);
+            goEquip.gameObject.SetActive(false);
+
+
+        }
+
     }
 
     public override void EquipCurrItem()
     {
         Prefs.Instance.SetCurrPrimaryGun(currItem.dataItem.id);
+    }
+
+    public void ClickBoughtBullet()
+    {
+        int currNoBullet = Prefs.Instance.GetNoBulletGun(dataGun.id);
+        txtCurrBullet.text = currNoBullet + "/" + dataGun.totalBullet;
+        if (currNoBullet <= dataGun.totalBullet - dataGun.noBulletPerBought)
+        {
+            if (Prefs.Instance.GetCoin() >= dataGun.costBulletPerBought)
+            {
+                
+                Prefs.Instance.SetBulletPrimaryGun(dataGun.id, currNoBullet + dataGun.noBulletPerBought);
+                Prefs.Instance.SubCoin(dataGun.costBulletPerBought);
+            }
+
+
+        }
+        else
+        {
+            int noBulletBought = dataGun.totalBullet - currNoBullet;
+            int costBought = dataGun.costBulletPerBought * (dataGun.totalBullet - currNoBullet) / dataGun.noBulletPerBought;
+            if (Prefs.Instance.GetCoin() - costBought >= 0)
+            {
+                Prefs.Instance.SetBulletPrimaryGun(dataGun.id, currNoBullet + noBulletBought);
+                Prefs.Instance.SubCoin(costBought);
+            }
+        }
+        ShowInfoItem(currItem);
+        shopManager.UpdateCoin();
+
     }
 }
 

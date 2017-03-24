@@ -13,10 +13,12 @@ public class ShopManager : MonoBehaviour
 
 
     public TYPE_ITEM currPage;
-    
+    [SerializeField]
+    private tk2dTextMesh txtCoin;
     
     void Start()
     {
+        UpdateCoin();
         pScreenManager.Instance.SetQueueUnlockScreen();
     }
 
@@ -60,7 +62,7 @@ public class ShopManager : MonoBehaviour
 
     public void UpdateCoin()
     {
-
+        txtCoin.text = "$ " + Prefs.Instance.GetCoin();
     }
 
 }

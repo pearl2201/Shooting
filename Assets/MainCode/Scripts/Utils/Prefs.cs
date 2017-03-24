@@ -148,6 +148,7 @@ public class Prefs
         SetBoughtPrimaryGun(0, true);
         SetBoughtSecondaryGun(0, true);
         SetBulletPrimaryGun(0, 450);
+        SetCoin(3000000);
         // init
 
 
