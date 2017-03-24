@@ -41,7 +41,8 @@ public class pScreenManager : MonoBehaviour
     public static string SCREEN_INTRO_IAP = "Intro/IntroIAP";
     public static string SCREEN_INTRO_DAILYQUEST = "Intro/IntroDailyQuest";
     public static string SCREEN_INTRO_ACHIVEMENT = "Intro/IntroAchivement";
-    
+    public static string SCREEN_INTRO_HELP = "Intro/IntroHelp";
+
 
 
     #endregion

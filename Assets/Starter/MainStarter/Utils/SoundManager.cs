@@ -243,4 +243,16 @@ public class SoundManager : MonoBehaviour
     {
         Play("button");
     }
+
+    public void SetVolume(float volume)
+    {
+        this.volume = volume;
+        for (int i =0; i<channels.Length; i++)
+        {
+            if (channels[i]!=null)
+            {
+                channels[i].volume = volume;
+            }
+        }
+    }
 }

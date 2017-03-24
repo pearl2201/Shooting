@@ -45,7 +45,7 @@ public enum TYPE_ENEMY : int
 
 public enum GAME_STATE
 {
-    PAUSE, PLAY, END, START, SETUP, TRANSFER
+    PAUSE, PLAY, END, START, SETUP, TRANSFER, INTRO
 }
 
 
@@ -80,7 +80,13 @@ public enum TYPE_MAP_MISSION
 
 public enum TYPE_IAP
 {
-    NONE
+    NO_ADS,
+    COIN_PACK_1,
+    COIN_PACK_2,
+    COIN_PACK_3,
+    UNLOCK_ALL_STAGE,
+    INFINITE_ARMOR,
+    INFINITE_GRENADE
 }
 
 
@@ -92,4 +98,11 @@ public enum TYPE_DAILYQUEST
 public enum TYPE_ACHIVEMENT
 {
     NONE
+}
+
+public enum STATUS_ITEMSHOP
+{
+    BOUGHT,
+    NOTBOUGHT,
+    SELECT
 }

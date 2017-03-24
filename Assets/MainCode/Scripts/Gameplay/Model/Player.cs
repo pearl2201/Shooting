@@ -147,13 +147,13 @@ public class Player : MonoBehaviour, IPoolObj
         SoundManager.Instance.Play("explo");
 
         RaycastHit hit;
-
+        bool hitSuccess = false;
         if (Physics.Raycast(oriTieuCu, (oriTieuCu - gameManager.currAim.pCam.transform.position) * 10, out hit))
         {
             if (hit.collider.tag == "Enemy")
             {
                 Debug.Log("hit");
-
+                hitSuccess = true;
                 EnemyComponents enemyComponents = hit.collider.GetComponent<EnemyComponents>();
                 if (enemyComponents != null)
                 {
@@ -167,6 +167,9 @@ public class Player : MonoBehaviour, IPoolObj
                 AutoPool.AttackPool(go, 2f);
             }
         }
+        gameManager.AddCountShooting();
+        if (hitSuccess)
+            gameManager.AddCountShootingSuccess();
         if (currTypeGun == TYPE_PLAYER_GUN.PRIMARY_GUN)
         {
 
@@ -331,6 +334,7 @@ public class Player : MonoBehaviour, IPoolObj
 
         SoundManager.Instance.Play("explo");
         hp -= damage;
+        gameManager.AddDamagePlayerTake(damage);
         if (hp < 0)
         {
             hp = 0;

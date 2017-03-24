@@ -15,6 +15,8 @@ public class Constants
     public static float DEFAULT_SPEED_SHOOTING = 0.2f;
     public static float DEFAULT_DISTANCE_ACCURACY = 0.02f;
     public static int RATE_DROP_ITEM = 20;
+
+    public static int NO_LEVEL_TUTOR = 2;
 }
 
 

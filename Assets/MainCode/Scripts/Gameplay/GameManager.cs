@@ -25,6 +25,10 @@ public class GameManager : MonoBehaviour
     private EndGamePopup popupEndGame;
     [SerializeField]
     private PauseGamePopup popupPauseGame;
+    [SerializeField]
+    private GameOptionPopup popupOption;
+    [SerializeField]
+    private MissionDescriptionPopup popupMission;
     [HideInInspector]
     public AbstractStrategyAimGun currAim;
     [SerializeField]
@@ -49,10 +53,10 @@ public class GameManager : MonoBehaviour
     private tk2dSprite[] arrSprBullet;
     private float percentRotateCamera = 0;
     private bool isRotateCameraToLeft;
-    private GameOptionPopup popupOption;
+
     void Start()
     {
-        listPrefabEnemyInit = new List<AbstractEnemy>();
+
         listCurrEnemy = new List<AbstractEnemy>();
         listFullObj = new List<AbstractEnemy>();
         currGameState = GAME_STATE.SETUP;
@@ -64,7 +68,9 @@ public class GameManager : MonoBehaviour
 
     public void Reset()
     {
-
+        currGameState = GAME_STATE.SETUP;
+        pScreenManager.Instance.SetLockScreen();
+        SetupInfo();
     }
 
 
@@ -155,7 +161,8 @@ public class GameManager : MonoBehaviour
     void SetupInfo()
     {
         currGameState = GAME_STATE.SETUP;
-        dataMap = Instantiate(Resources.Load<GameObject>("Screen/Map")).GetComponent<DataMap>();
+        dataMap = Instantiate(Resources.Load<GameObject>("Screen/Map/Map0")).GetComponent<DataMap>();
+        popupMission.Setup(dataMap);
         dataMap.transform.SetParent(transform);
         dataMap.transform.localPosition = new Vector3(0, 11, 25.4f);
         // count no enemy
@@ -182,12 +189,21 @@ public class GameManager : MonoBehaviour
         UpdateUINoEnemy();
         UpdateUIEnergy();
         cdrUpdate = 0;
+
+        timer = 6000;
+        popupMission.gameObject.SetActive(true);
+        pScreenManager.Instance.SetQueueUnlockScreen();
+        currGameState = GAME_STATE.INTRO;
+    }
+
+
+
+    public void SetupCountDown()
+    {
+        popupMission.gameObject.SetActive(false);
         vStart = 3;
         txtStart.text = vStart.ToString();
         txtStart.gameObject.SetActive(true);
-        timer = 6000;
-
-        pScreenManager.Instance.SetQueueUnlockScreen();
         currGameState = GAME_STATE.START;
     }
 
@@ -401,6 +417,16 @@ public class GameManager : MonoBehaviour
 
     public void SetupPopupEndGame(bool isSuccess)
     {
+        int cashBonus = 0;
+        int currScore = 0;
+        int bestScore = 0;
+        int rateSuccess = 0;
+        if (infoGame.countShooting != 0)
+        {
+            rateSuccess = infoGame.countShootingSuccess * 100 / infoGame.countShooting;
+        }
+        string mapName = Registry.CURR_ID_MAP.ToString();
+        popupEndGame.Setup(isSuccess, mapName, infoGame.damageTaken, rateSuccess, infoGame.countEnemyKill, bestScore, currScore, cashBonus);
         popupEndGame.gameObject.SetActive(true);
         for (int i = 0; i < listFullObj.Count; i++)
         {
@@ -414,6 +440,7 @@ public class GameManager : MonoBehaviour
     {
         if (listCurrEnemy.Contains(enemy))
         {
+            infoGame.countEnemyKill++;
             listCurrEnemy.Remove(enemy);
             noEnemy--;
         }
@@ -615,6 +642,16 @@ public class GameManager : MonoBehaviour
     {
         player.hp = 100;
         UpdateUIHp();
+    }
+
+    public void AddCountShooting()
+    {
+        infoGame.countShooting++;
+    }
+
+    public void AddCountShootingSuccess()
+    {
+        infoGame.countShootingSuccess++;
     }
 }
 

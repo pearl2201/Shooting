@@ -19,6 +19,7 @@ public class EnemyMovingItem : AbstractEnemy
         Setup(gameManager, mDataAttack);
         this.mDataAttack = (DataMoveEnemy)dataPeople;
         this.lineMoveShoot = lineMoveShoot;
+        transform.position = lineMoveShoot.startP;
         phaze = ENEMY_PHAZE.WAIT;
         StartCoroutine(IEAction());
     }
@@ -44,7 +45,8 @@ public class EnemyMovingItem : AbstractEnemy
 
         for (int i = 0; i < 7; i++)
         {
-            Vector3 point = new Vector3(lineMoveShoot.startP.x * i + lineMoveShoot.endP.x * (7 - i), lineMoveShoot.startP.y * i + lineMoveShoot.endP.y * (7 - i) + UnityEngine.Random.Range(-7f, 7f), lineMoveShoot.startP.z * i + lineMoveShoot.endP.z * (7 - i));
+            Vector3 point = new Vector3(lineMoveShoot.startP.x * (7 - i) + lineMoveShoot.endP.x * i, lineMoveShoot.startP.y * (7 - i) + lineMoveShoot.endP.y * i + UnityEngine.Random.Range(-7f, 7f), lineMoveShoot.startP.z * (7 - i) + lineMoveShoot.endP.z * i);
+            Debug.Log(point.ToString());
             path.Add(point / 7);
         }
 
@@ -85,6 +87,14 @@ public class EnemyMovingItem : AbstractEnemy
         }
 
         phaze = ENEMY_PHAZE.FINISH;
+        StopAllCoroutines();
+        {
+            iTween itScript = GetComponent<iTween>();
+            if (itScript != null)
+            {
+                Destroy(itScript);
+            }
+        }
         gameManager.RemoveEnemy(this);
 
     }

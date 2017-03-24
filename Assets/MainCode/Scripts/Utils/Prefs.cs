@@ -129,6 +129,10 @@ public class Prefs
 
     private static string KEY_COIN_OWNER = "coint_owner";
 
+    private static string KEY_CHECK_IAP = "key_check_iap";
+
+    private static string KEY_LEVEL = "key_level";
+
     ///// INIT
 
     void Init()
@@ -157,6 +161,26 @@ public class Prefs
     }
 
     /// GET_SET
+
+    public int GetLevel()
+    {
+        return GetInt(KEY_LEVEL);
+    }
+
+    public void SetLevel(int level)
+    {
+        SetInt(KEY_LEVEL, level);
+    }
+
+    public bool IsHadPurchaseItem(TYPE_IAP typeItem)
+    {
+        return GetBool(KEY_CHECK_IAP + typeItem);
+    }
+
+    public void SetHadPuchaseItem(TYPE_IAP typeItem)
+    {
+        SetBool(KEY_CHECK_IAP + typeItem, true);
+    }
 
     public float GetVolumeSoundFx()
     {

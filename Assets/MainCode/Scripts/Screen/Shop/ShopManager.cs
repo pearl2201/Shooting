@@ -13,7 +13,8 @@ public class ShopManager : MonoBehaviour
 
 
     public TYPE_ITEM currPage;
-
+    
+    
     void Start()
     {
         pScreenManager.Instance.SetQueueUnlockScreen();
@@ -53,6 +54,11 @@ public class ShopManager : MonoBehaviour
     }
 
     public void ClickWatchAds()
+    {
+
+    }
+
+    public void UpdateCoin()
     {
 
     }

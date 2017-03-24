@@ -7,6 +7,7 @@ using UnityEngine;
 public class PauseGamePopup : MonoBehaviour
 {
     private GameManager gameManager;
+    
 
     public void BackToMenu()
     {
@@ -20,7 +21,7 @@ public class PauseGamePopup : MonoBehaviour
 
     public void ClickOption()
     {
-
+        gameManager.OpenOptionPopup();
     }
 
 }

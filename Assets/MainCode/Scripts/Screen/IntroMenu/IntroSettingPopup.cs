@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-public class GameOptionPopup : MonoBehaviour
+public class IntroSettingPopup : MonoBehaviour
 {
     [SerializeField]
     private tk2dUIScrollbar scrbSound;
     [SerializeField]
     private tk2dUIScrollbar scrbMusic;
     [SerializeField]
-    private GameManager gameManager;
+    private IntroScreenManager screenManager;
     void Start()
     {
         scrbMusic.SetScrollPercentWithoutEvent(Prefs.Instance.GetVolumeMusic());
@@ -19,20 +19,21 @@ public class GameOptionPopup : MonoBehaviour
 
     public void Close()
     {
-        gameManager.CloseOptionPopup();
+        Prefs.Instance.SetVolumeMusic(MusicManager.Instance.volume);
+        Prefs.Instance.SetVolumeSoundFx(SoundManager.Instance.volume);
+        gameObject.SetActive(false);
     }
 
     public void UpdateSoundValue()
-
     {
-       
-        SoundManager.Instance.SaveVolumePreference(scrbSound.Value);
+        //scrbSound.Value = Mathf.Clamp(scrbSound.Value, 0, 1);
+        SoundManager.Instance.SetVolume(scrbSound.Value);
     }
 
     public void UpdateMusicValue()
     {
-       
-        MusicManager.Instance.SaveVolumePreference(scrbMusic.Value);
+        // scrbMusic.Value = Mathf.Clamp(scrbMusic.Value, 0, 1);
+        MusicManager.Instance.volume = scrbSound.Value;
     }
 }
 

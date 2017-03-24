@@ -166,4 +166,6 @@ public class MusicManager : MonoBehaviour {
 		v = Mathf.Pow(v, 4);
 		return Mathf.Clamp(v, 0f, 1f);
 	}
+
+   
 }
