@@ -22,7 +22,8 @@ public class ShopPrimaryGunPage : ShopPageBase
     {
         if (Prefs.Instance.GetCoin() >= currItem.dataItem.cost)
         {
-            Prefs.Instance.SetBoughtPrimaryGun(dataGun.id, true);
+            Debug.Log(currItem.dataItem.id);
+            Prefs.Instance.SetBoughtPrimaryGun(currItem.dataItem.id, true);
             Prefs.Instance.SubCoin(currItem.dataItem.cost);
             Prefs.Instance.SetCurrPrimaryGun(currItem.dataItem.id);
             Prefs.Instance.SetBulletPrimaryGun(currItem.dataItem.id, dataGun.totalBullet);
@@ -36,7 +37,7 @@ public class ShopPrimaryGunPage : ShopPageBase
 
     public override void ShowInfoItem(ItemShop item)
     {
-
+        Debug.Log(item.dataItem.id);
         for (int i = 0; i < arrItem.Length; i++)
         {
 
@@ -67,6 +68,8 @@ public class ShopPrimaryGunPage : ShopPageBase
 
         }
         currItem = item;
+        Debug.Log(item.dataItem.id);
+        Debug.Log(currItem.dataItem.id);
         dataGun = (DataGun)item.dataItem;
         csprDamage.ClipRect = new Rect(0, 0, ((float)dataGun.damage) / 10, 1);
         csprAccuracy.ClipRect = new Rect(0, 0, ((float)dataGun.accuracy) / 10, 1);
@@ -119,6 +122,10 @@ public class ShopPrimaryGunPage : ShopPageBase
     public override void EquipCurrItem()
     {
         Prefs.Instance.SetCurrPrimaryGun(currItem.dataItem.id);
+        for (int i = 0; i < arrItem.Length; i++)
+        {
+            arrItem[i].SetActive(i == dataGun.id);
+        }
     }
 
     public void ClickBoughtBullet()
@@ -129,7 +136,7 @@ public class ShopPrimaryGunPage : ShopPageBase
         {
             if (Prefs.Instance.GetCoin() >= dataGun.costBulletPerBought)
             {
-                
+
                 Prefs.Instance.SetBulletPrimaryGun(dataGun.id, currNoBullet + dataGun.noBulletPerBought);
                 Prefs.Instance.SubCoin(dataGun.costBulletPerBought);
             }

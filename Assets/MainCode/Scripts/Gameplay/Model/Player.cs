@@ -35,6 +35,7 @@ public class Player : MonoBehaviour, IPoolObj
     [SerializeField]
     private GameObject[] listSprChargeGun;
 
+    public DataCharacter dataCharacter;
     public void Setup(GameManager gameManager)
     {
         this.gameManager = gameManager;
@@ -64,6 +65,7 @@ public class Player : MonoBehaviour, IPoolObj
         {
             dataGrenade = Resources.Load<DataGrenade>("DataGrenade/Grenade");
             dataEquipment = Resources.Load<DataEquipment>("DataEquipment/" + Prefs.Instance.GetCurrArmor());
+            dataCharacter = Resources.Load<DataCharacter>("DataCharacter/" + Prefs.Instance.GetCurrCharacter());
             noGrenade = Prefs.Instance.GetNoGrenade();
         }
         {
@@ -169,7 +171,18 @@ public class Player : MonoBehaviour, IPoolObj
         }
         gameManager.AddCountShooting();
         if (hitSuccess)
+        {
             gameManager.AddCountShootingSuccess();
+            if (currTypeGun == TYPE_PLAYER_GUN.SECONDARY_GUN)
+            {
+                gameManager.infoGame.countSecondaryKill++;
+            }
+            else
+            {
+                gameManager.infoGame.countPrimaryKill++;
+            }
+        }
+           
         if (currTypeGun == TYPE_PLAYER_GUN.PRIMARY_GUN)
         {
 

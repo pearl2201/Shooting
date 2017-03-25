@@ -8,7 +8,8 @@ public enum TYPE_ITEM : int
     PRIMARYGUN,
     SECONDARYGUN,
     GRENADE,
-    EQUIPMENT
+    EQUIPMENT,
+    CHARACTER
 }
 
 
@@ -92,12 +93,41 @@ public enum TYPE_IAP
 
 public enum TYPE_DAILYQUEST
 {
-    NONE
+    USE_WEAPON_TO_KILL_20_ENEMY,
+    BUY_NEW_WEAPON,
+    WIN_HIT_RATE,
+    KILL_ENEMY,
+    SHOOT_COUNT,
+    WIN_KILL_CIVILAN,
+    SCORE,
+    CHANGE_WEAPON,
+    USE_SECONDARY_GUN,
+    USE_GRENADE,
+    USE_PRIMARY_GUN,
+    UPGRADE_PRIMARY_GUN,
+    BOUGHT_BULLET,
+    BOUGHT_GRENADE,
+    USE_WEAPON_XX_KILL_YY_ENEMY
+
+
 }
 
 public enum TYPE_ACHIVEMENT
 {
-    NONE
+    BATTLE_MASTER,
+    LUCKY,
+    BOMB_MAN,
+    DOUBLE_KILL, // tam thoi loai
+    RICH_MAN, 
+    LORD_OF_WAR,
+    BIG_ARMY,
+    KILLER,
+    PISTOL,
+    PRIMARY_GUN_1,
+    PRIMARY_GUN_2,
+    PRIMARY_GUN_3
+
+
 }
 
 public enum STATUS_ITEMSHOP
@@ -105,4 +135,16 @@ public enum STATUS_ITEMSHOP
     BOUGHT,
     NOTBOUGHT,
     SELECT
+}
+
+public enum TYPE_CHARACTER_SKILL
+{
+    NONE,
+    HEAL_HP,
+}
+
+public enum TYPE_MONEY
+{
+    COIN,
+    DIAMOND
 }

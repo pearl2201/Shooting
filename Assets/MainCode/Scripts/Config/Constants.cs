@@ -17,6 +17,16 @@ public class Constants
     public static int RATE_DROP_ITEM = 20;
 
     public static int NO_LEVEL_TUTOR = 2;
+
+    public static int MAX_TYPE_ACHIVEMENT = 11;
+    public static int MAX_LEVEL_ACHIVEMENT = 3;
+
+    public static int MAX_LEVEL_GAME = 10;
+    public static int TOTAL_PRIMARY_GUN = 3;
+    public static int TOTAL_SECONDARY_GUN = 3;
+    public static int TOTAL_CHARACTER = 3;
+    public static int MAX_TYPE_DAILY = 10;
+    public static int MAX_TOTAL_DAILY = 3;
 }
 
 

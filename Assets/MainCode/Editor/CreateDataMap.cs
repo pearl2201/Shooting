@@ -58,5 +58,15 @@ public class CreateDataMap
         AssetDatabase.SaveAssets();
         return asset;
     }
+
+    [MenuItem("Assets/Create/Item/Character")]
+    public static DataCharacter CreateCharacter()
+    {
+
+        DataCharacter asset = ScriptableObject.CreateInstance<DataCharacter>();
+        AssetDatabase.CreateAsset(asset, "Assets/MainCode/Resources/DataCharacter/DataCharacter.asset");
+        AssetDatabase.SaveAssets();
+        return asset;
+    }
 }
 

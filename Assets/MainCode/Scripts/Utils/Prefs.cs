@@ -57,7 +57,7 @@ public class Prefs
     private void SetInt(string name, int value)
     {
         PlayerPrefs.SetInt(name, value);
-
+        PlayerPrefs.Save();
     }
 
     private bool GetBool(string name)
@@ -79,13 +79,13 @@ public class Prefs
             PlayerPrefs.SetInt(name, 1);
         else
             PlayerPrefs.SetInt(name, 0);
-
+        PlayerPrefs.Save();
     }
 
     private void SetString(string name, string value)
     {
         PlayerPrefs.SetString(name, value);
-
+        PlayerPrefs.Save();
     }
 
     private string GetString(string name)
@@ -96,7 +96,7 @@ public class Prefs
     private void SetFloat(string name, float value)
     {
         PlayerPrefs.SetFloat(name, value);
-
+        PlayerPrefs.Save();
     }
 
     private float GetFloat(string name)
@@ -132,7 +132,18 @@ public class Prefs
     private static string KEY_CHECK_IAP = "key_check_iap";
 
     private static string KEY_LEVEL = "key_level";
+    private static string KEY_TOTAL_STAR = "key_total_star";
 
+    private static string KEY_CURR_CHARACTER = "key_curr_character";
+    private static string KEY_OWN_CHARACTER = "key_own_character";
+
+    private static string KEY_LEVEL_ACHIVEMENT = "key_level_achivement";
+    private static string KEY_VALUE_ACHIVEMENT = "key_value_achivement";
+
+    private static string KEY_TYPE_DAILY = "key_type_daily";
+    private static string KEY_REQ_DAILY = "key_re_daily";
+    private static string KEY_CURR_DAILY = "key_curr_daily";
+    private static string KEY_CURR_DAY = "key_day";
     ///// INIT
 
     void Init()
@@ -305,6 +316,110 @@ public class Prefs
     public int GetCurrArmor()
     {
         return GetInt(KEY_CURR_ARMOR);
+    }
+
+    public int GetCurrCharacter()
+    {
+        return GetInt(KEY_CURR_CHARACTER);
+    }
+
+    public void SetCurrCharacter(int id)
+    {
+        SetInt(KEY_CURR_CHARACTER, id);
+    }
+
+    public void SetBoughtCharacter(int id, bool isBought)
+    {
+        SetBool(KEY_OWN_CHARACTER + id, isBought);
+    }
+
+    public bool IsHadBoughtCharacter(int id)
+    {
+        return GetBool(KEY_OWN_CHARACTER + id);
+    }
+
+    public int GetLevelAchivement(TYPE_ACHIVEMENT type)
+    {
+        return GetInt(KEY_LEVEL_ACHIVEMENT + type);
+    }
+
+    public void SetLevelAchivement(TYPE_ACHIVEMENT type, int value)
+    {
+        SetInt(KEY_LEVEL_ACHIVEMENT + type, value);
+    }
+
+    public bool IsAchivementFinish(TYPE_ACHIVEMENT type)
+    {
+        return GetBool(KEY_LEVEL_ACHIVEMENT + type);
+    }
+
+    public void SetAchivementFinish(TYPE_ACHIVEMENT type, bool isFinish)
+    {
+        SetBool(KEY_LEVEL_ACHIVEMENT + type, isFinish);
+    }
+
+    public int GetValueAchivement(TYPE_ACHIVEMENT type)
+    {
+        return GetInt(KEY_VALUE_ACHIVEMENT + type);
+    }
+
+    public void SetValueAchivement(TYPE_ACHIVEMENT type, int value)
+    {
+        SetInt(KEY_VALUE_ACHIVEMENT + type, value);
+    }
+
+    public  int GetStarLevel(int level)
+    {
+        return GetInt(KEY_TOTAL_STAR + level);
+    }
+
+    public void AddStar(int level, int star)
+    {
+        int currStar = GetStarLevel(level);
+        if (star>currStar)
+        {
+            SetInt(KEY_TOTAL_STAR + level, star);
+        }
+    }
+
+    public TYPE_DAILYQUEST GetTypeDaily(int id)
+    {
+        return (TYPE_DAILYQUEST)GetInt(KEY_TYPE_DAILY + id);
+    }
+
+    public void SetTypeDaily(int id, TYPE_DAILYQUEST type)
+    {
+        SetInt(KEY_TYPE_DAILY + id, (int)type);
+    }
+
+    public void SetCurrValueDaily(int id, int value)
+    {
+        SetInt(KEY_CURR_DAILY + id, value);
+    }
+
+    public int GetCurrValueDaily(int id)
+    {
+        return GetInt(KEY_CURR_DAILY + id);
+    }
+
+    public void SetReqDaily(int id, int value)
+    {
+        SetInt(KEY_REQ_DAILY + id, value);
+    }
+
+    public int GetReqDaily(int id)
+    {
+        return GetInt(KEY_REQ_DAILY + id);
+    }
+
+    public string GetCurrDay()
+    {
+        return GetString(KEY_CURR_DAY);
+    }
+
+    public void SetDay(string day)
+    {
+        SetString(KEY_CURR_DAY, day);
     }
 
 }

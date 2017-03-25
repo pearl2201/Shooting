@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public Player player;
     private int turnPhaze;
-    private InfoGame infoGame;
+    public InfoGame infoGame;
     public GAME_STATE currGameState;
     [HideInInspector]
     public GAME_STATE oldGameState;
@@ -440,7 +440,9 @@ public class GameManager : MonoBehaviour
     {
         if (listCurrEnemy.Contains(enemy))
         {
+
             infoGame.countEnemyKill++;
+           
             listCurrEnemy.Remove(enemy);
             noEnemy--;
         }
@@ -640,8 +642,16 @@ public class GameManager : MonoBehaviour
 
     public void ClickUseSpecialSkill()
     {
-        player.hp = 100;
-        UpdateUIHp();
+        if (player.dataCharacter.type_character_skill == TYPE_CHARACTER_SKILL.HEAL_HP)
+        {
+            player.hp += (int) (player.dataCharacter.hp * player.dataCharacter.valueCharacterSkill);
+            UpdateUIHp();
+        }
+        else if (player.dataCharacter.type_character_skill == TYPE_CHARACTER_SKILL.NONE)
+        {
+
+        }
+       
     }
 
     public void AddCountShooting()
@@ -653,6 +663,8 @@ public class GameManager : MonoBehaviour
     {
         infoGame.countShootingSuccess++;
     }
+
+ 
 }
 
 public class InfoGame
@@ -664,6 +676,11 @@ public class InfoGame
     public int countShootingSuccess;
     public int countEnemyKill;
     public int countEnemy;
+    public int civianKilling;
+    public int countPrimaryKill;
+    public int countSecondaryKill;
+    public int countGrenadeKill;
+    public int countTrippleKillGrenade;
 
     public InfoGame(int countEnemy)
     {
