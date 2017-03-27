@@ -434,6 +434,8 @@ public class GameManager : MonoBehaviour
         }
         percentRotateCamera = 0.5f;
         isRotateCameraToLeft = UnityEngine.Random.Range(0, 2) == 0;
+        AchivementManager.Instance.CheckAchivementEndGame(infoGame, player);
+        DailyquestManager.Instance.UpdateDailyEndGame(infoGame, currScore, isSuccess);
     }
 
     public void RemoveEnemy(AbstractEnemy enemy)

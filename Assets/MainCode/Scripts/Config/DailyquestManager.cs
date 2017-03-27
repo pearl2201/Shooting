@@ -30,6 +30,7 @@ public class DailyquestManager
     public DailyquestManager()
     {
         dataDailyQuest = UnityEngine.Resources.Load<DataDailyQuest>("DataDailyQuest/DataDailyQuest");
+        Debug.Log("123");
         // getMission from prefs
         arrDaily = new DailyQuestItem[3];
         if (CheckReset())
@@ -48,7 +49,16 @@ public class DailyquestManager
     public bool CheckReset()
     {
         today = DateTime.Now;
-        DateTime lastDay = DateTime.Parse(Prefs.Instance.GetCurrDay());
+        DateTime lastDay;
+        try
+        {
+            lastDay = DateTime.Parse(Prefs.Instance.GetCurrDay());
+        }
+        catch (Exception ex)
+        {
+            return true;
+        }
+      
         if (today.Day != lastDay.Day)
         {
             return true;
@@ -75,11 +85,11 @@ public class DailyquestManager
         {
             if (curr.daily.typeReward == TYPE_MONEY.COIN)
             {
-
+                Prefs.Instance.AddCoin(curr.daily.reward);
             }
             else
             {
-
+                Prefs.Instance.AddDiamond(curr.daily.reward);
             }
 
             arrDaily[id] = ResetMission(id);
@@ -95,6 +105,7 @@ public class DailyquestManager
 
     public DailyQuestItem ResetMission(int id)
     {
+        Debug.Log("reset mission id");
         List<TYPE_DAILYQUEST> listTotalMission = new List<TYPE_DAILYQUEST>();
         for (int i = 0; i < Constants.MAX_TOTAL_DAILY; i++)
         {
@@ -104,14 +115,14 @@ public class DailyquestManager
 
         for (int j = 0; j < arrDaily.Length; j++)
         {
-            if (listTotalMission.Contains(arrDaily[j].daily.type))
+            if (arrDaily[j] != null && listTotalMission.Contains(arrDaily[j].daily.type))
             {
                 listTotalMission.Remove(arrDaily[j].daily.type);
             }
         }
         TYPE_DAILYQUEST randTypeMission = listTotalMission[UnityEngine.Random.Range(0, listTotalMission.Count)];
         DailyQuestItem result = new DailyQuestItem();
-        result.daily = dataDailyQuest.GetDataAchivement(randTypeMission);
+        result.daily = dataDailyQuest.GetDailyQuest(randTypeMission);
         result.isFinish = false;
         result.curr = 0;
         if (randTypeMission == TYPE_DAILYQUEST.BUY_GRENADE)
@@ -162,7 +173,7 @@ public class DailyquestManager
         for (int i = 0; i < arrDaily.Length; i++)
         {
             DailyQuestItem dlQ = new DailyQuestItem();
-            dlQ.daily = dataDailyQuest.GetDataAchivement(Prefs.Instance.GetTypeDaily(i));
+            dlQ.daily = dataDailyQuest.GetDailyQuest(Prefs.Instance.GetTypeDaily(i));
             dlQ.curr = Prefs.Instance.GetCurrValueDaily(i);
             dlQ.request = Prefs.Instance.GetReqDaily(i);
             dlQ.isFinish = dlQ.request == dlQ.curr;

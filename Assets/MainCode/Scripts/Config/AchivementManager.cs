@@ -38,6 +38,7 @@ public class AchivementManager
             if (item.currLevel == Constants.MAX_LEVEL_ACHIVEMENT)
             {
                 item.isFinished = true;
+                item.currValue = item.achivement.requestPerLevel[2];
             }
             else
             {
@@ -190,6 +191,54 @@ public class AchivementManager
         }
     }
 
+    public DataAchivementItem ReceiveReward(TYPE_ACHIVEMENT type)
+    {
+        DataAchivementItem item = listDataAchivementItem[(int)type];
+        if (item.currLevel == Constants.MAX_LEVEL_ACHIVEMENT)
+        {
+            return null;
+        }
+        else
+        {
+            if (item.currValue < item.achivement.requestPerLevel[item.currLevel])
+            {
+                return null;
+            }
+            else
+            {
+
+                if (item.achivement.typeReward == TYPE_MONEY.COIN)
+                {
+                    Prefs.Instance.AddCoin(item.achivement.rewardPerLevel[item.currLevel]);
+                }
+                else
+                {
+                    Prefs.Instance.AddDiamond(item.achivement.rewardPerLevel[item.currLevel]);
+                }
+
+                item.currLevel++;
+
+                if (item.currLevel >= Constants.MAX_LEVEL_ACHIVEMENT)
+                {
+                    item.currLevel = Constants.MAX_LEVEL_ACHIVEMENT;
+                    item.isFinished = true;
+                }
+                else
+                {
+                    item.isFinished = false;
+
+                }
+                Prefs.Instance.SetLevelAchivement(type, item.currLevel);
+                return item;
+            }
+        }
+        
+    }
+
+    public DataAchivementItem GetDescriptionAchivement(TYPE_ACHIVEMENT type)
+    {
+        return listDataAchivementItem[(int)type];
+    }
     public void UpdateAchivementBuyCharacter()
     {
         int totalStar = Registry.GetTotalCharacterBought();

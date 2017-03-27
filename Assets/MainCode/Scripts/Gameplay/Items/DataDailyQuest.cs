@@ -10,8 +10,9 @@ public class DataDailyQuest : ScriptableObject
     [SerializeField]
     private List<DailyQuest> dailyQuest;
 
-    public DailyQuest GetDataAchivement(TYPE_DAILYQUEST type)
+    public DailyQuest GetDailyQuest(TYPE_DAILYQUEST type)
     {
+        Debug.Log("call get data daily quest");
         return dailyQuest[(int)type];
     }
 }

@@ -127,8 +127,8 @@ public class Prefs
     private static string KEY_CURR_ARMOR = "curr_armor";
     private static string KEY_NO_BOMB = "no_bomb";
 
-    private static string KEY_COIN_OWNER = "coint_owner";
-
+    private static string KEY_COIN_OWNER = "coin_owner";
+    private static string KEY_DIAMOND_OWNER = "diamond_owner";
     private static string KEY_CHECK_IAP = "key_check_iap";
 
     private static string KEY_LEVEL = "key_level";
@@ -286,6 +286,26 @@ public class Prefs
     public void SetCoin(int coin)
     {
         SetInt(KEY_COIN_OWNER, coin);
+    }
+
+    public void AddDiamond(int diamond)
+    {
+        SetDiamond(GetDiamond() + diamond);
+    }
+
+    public int GetDiamond()
+    {
+        return GetInt(KEY_DIAMOND_OWNER);
+    }
+
+    public void SubDiamond(int diamond)
+    {
+        SetDiamond(GetDiamond() - diamond);
+    }
+
+    public void SetDiamond(int diamond)
+    {
+        SetInt(KEY_DIAMOND_OWNER, diamond);
     }
 
     public int GetCurrPrimaryGun()
