@@ -23,10 +23,13 @@ public class DailyquestManager
 
     private DailyQuestItem[] arrDaily;
 
+    private DataDailyQuest dataDailyQuest;
+
     private DateTime today;
 
     public DailyquestManager()
     {
+        dataDailyQuest = UnityEngine.Resources.Load<DataDailyQuest>("DataDailyQuest/DataDailyQuest");
         // getMission from prefs
         arrDaily = new DailyQuestItem[3];
         if (CheckReset())
@@ -60,18 +63,110 @@ public class DailyquestManager
     {
         for (int i = 0; i < Constants.MAX_TOTAL_DAILY; i++)
         {
-            ResetMission(i);
+            arrDaily[i] = ResetMission(i);
         }
     }
 
-    public void ResetMission(int id)
+    public DailyQuestItem ReceiveReward(int id)
     {
 
+        DailyQuestItem curr = arrDaily[id];
+        if (curr.request == curr.curr)
+        {
+            if (curr.daily.typeReward == TYPE_MONEY.COIN)
+            {
+
+            }
+            else
+            {
+
+            }
+
+            arrDaily[id] = ResetMission(id);
+            return arrDaily[id];
+        }
+        else
+        {
+            return null;
+        }
+
+
+    }
+
+    public DailyQuestItem ResetMission(int id)
+    {
+        List<TYPE_DAILYQUEST> listTotalMission = new List<TYPE_DAILYQUEST>();
+        for (int i = 0; i < Constants.MAX_TOTAL_DAILY; i++)
+        {
+
+            listTotalMission.Add((TYPE_DAILYQUEST)i);
+        }
+
+        for (int j = 0; j < arrDaily.Length; j++)
+        {
+            if (listTotalMission.Contains(arrDaily[j].daily.type))
+            {
+                listTotalMission.Remove(arrDaily[j].daily.type);
+            }
+        }
+        TYPE_DAILYQUEST randTypeMission = listTotalMission[UnityEngine.Random.Range(0, listTotalMission.Count)];
+        DailyQuestItem result = new DailyQuestItem();
+        result.daily = dataDailyQuest.GetDataAchivement(randTypeMission);
+        result.isFinish = false;
+        result.curr = 0;
+        if (randTypeMission == TYPE_DAILYQUEST.BUY_GRENADE)
+        {
+            result.request = 5;
+        }
+        else if (randTypeMission == TYPE_DAILYQUEST.KILLER)
+        {
+            result.request = 20;
+        }
+        else if (randTypeMission == TYPE_DAILYQUEST.REACH_SCORE)
+        {
+            result.request = 200;
+        }
+        else if (randTypeMission == TYPE_DAILYQUEST.SHOOT_BULLET)
+        {
+            result.request = 300;
+        }
+        else if (randTypeMission == TYPE_DAILYQUEST.USE_PRI)
+        {
+            result.request = 20;
+        }
+        else if (randTypeMission == TYPE_DAILYQUEST.USE_GRENADE)
+        {
+            result.request = 20;
+        }
+        else if (randTypeMission == TYPE_DAILYQUEST.USE_SECONDARY)
+        {
+            result.request = 20;
+        }
+        else if (randTypeMission == TYPE_DAILYQUEST.WIN_NO_KILL_CIVIL)
+        {
+            result.request = 3;
+        }
+        else if (randTypeMission == TYPE_DAILYQUEST.WIN_HIT_RATE)
+        {
+            result.request = 3;
+        }
+
+        Prefs.Instance.SetCurrValueDaily(id, 0);
+        Prefs.Instance.SetReqDaily(id, result.request);
+        Prefs.Instance.SetTypeDaily(id, result.daily.type);
+        return result;
     }
 
     public void ReadMission()
     {
-
+        for (int i = 0; i < arrDaily.Length; i++)
+        {
+            DailyQuestItem dlQ = new DailyQuestItem();
+            dlQ.daily = dataDailyQuest.GetDataAchivement(Prefs.Instance.GetTypeDaily(i));
+            dlQ.curr = Prefs.Instance.GetCurrValueDaily(i);
+            dlQ.request = Prefs.Instance.GetReqDaily(i);
+            dlQ.isFinish = dlQ.request == dlQ.curr;
+        }
     }
 
     public void UpdateDailyEndGame(InfoGame info, int score, bool isSuccess)
@@ -130,7 +225,7 @@ public class DailyquestManager
                 item.isFinish = true;
             }
         }
-        else if (_listMission.Contains(TYPE_DAILYQUEST.WIN_HIT_RATE) && isSuccess && info.countShootingSuccess*100/info.countShooting>=60)
+        else if (_listMission.Contains(TYPE_DAILYQUEST.WIN_HIT_RATE) && isSuccess && info.countShootingSuccess * 100 / info.countShooting >= 60)
         {
             int indexMission = _listMission.IndexOf(TYPE_DAILYQUEST.WIN_HIT_RATE);
             DailyQuestItem item = arrDaily[indexMission];
@@ -142,7 +237,7 @@ public class DailyquestManager
                 item.isFinish = true;
             }
         }
-        else if (_listMission.Contains(TYPE_DAILYQUEST.WIN_NO_KILL_CIVIL) && isSuccess && info.civianKilling== 0)
+        else if (_listMission.Contains(TYPE_DAILYQUEST.WIN_NO_KILL_CIVIL) && isSuccess && info.civianKilling == 0)
         {
             int indexMission = _listMission.IndexOf(TYPE_DAILYQUEST.WIN_NO_KILL_CIVIL);
             DailyQuestItem item = arrDaily[indexMission];
@@ -192,7 +287,7 @@ public class DailyquestManager
         {
             int indexMission = _listMission.IndexOf(TYPE_DAILYQUEST.BUY_GRENADE);
             DailyQuestItem item = arrDaily[indexMission];
-            item.curr ++;
+            item.curr++;
             item.curr = Mathf.Clamp(item.curr, 0, item.request);
             Prefs.Instance.SetCurrValueDaily((int)TYPE_DAILYQUEST.BUY_GRENADE, item.curr);
             if (item.curr == item.request)
@@ -203,7 +298,10 @@ public class DailyquestManager
     }
 
 
-
+    public DailyQuestItem GetDataID(int id)
+    {
+        return arrDaily[id];
+    }
 
 }
 
@@ -215,12 +313,14 @@ public class DailyQuestItem
     public bool isFinish;
 }
 
+[Serializable]
 public class DailyQuest
 {
     public TYPE_DAILYQUEST type;
     public string name;
     public string description;
 
+    public TYPE_MONEY typeReward;
     public int reward;
 }
 

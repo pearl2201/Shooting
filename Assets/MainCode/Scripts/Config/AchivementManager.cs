@@ -27,6 +27,7 @@ public class AchivementManager
     public AchivementManager()
     {
         listDataAchivementItem = new List<DataAchivementItem>();
+        dataAchivement = UnityEngine.Resources.Load<DataAchivement>("DataAchivement/DataAchivement");
         for (int i = 0; i < Constants.MAX_TYPE_ACHIVEMENT; i++)
         {
             DataAchivementItem item = new DataAchivementItem();

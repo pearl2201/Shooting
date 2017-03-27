@@ -68,5 +68,25 @@ public class CreateDataMap
         AssetDatabase.SaveAssets();
         return asset;
     }
+
+    [MenuItem("Assets/Create/Item/Achivement")]
+    public static DataAchivement CreateDataAchivement()
+    {
+
+        DataAchivement asset = ScriptableObject.CreateInstance<DataAchivement>();
+        AssetDatabase.CreateAsset(asset, "Assets/MainCode/Resources/DataAchivement/DataAchivement.asset");
+        AssetDatabase.SaveAssets();
+        return asset;
+    }
+
+    [MenuItem("Assets/Create/Item/DailyQuest")]
+    public static DataDailyQuest CreateDataDailyQuest()
+    {
+
+        DataDailyQuest asset = ScriptableObject.CreateInstance<DataDailyQuest>();
+        AssetDatabase.CreateAsset(asset, "Assets/MainCode/Resources/DataDailyQuest/DataDailyQuest.asset");
+        AssetDatabase.SaveAssets();
+        return asset;
+    }
 }
 

@@ -109,7 +109,7 @@ public enum TYPE_ACHIVEMENT
     BATTLE_MASTER,
     LUCKY,
     BOMB_MAN,
-    DOUBLE_KILL, // tam thoi loai
+  
     RICH_MAN,
     LORD_OF_WAR,
     BIG_ARMY,
