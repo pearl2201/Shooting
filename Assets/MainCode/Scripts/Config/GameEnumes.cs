@@ -137,6 +137,7 @@ public enum TYPE_CHARACTER_SKILL
 
 public enum TYPE_MONEY
 {
+    NONE,
     COIN,
     DIAMOND
 }

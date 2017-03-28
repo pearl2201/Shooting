@@ -14,7 +14,7 @@ public class EndGamePopup : MonoBehaviour
     private GameManager gameManager;
 
 
-    public void Setup(bool isSuccess, string levelMap, int hurt, int accuracy, int kill, int bestScore, int currScore, int cassBonus)
+    public void Setup(bool isSuccess,InfoGame info,string levelMap, int hurt, int accuracy, int kill, int bestScore, int currScore, int cassBonus,int totalStar)
     {
         
         goFail.gameObject.SetActive(isSuccess == false);

@@ -144,6 +144,10 @@ public class Prefs
     private static string KEY_REQ_DAILY = "key_re_daily";
     private static string KEY_CURR_DAILY = "key_curr_daily";
     private static string KEY_CURR_DAY = "key_day";
+
+    private static string KEY_BESTSCORE_MAP = "key_best_score_map";
+    private static string KEY_STAR_MAP = "key_star_map";
+
     ///// INIT
 
     void Init()
@@ -388,15 +392,15 @@ public class Prefs
         SetInt(KEY_VALUE_ACHIVEMENT + type, value);
     }
 
-    public  int GetStarLevel(int level)
+    public int GetStarLevel(int level)
     {
         return GetInt(KEY_TOTAL_STAR + level);
     }
 
-    public void AddStar(int level, int star)
+    public void SetStar(int level, int star)
     {
         int currStar = GetStarLevel(level);
-        if (star>currStar)
+        if (star > currStar)
         {
             SetInt(KEY_TOTAL_STAR + level, star);
         }
@@ -442,5 +446,20 @@ public class Prefs
         SetString(KEY_CURR_DAY, day);
     }
 
+    public int GetBestScore(int id)
+    {
+        return GetInt(KEY_BESTSCORE_MAP + id);
+    }
+
+    public void SetBestScore(int id, int score)
+    {
+        int bestScore = GetBestScore(id);
+        if (score > bestScore)
+        {
+            SetInt(KEY_BESTSCORE_MAP + id, score);
+        }
+    }
+
+  
 }
 

@@ -8,6 +8,7 @@ public class Registry
 {
 
     public static int CURR_ID_MAP = 0;
+    public static TYPE_MONEY OPTION_OPEN_SHOP = TYPE_MONEY.COIN;
 
     public static int GetTotalStar()
     {

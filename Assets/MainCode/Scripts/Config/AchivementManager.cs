@@ -211,7 +211,7 @@ public class AchivementManager
                 {
                     Prefs.Instance.AddCoin(item.achivement.rewardPerLevel[item.currLevel]);
                 }
-                else
+                else if (item.achivement.typeReward == TYPE_MONEY.DIAMOND)
                 {
                     Prefs.Instance.AddDiamond(item.achivement.rewardPerLevel[item.currLevel]);
                 }

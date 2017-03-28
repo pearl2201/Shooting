@@ -87,8 +87,8 @@ public class DailyquestManager
             {
                 Prefs.Instance.AddCoin(curr.daily.reward);
             }
-            else
-            {
+            else if (curr.daily.typeReward == TYPE_MONEY.DIAMOND)
+            { 
                 Prefs.Instance.AddDiamond(curr.daily.reward);
             }
 

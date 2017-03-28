@@ -425,8 +425,29 @@ public class GameManager : MonoBehaviour
         {
             rateSuccess = infoGame.countShootingSuccess * 100 / infoGame.countShooting;
         }
+        int totalStar = 3;
+        if (rateSuccess <= 50)
+        {
+            totalStar--;
+        }
+        if (infoGame.civianKilling > 0)
+        {
+            totalStar--;
+        }
+        if (player.hp < player.dataCharacter.hp * 0.5f)
+        {
+            totalStar--;
+        }
+        if (!isSuccess)
+        {
+            totalStar = 0;
+        }
+        currScore = infoGame.countEnemyKill * 50 + infoGame.countShooting + (rateSuccess - 30) * 20 - 200 * infoGame.civianKilling + player.hp;
+        cashBonus = infoGame.countEnemyKill * 50 + 100 * totalStar;
+        Prefs.Instance.SetBestScore(Registry.CURR_ID_MAP, currScore);
+        Prefs.Instance.SetStar(Registry.CURR_ID_MAP, totalStar);
         string mapName = Registry.CURR_ID_MAP.ToString();
-        popupEndGame.Setup(isSuccess, mapName, infoGame.damageTaken, rateSuccess, infoGame.countEnemyKill, bestScore, currScore, cashBonus);
+        popupEndGame.Setup(isSuccess, infoGame, mapName, infoGame.damageTaken, rateSuccess, infoGame.countEnemyKill, bestScore, currScore, cashBonus, totalStar);
         popupEndGame.gameObject.SetActive(true);
         for (int i = 0; i < listFullObj.Count; i++)
         {
@@ -444,7 +465,7 @@ public class GameManager : MonoBehaviour
         {
 
             infoGame.countEnemyKill++;
-           
+
             listCurrEnemy.Remove(enemy);
             noEnemy--;
         }
@@ -646,14 +667,14 @@ public class GameManager : MonoBehaviour
     {
         if (player.dataCharacter.type_character_skill == TYPE_CHARACTER_SKILL.HEAL_HP)
         {
-            player.hp += (int) (player.dataCharacter.hp * player.dataCharacter.valueCharacterSkill);
+            player.hp += (int)(player.dataCharacter.hp * player.dataCharacter.valueCharacterSkill);
             UpdateUIHp();
         }
         else if (player.dataCharacter.type_character_skill == TYPE_CHARACTER_SKILL.NONE)
         {
 
         }
-       
+
     }
 
     public void AddCountShooting()
@@ -666,7 +687,7 @@ public class GameManager : MonoBehaviour
         infoGame.countShootingSuccess++;
     }
 
- 
+
 }
 
 public class InfoGame
