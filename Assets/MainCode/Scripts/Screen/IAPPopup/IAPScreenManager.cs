@@ -18,14 +18,29 @@ public class IAPScreenManager : MonoBehaviour
     private GameObject goSelectedBox;
     [SerializeField]
     private tk2dTextMesh txtName;
+
+    [SerializeField]
+    private MoneyButton btnCoin, btnDiamond;
     void Start()
     {
         for (int i = 0; i < arrItems.Length; i++)
         {
             arrItems[i].Setup();
         }
-        DisplayInfoItem(arrItems[0]);
-        
+        if (Registry.OPTION_OPEN_SHOP == TYPE_MONEY.COIN)
+        {
+            DisplayInfoItem(arrItems[1]);
+        }
+        else if (Registry.OPTION_OPEN_SHOP == TYPE_MONEY.DIAMOND)
+        {
+            DisplayInfoItem(arrItems[1]);
+        }
+        else
+        {
+            DisplayInfoItem(arrItems[0]);
+        }
+       
+
         txtDiamond.text = Prefs.Instance.GetCoin().ToString();
     }
     public void DisplayInfoItem(IAPScreenItem item)
@@ -137,7 +152,11 @@ public class IAPScreenManager : MonoBehaviour
     {
 
     }
-
+    public void UpdateMoney()
+    {
+        btnCoin.UpdateMoney();
+        btnDiamond.UpdateMoney();
+    }
 
 }
 

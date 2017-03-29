@@ -120,7 +120,8 @@ public class Prefs
     private static string KEY_NO_BULLET_PRIMARY_GUN_OWN = "no_bullet_primary_gun";
     private static string KEY_SECONDARY_GUN_OWN = "secondary_gun_own";
     private static string KEY_ARMOR_OWN = "key_armor_own";
-
+    private static string KEY_LEVEL_UPGRADE_PRIMARY_GUN = "key_upgrade_primary_gun";
+    private static string KEY_LEVEL_UPGRADE_SECONDARY_GUN = "key_upgrade_secondary_gun";
     // list curr
     private static string KEY_CURR_PRIMARY_GUN = "curr_primary_gun";
     private static string KEY_CURR_SECONDARY_GUN = "curr_secondary_gun";
@@ -460,6 +461,24 @@ public class Prefs
         }
     }
 
-  
+    public void SetLevelUpgradePrimaryGun(int id, int level)
+    {
+        SetInt(KEY_LEVEL_UPGRADE_PRIMARY_GUN + id, level);
+    }
+
+    public void SetLevelUpgradeSecondaryGun(int id, int level)
+    {
+        SetInt(KEY_LEVEL_UPGRADE_SECONDARY_GUN+ id, level);
+    }
+
+    public int GetLevelUpgradePrimaryGun(int id)
+    {
+        return GetInt(KEY_LEVEL_UPGRADE_PRIMARY_GUN + id);
+    }
+
+    public int GetLevelUpgradeSecondaryGun(int id)
+    {
+        return GetInt(KEY_LEVEL_UPGRADE_SECONDARY_GUN + id);
+    }
 }
 

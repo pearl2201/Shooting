@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 
 using UnityEngine;
-public class ShopPrimaryGunPage : ShopPageBase
+public class ShopSecondaryGunPage : ShopPageBase
 {
     [SerializeField]
-    private tk2dTextMesh txtName, txtCost, txtArmo, txtCurrBullet, txtInfoBuyBullet;
+    private tk2dTextMesh txtName, txtCost, txtArmo;
     [SerializeField]
-    private GameObject goEquip, goBuyBullet, goBuyItem, goBoardBuyBullet, goUpgrade;
+    private GameObject goEquip,goBuyBullet, goBuyItem, goUpgrade;
     [SerializeField]
     private tk2dClippedSprite csprDamage, csprFirerate, csprAccuracy;
     [SerializeField]
@@ -80,17 +80,17 @@ public class ShopPrimaryGunPage : ShopPageBase
         {
             txtCost.gameObject.SetActive(false);
             goBuyItem.gameObject.SetActive(false);
-            goBoardBuyBullet.gameObject.SetActive(true);
+         
             int currNoBullet = Prefs.Instance.GetNoBulletGun(dataGun.id);
-            txtCurrBullet.text = currNoBullet + "/" + dataGun.totalBullet;
+            
             if (currNoBullet <= dataGun.totalBullet - dataGun.noBulletPerBought)
             {
-                txtInfoBuyBullet.text = dataGun.noBulletPerBought + "/" + dataGun.costBulletPerBought;
+              
                 goBuyBullet.gameObject.SetActive(true);
             }
             else if (currNoBullet < dataGun.totalBullet)
             {
-                txtInfoBuyBullet.text = (dataGun.totalBullet - currNoBullet) + "/" + dataGun.costBulletPerBought * (dataGun.totalBullet - currNoBullet) / dataGun.noBulletPerBought;
+               
                 goBuyBullet.gameObject.SetActive(true);
             }
             else
@@ -120,7 +120,7 @@ public class ShopPrimaryGunPage : ShopPageBase
             txtCost.gameObject.SetActive(true);
             goBuyItem.gameObject.SetActive(true);
             txtCost.text = dataGun.cost.ToString();
-            goBoardBuyBullet.gameObject.SetActive(false);
+          
             goEquip.gameObject.SetActive(false);
             goUpgrade.gameObject.SetActive(false);
 
@@ -140,7 +140,7 @@ public class ShopPrimaryGunPage : ShopPageBase
     public void ClickBoughtBullet()
     {
         int currNoBullet = Prefs.Instance.GetNoBulletGun(dataGun.id);
-        txtCurrBullet.text = currNoBullet + "/" + dataGun.totalBullet;
+       
         if (currNoBullet <= dataGun.totalBullet - dataGun.noBulletPerBought)
         {
             if (Prefs.Instance.GetCoin() >= dataGun.costBulletPerBought)

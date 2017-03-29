@@ -12,7 +12,9 @@ public class MenuMapManager : MonoBehaviour
     private int currIdPage;
     [SerializeField]
     private GameObject goPageTutor, goPage;
-
+    [SerializeField]
+    private MoneyButton btnCoin, btnDiamond;
+   
     void Start()
     {
         pScreenManager.Instance.SetQueueUnlockScreen();
@@ -26,6 +28,8 @@ public class MenuMapManager : MonoBehaviour
         {
             SelectPage((Prefs.Instance.GetLevel() - 2) / 8);
         }
+
+        UpdateMoney();
     }
 
 
@@ -74,6 +78,10 @@ public class MenuMapManager : MonoBehaviour
     {
         pScreenManager.Instance.LoadLevel2(pScreenManager.SCREEN_INTRO_OUT, true);
     }
-
+    public void UpdateMoney()
+    {
+        btnCoin.UpdateMoney();
+        btnDiamond.UpdateMoney();
+    }
 }
 
